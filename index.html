@@ -3,11 +3,10 @@ title: Contents
 layout: default
 ---
 
+{% assign lectures = (site.pages | where: "layout", "lecture")  %}
 <div class="list-group">
-{% for page in site.pages %}
-    {% if page.title != "Contents" %}
-        <a href="{{site.baseurl}}{{page.url}}" class="list-group-item list-group-item-action">{{page.title}}</a>
-    {% endif %}
+{% for lecture in lectures %}
+    <a href="{{site.baseurl}}{{lecture.url}}" class="list-group-item list-group-item-action">{{lecture.title}}</a>
 {% endfor %}
 </div>
 
