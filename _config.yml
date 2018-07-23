@@ -1,0 +1,11 @@
+title: Introduction into Modeling and Optimization of Linear Systems
+email: hegyhati.work@gmail.com
+description: Lecture notes with for courses with similar content.
+baseurl: "/IMOLS" 
+url: "http://hegyhati.github.io" 
+
+
+# Build settings
+markdown: kramdown
+
+category-list: [theory, gmpl, modeling, example]
