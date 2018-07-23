@@ -1,22 +1,31 @@
 ---
-title: IMOLS
+title: Contents
 layout: default
 ---
 
-
 <div class="list-group">
-  <a href="#" class="list-group-item list-group-item-action">Motivating examples</a>
-  <a href="#" class="list-group-item list-group-item-action">Linear model of motivating examples</a>
-  <a href="#" class="list-group-item list-group-item-action">Basics of GMPL</a>
-  <a href="#" class="list-group-item list-group-item-action">Advanced GMPL: sets</a>
-  <a href="#" class="list-group-item list-group-item-action">Under the hood: the simplex method</a>
-  <a href="#" class="list-group-item list-group-item-action">Under the hood: B&B techniques</a>
-  <a href="#" class="list-group-item list-group-item-action">Advanced modelling: Big-M constraints</a>
-  <a href="#" class="list-group-item list-group-item-action">Advanced GMPL: Custom output</a>
-  <a href="#" class="list-group-item list-group-item-action">GMPL hacks and best practices</a>
-  <a href="#" class="list-group-item list-group-item-action">GLPK API</a>
-  <a href="#" class="list-group-item list-group-item-action">COIN/OR, Gurobi, CPLEX</a>
-  <a href="#" class="list-group-item list-group-item-action">Special problem classes: Assignment problem</a>
-  <a href="#" class="list-group-item list-group-item-action">Applications: Batch process scheduling</a>
+{% for page in site.pages %}
+    {% if page.title != "Contents" %}
+        <a href="{{site.baseurl}}{{page.url}}" class="list-group-item list-group-item-action">{{page.title}}</a>
+    {% endif %}
+{% endfor %}
 </div>
+
+Plan:
+
+<ul>
+  <li>Motivating examples</li>
+  <li>Linear model of motivating examples</li>
+  <li>Basics of GMPL</li>
+  <li>Advanced GMPL: sets</li>
+  <li>Under the hood: the simplex method</li>
+  <li>Under the hood: B&B techniques</li>
+  <li>Advanced modelling: Big-M constraints</li>
+  <li>Advanced GMPL: Custom output</li>
+  <li>GMPL hacks and best practices</li>
+  <li>GLPK API</li>
+  <li>COIN/OR, Gurobi, CPLEX</li>
+  <li>Special problem classes: Assignment problem</li>
+  <li>Applications: Batch process scheduling</li>
+</ul>
 
