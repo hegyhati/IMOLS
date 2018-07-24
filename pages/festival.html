@@ -1,16 +1,115 @@
 ---
 title: "Motivational example: festivals"
 layout: lecture
-lead: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam sollicitudin ultrices eleifend.
+lead: "A discrete decision problem for motivation, and to discuss basic concepts and principles"
+id: festivals
 prerequisite: 
 ---
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam sollicitudin ultrices eleifend. Suspendisse euismod quis mauris eget eleifend. Aenean consectetur massa vitae augue porttitor accumsan. Nullam porttitor porttitor nunc non faucibus. Integer aliquet viverra nunc, mattis consequat mauris suscipit at. Nulla eleifend vitae ligula non fermentum. In lobortis venenatis consequat.</p>
 
-<p>Vestibulum vitae lacus neque. Phasellus vulputate viverra sagittis. Nullam rutrum nisl a odio cursus tincidunt. Vivamus elementum diam vestibulum consequat varius. Curabitur tincidunt tempus posuere. Nullam eros purus, bibendum in molestie a, viverra at libero. Cras ullamcorper non libero sit amet tempus. In pellentesque mauris a luctus tincidunt. Aenean mollis justo nec volutpat placerat. Mauris bibendum urna lectus. In ultrices ac massa non iaculis. Aliquam risus diam, semper sit amet convallis ac, rhoncus in dolor. Suspendisse ante urna, fringilla ut justo nec, rhoncus tristique metus. Aenean ultrices dolor at ultrices tincidunt. Nullam aliquet ipsum sit amet leo malesuada, et sollicitudin ligula condimentum.</p>
+<div id="festivalss">
+<h2>Problem description</h2>
 
-<p>Nullam rhoncus felis vel neque mattis, id commodo mauris venenatis. Etiam blandit, leo in sollicitudin ultricies, massa erat suscipit nulla, euismod egestas arcu metus volutpat quam. Maecenas sollicitudin tincidunt cursus. Pellentesque rhoncus libero eu augue cursus laoreet. Nunc condimentum condimentum tortor sit amet pharetra. Sed scelerisque sed erat sed molestie. Curabitur porttitor sed velit id pharetra. Morbi non nulla at mi laoreet blandit at vitae neque. Nunc vel vulputate diam. Vivamus hendrerit, mauris ut venenatis tempus, nunc nunc congue felis, ac fermentum risus nunc et erat. Suspendisse potenti. Vivamus blandit accumsan quam, non placerat lacus fermentum vel. Praesent mollis nisi tristique mi feugiat placerat.</p>
 
-<p>Maecenas venenatis bibendum fermentum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; In tincidunt scelerisque augue quis convallis. Praesent lorem justo, efficitur vitae turpis a, dapibus consectetur turpis. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Proin malesuada bibendum est ut gravida. Pellentesque sodales dictum turpis, id accumsan est tincidunt ac. Aliquam ac nisl eu lorem euismod interdum vel sed leo. Donec viverra, nisl ac elementum rutrum, odio dolor posuere risus, quis accumsan leo lacus nec erat. Mauris velit arcu, tincidunt non cursus ut, eleifend a ex.</p>
+<p>
+  Who doesn't like music, and want to listen to their favorite bands live in summer festivals?
+  In this example, this is what we want to do exactly, while saving as much money as possible.
+  First things first, fill the fields with the name of your favorite bands, performers, or just leave there my selection.
+</p>
 
-<p>Duis sagittis pharetra justo, quis varius arcu faucibus non. Quisque suscipit nibh non pulvinar feugiat. Vivamus rutrum interdum tortor id sodales. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Sed semper elit in rutrum porttitor. Maecenas scelerisque molestie lorem quis dignissim. Etiam id nisi vitae purus mollis mattis. Sed molestie efficitur nunc, ut sagittis enim porta vitae. Donec sed felis tempus, lobortis tellus a, congue ipsum. Cras suscipit leo lectus, vel pulvinar elit egestas ut. Aenean sodales massa a odio hendrerit, at suscipit dui dapibus.</p>
+<form>
+  <div class="form-row">
+    <div class="col-md"><input class="form-control" v-model="cb[0]":placeholder="mb[0]" ></div>
+    <div class="col-md"><input class="form-control" v-model="cb[1]":placeholder="mb[1]" ></div>
+    <div class="col-md"><input class="form-control" v-model="cb[2]":placeholder="mb[2]" ></div>
+    <div class="col-md"><input class="form-control" v-model="cb[3]":placeholder="mb[3]" ></div>
+    <div class="col-md"><input class="form-control" v-model="cb[4]":placeholder="mb[4]" ></div>
+    <div class="col-md"><input class="form-control" v-model="cb[5]":placeholder="mb[5]" ></div>
+    <div class="col-md"><input class="form-control" v-model="cb[6]":placeholder="mb[6]" ></div>
+  </div>
+</form>
 
+<p>
+  Now, let us assume, that there are five festivals, we have the chance to go to during the summer.
+  For the sake of simplicity, these festivals will be called <code>F1</code>, <code>F2</code>, etc.
+  Below is a table, that details, which band will perform at which festival.
+</p>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col"></th>
+      <th scope="col"><code>F1</code></th>
+      <th scope="col"><code>F2</code></th>
+      <th scope="col"><code>F3</code></th>
+      <th scope="col"><code>F4</code></th>
+      <th scope="col"><code>F5</code></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row"><code>${b1}</code></th>
+      <td>🗸</td><td> </td><td>🗸</td><td>🗸</td><td> </td>
+    </tr>
+    <tr>
+      <th scope="row"><code>${b2}</code></th>
+      <td>🗸</td><td>🗸</td><td>🗸</td><td> </td><td>🗸</td>
+    </tr>
+    <tr>
+      <th scope="row"><code>${b3}</code></th>
+      <td>🗸</td><td>🗸</td><td> </td><td>🗸</td><td>🗸</td>
+    </tr>
+    <tr>
+      <th scope="row"><code>${b4}</code></th>
+      <td> </td><td> </td><td>🗸</td><td> </td><td>🗸</td>
+    </tr>
+    <tr>
+      <th scope="row"><code>${b5}</code></th>
+      <td> </td><td> </td><td> </td><td>🗸</td><td> </td>
+    </tr>
+    <tr>
+      <th scope="row"><code>${b6}</code></th>
+      <td> </td><td>🗸</td><td>🗸</td><td>🗸</td><td>🗸</td>
+    </tr>
+    <tr>
+      <th scope="row"><code>${b7}</code></th>
+      <td> </td><td> </td><td>🗸</td><td> </td><td>🗸</td>
+    </tr>
+  </tbody>
+</table>
+
+Let us suppose for now, that the ticket for each festival costs the same, and we want to minimize the money we spend during the summer while hearing every favorite band of us at least once.  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="https://unpkg.com/vue"></script>
+<script>
+  const app = new Vue({
+    el: '#festivalss',
+    delimiters: ['${', '}'],
+    data: {
+       cb: ['','','','','','',''],
+       mb: ['Haggard', 'Stratovarius', 'Epica', 'Dalriada', 'Apocalyptica', 'Liva','Eluveitie'],
+    },    
+    computed: {
+      b1(){if(this.cb[0]=="") return this.mb[0]; else return this.cb[0];},
+      b2(){if(this.cb[1]=="") return this.mb[1]; else return this.cb[1];},
+      b3(){if(this.cb[2]=="") return this.mb[2]; else return this.cb[2];},
+      b4(){if(this.cb[3]=="") return this.mb[3]; else return this.cb[3];},
+      b5(){if(this.cb[4]=="") return this.mb[4]; else return this.cb[4];},
+      b6(){if(this.cb[5]=="") return this.mb[5]; else return this.cb[5];},
+      b7(){if(this.cb[6]=="") return this.mb[6]; else return this.cb[6];}
+    }
+  })
+</script>
