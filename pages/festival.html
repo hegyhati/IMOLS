@@ -18,13 +18,13 @@ prerequisite:
 
 <form>
   <div class="form-row">
-    <div class="col-md"><input class="form-control" v-model="cb[0]":placeholder="mb[0]" ></div>
-    <div class="col-md"><input class="form-control" v-model="cb[1]":placeholder="mb[1]" ></div>
-    <div class="col-md"><input class="form-control" v-model="cb[2]":placeholder="mb[2]" ></div>
-    <div class="col-md"><input class="form-control" v-model="cb[3]":placeholder="mb[3]" ></div>
-    <div class="col-md"><input class="form-control" v-model="cb[4]":placeholder="mb[4]" ></div>
-    <div class="col-md"><input class="form-control" v-model="cb[5]":placeholder="mb[5]" ></div>
-    <div class="col-md"><input class="form-control" v-model="cb[6]":placeholder="mb[6]" ></div>
+    <div class="col-md"><input class="form-control" v-model="cb[0]" :placeholder="mb[0]" ></div>
+    <div class="col-md"><input class="form-control" v-model="cb[1]" :placeholder="mb[1]" ></div>
+    <div class="col-md"><input class="form-control" v-model="cb[2]" :placeholder="mb[2]" ></div>
+    <div class="col-md"><input class="form-control" v-model="cb[3]" :placeholder="mb[3]" ></div>
+    <div class="col-md"><input class="form-control" v-model="cb[4]" :placeholder="mb[4]" ></div>
+    <div class="col-md"><input class="form-control" v-model="cb[5]" :placeholder="mb[5]" ></div>
+    <div class="col-md"><input class="form-control" v-model="cb[6]" :placeholder="mb[6]" ></div>
   </div>
 </form>
 
@@ -100,7 +100,7 @@ Let us suppose for now, that the ticket for each festival costs the same, and we
     </p>
 
     <div class="alert alert-info">
-      Note, that this logic would be much more complex to execute, if we were to have a larger problem, let's say 50 bands and 30 festivals. If our assumably optimal solution would have 9 festivals selected, all of the 8 element subsets of the 30 festivals should be checked, that is a pretty big number: \( {30 \choose 8} = 5852925 \).
+      Note, that this logic would be much more complex to execute, if we were to have a larger problem, let's say 30 bands and 50 festivals. If our assumably optimal solution would have 9 festivals selected, all of the 8 element subsets of the 50 festivals should be checked, that is a pretty big number: \( {50 \choose 8} = 536878650 \).
     </div>
 
     <p>
@@ -120,7 +120,25 @@ Let us suppose for now, that the ticket for each festival costs the same, and we
 
 <h2>What about a larger festival problem?</h2>
 
+<p>
+  A problem with this size can be handled effortlessly by hand, however, as the number of bands and festivals increases, it is less and less so.
+  Imagine a problem with 30 bands and 50 festivals.
+  If the "performing-matrix" is not trivial, solving the problem will definitely require some kind of computer assistance.
+</p>
 
+<p>
+  Even if you have no background in optimization, but have basic programming skills, you should be able to write a computer program solving this problem in your favorite language.
+  Try to come up with the algorithm yourself, then proceed by clicking on the button.
+  <a class = "btn btn-block btn-outline-primary" data-toggle="collapse" href="#bruteforceCollapse" role="button">Show algorithm</a>
+</p>
+
+
+<div class="collapse" id="bruteforceCollapse">
+  <div class="card card-body">
+    <p>
+    </p>
+  </div>
+</div>
 
 
 
