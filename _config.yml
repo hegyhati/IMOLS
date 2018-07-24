@@ -9,3 +9,4 @@ url: "http://hegyhati.github.io"
 markdown: kramdown
 
 category-list: [theory, gmpl, modeling, example]
+encoding: utf-8
