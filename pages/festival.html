@@ -30,7 +30,7 @@ prerequisite:
 
 <p>
   Now, let us assume, that there are five festivals, we have the chance to go to during the summer.
-  For the sake of simplicity, these festivals will be called <code>F1</code>, <code>F2</code>, etc.
+  For the sake of simplicity, these festivals will be called <var>F1</var>, <var>F2</var>, etc.
   Below is a table, that details, which band will perform at which festival.
 </p>
 
@@ -38,40 +38,40 @@ prerequisite:
   <thead>
     <tr>
       <th scope="col"></th>
-      <th scope="col"><code>F1</code></th>
-      <th scope="col"><code>F2</code></th>
-      <th scope="col"><code>F3</code></th>
-      <th scope="col"><code>F4</code></th>
-      <th scope="col"><code>F5</code></th>
+      <th scope="col"><var>F1</var></th>
+      <th scope="col"><var>F2</var></th>
+      <th scope="col"><var>F3</var></th>
+      <th scope="col"><var>F4</var></th>
+      <th scope="col"><var>F5</var></th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th scope="row"><code>${b1}</code></th>
+      <th scope="row"><var>${b1}</var></th>
       <td>🗸</td><td> </td><td>🗸</td><td>🗸</td><td> </td>
     </tr>
     <tr>
-      <th scope="row"><code>${b2}</code></th>
+      <th scope="row"><var>${b2}</var></th>
       <td>🗸</td><td>🗸</td><td>🗸</td><td> </td><td>🗸</td>
     </tr>
     <tr>
-      <th scope="row"><code>${b3}</code></th>
+      <th scope="row"><var>${b3}</var></th>
       <td>🗸</td><td>🗸</td><td> </td><td>🗸</td><td>🗸</td>
     </tr>
     <tr>
-      <th scope="row"><code>${b4}</code></th>
+      <th scope="row"><var>${b4}</var></th>
       <td> </td><td> </td><td>🗸</td><td> </td><td>🗸</td>
     </tr>
     <tr>
-      <th scope="row"><code>${b5}</code></th>
+      <th scope="row"><var>${b5}</var></th>
       <td> </td><td> </td><td> </td><td>🗸</td><td> </td>
     </tr>
     <tr>
-      <th scope="row"><code>${b6}</code></th>
+      <th scope="row"><var>${b6}</var></th>
       <td> </td><td>🗸</td><td>🗸</td><td>🗸</td><td>🗸</td>
     </tr>
     <tr>
-      <th scope="row"><code>${b7}</code></th>
+      <th scope="row"><var>${b7}</var></th>
       <td> </td><td> </td><td>🗸</td><td> </td><td>🗸</td>
     </tr>
   </tbody>
@@ -80,6 +80,45 @@ prerequisite:
 Let us suppose for now, that the ticket for each festival costs the same, and we want to minimize the money we spend during the summer while hearing every favorite band of us at least once.  
 </div>
 
+<h2>Solving the problem by hand</h2>
+
+<p>
+  The problem with this size is easy to solve in a few minutes without any software tool, just by a trial and error approach.
+  Try it yourself before clicking the button below.
+  <a class = "btn btn-block btn-outline-primary" data-toggle="collapse" href="#solutionCollapse" role="button">Show solution</a>
+</p>
+
+
+<div class="collapse" id="solutionCollapse">
+  <div class="card card-body">
+    <p>
+      It seems that going to festivals <var>F3</var> and <var>F4</var> only is the best solution.
+      But how can we be sure, that this is really the <em>optimal</em> solution?
+      A reasonable argument would be to say, that our solution has 2 festivals selected.
+      If this is not the best solution, then the best should have at most 1 festival selected.
+      With just checking the 5 festivals, it is easy to see, that none of them covers all of our favorite bands.
+    </p>
+
+    <div class="alert alert-info">
+      Note, that this logic would be much more complex to execute, if we were to have a larger problem, let's say 50 bands and 30 festivals. If our assumably optimal solution would have 9 festivals selected, all of the 8 element subsets of the 30 festivals should be checked, that is a pretty big number: \( {30 \choose 8} = 5852925 \).
+    </div>
+
+    <p>
+      Now that we are assured, that <var>F3,F4</var> is optimal, another question may arise: is this the only optimal solution?
+    </p>
+
+    <p>
+      It is pretty easy to see, that <var>F4,F5</var> is also a <em>feasible</em> solution with 2 festivals, thus, let us note that 
+    </p>
+
+    <div class="alert alert-primary">
+      A problem may have one or more optimal solutions at the same time.
+    </div>    
+  </div>
+</div>
+
+
+<h2>What about a larger festival problem?</h2>
 
 
 
@@ -90,9 +129,8 @@ Let us suppose for now, that the ticket for each festival costs the same, and we
 
 
 
-
-
-
+  
+</div>
 <script src="https://unpkg.com/vue"></script>
 <script>
   const app = new Vue({
