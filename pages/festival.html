@@ -77,8 +77,9 @@ prerequisite:
   </tbody>
 </table>
 
-Let us suppose for now, that the ticket for each festival costs the same, and we want to minimize the money we spend during the summer while hearing every favorite band of us at least once.  
-</div>
+<p>
+  Let us suppose for now, that the ticket for each festival costs the same, and we want to minimize the money we spend during the summer while hearing every favorite band of us at least once.  
+</p>
 
 <h2>Solving the problem by hand</h2>
 
@@ -136,7 +137,86 @@ Let us suppose for now, that the ticket for each festival costs the same, and we
 <div class="collapse" id="bruteforceCollapse">
   <div class="card card-body">
     <p>
+      The first thing is to observe, that the flexibility we have is to make a yes-or-no type of decision about all of the festivals.
+      This basically gives us \(2^{50}\) different <em>solutions</em>.
     </p>
+    <p>
+      Some of these solutions are satisfying the constraints of the problem, i.e., that all of the bands are visited, others don't.
+      Solutions of the former group are often called as <em>good</em> or <em>feasible</em> solutions, while the others as <em>bad</em> or <em>infeasible</em>.
+    </p>
+    <p>
+      In the case of the matrix above, selecting <var>F1,F3,F4</var> is a feasible solution, while <var>F1,F3</var> is infeasible, as we will miss <var>${b5}</var>. Below is the complete list of the 32 subsets, and whether they are feasible or not.
+    </p>
+    
+    <table>
+      <tr>
+        <td class="table-danger"><var>none</var></td>
+        <td class="table-danger"><var>F1</var></td>
+        <td class="table-danger"><var>F2</var></td>
+        <td class="table-danger"><var>F2,F1</var></td>
+      </tr>
+      <tr>
+        <td class="table-danger"><var>F3</var></td>
+        <td class="table-danger"><var>F3,F1</var></td>
+        <td class="table-danger"><var>F3,F2</var></td>
+        <td class="table-danger"><var>F3,F2,F1</var></td>
+      </tr>
+      <tr>
+        <td class="table-danger"><var>F4</var></td>
+        <td class="table-danger"><var>F4,F1</var></td>
+        <td class="table-danger"><var>F4,F2</var></td>
+        <td class="table-danger"><var>F4,F2,F1</var></td>
+      </tr>
+      <tr>
+        <td class="table-success"><var>F4,F3</var></td>
+        <td class="table-success"><var>F4,F3,F1</var></td>
+        <td class="table-success"><var>F4,F3,F2</var></td>
+        <td class="table-success"><var>F4,F3,F2,F1</var></td>
+      </tr>
+      <tr>
+        <td class="table-danger"><var>F5</var></td>
+        <td class="table-danger"><var>F5,F1</var></td>
+        <td class="table-danger"><var>F5,F2</var></td>
+        <td class="table-danger"><var>F5,F2,F1</var></td>
+      </tr>
+      <tr>
+        <td class="table-success"><var>F5,F3</var></td>
+        <td class="table-success"><var>F5,F3,F1</var></td>
+        <td class="table-success"><var>F5,F3,F2</var></td>
+        <td class="table-success"><var>F5,F3,F2,F1</var></td>
+      </tr>
+      <tr>
+        <td class="table-success"><var>F5,F4</var></td>
+        <td class="table-success"><var>F5,F4,F1</var></td>
+        <td class="table-success"><var>F5,F4,F2</var></td>
+        <td class="table-success"><var>F5,F4,F2,F1</var></td>
+      </tr>
+      <tr>
+        <td class="table-success"><var>F5,F4,F3</var></td>
+        <td class="table-success"><var>F5,F4,F3,F1</var></td>
+        <td class="table-success"><var>F5,F4,F3,F2</var></td>
+        <td class="table-success"><var>F5,F4,F3,F2,F1</var></td>
+      </tr>
+    </table>
+
+    <p>
+      If we already have the set of <em>finite</em> solutions, we just have to select the smallest from the feasible ones, e.g.,:
+    </p>
+    <pre>
+      S = generate_solutions();
+      min = \(\infty\)
+      for(s in S) {
+        if (feasible(s)){
+          if (value(s)&lt;min) {
+            best = s;
+          }
+        }
+      }
+    </pre>
+
+    <p>or if you prefer functional programming style:</p>
+
+    <pre>(min (filter (generate_solutions) feasible))</pre>
   </div>
 </div>
 
