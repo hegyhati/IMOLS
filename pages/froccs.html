@@ -6,39 +6,175 @@ id: foccs
 prerequisite: ["festivals"]
 ---
 
-<div id="froccs">
+<p>
+  <a href="https://en.wikipedia.org/wiki/%C3%81nyos_Jedlik">Ányos Jedlik</a> was a famous Hungarian engineer/priest, who is mostly known for the <a href="https://en.wikipedia.org/wiki/Dynamo#Dynamo_self_excitation">invention of the dynamo</a>, and a machine to efficiently produce carbonated water.
+  According to some legends, He was the first to come up with the idea of mixing this water with white whine to make a refreshing drink.
+  The resultant beverage is called <a href="https://hu.wikipedia.org/wiki/Fröccs">Fröccs</a>, or 
+  <a href="https://en.wikipedia.org/wiki/Spritzer">Spritzer</a> in some german speaking countries.   
+</p>
+
+<p>
+  Disclaimer: Writing "carbonated water" every time below would be a grag, so I'll just use the term soda insted.
+  I'm fully aware, that in some countries this could mean coke or other fizzy drinks, so please be ware, and don't start mixing coke with white wine.
+  (Mix it with red wine if you must, to get a <a href="https://en.wikipedia.org/wiki/Kalimotxo">Vadász</a>.)
+</p>
+
 <h2>Problem description</h2>
+
+<p>
+  Imagine, that we are the managers of a pub, that sells only the following varieties of fröccs with the listed prices below:
+</p>
+
+<table class="table" id="example-data">
+  <thead>
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Translation</th>
+      <th scope="col">Wine (dl)</th>
+      <th scope="col">Soda (dl)</th>
+      <th scope="col">Price (HUF)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">Kisfröccs</th>
+      <td>Small fröccs</td>
+      <td>1</td><td>1</td>
+      <td>110</td>housekeeper
+    </tr>
+    <tr>
+      <th scope="row">Nagyfröccs</th>
+      <td>Large fröccs</td>
+      <td>2</td><td>1</td>
+      <td>200</td>
+    </tr>
+    <tr>
+      <th scope="row">Hosszúlépés</th>
+      <td>Long step</td>
+      <td>1</td><td>2</td>
+      <td>130</td>
+    </tr>
+    <tr>
+      <th scope="row">Házmester</th>
+      <td>Housekeeper</td>
+      <td>3</td><td>2</td>
+      <td>260</td>
+    </tr>
+    <tr>
+      <th scope="row">Viceházmester</th>
+      <td>Vice-Housekeeper</td>
+      <td>2</td><td>3</td>
+      <td>200</td>
+    </tr>
+    <tr>
+      <th scope="row">Krúdy fröccs</th>
+      <td><a href="https://en.wikipedia.org/wiki/Gyula_Kr%C3%BAdy">Krúdy</a> fröccs</td>
+      <td>9</td><td>1</td>
+      <td>800</td>
+    </tr>
+    <tr>
+      <th scope="row">Sóherfröccs</th>
+      <td>Stingy fröccs</td>
+      <td>1</td><td>9</td>
+      <td>200</td>
+    </tr>
+    <tr>
+      <th scope="row">Puskás fröccs</th>
+      <td><a href="https://en.wikipedia.org/wiki/Ferenc_Pusk%C3%A1s">Puskás</a> fröccs</td>
+      <td>6</td><td>3</td>
+      <td>550</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>
+  As you can see, some of these have cultural references as well, the Puskás fröccs pays respect to a famous <a href="https://en.wikipedia.org/wiki/Match_of_the_Century_(1953_England_v_Hungary_football_match)">football match</a>, that Hungary won against England in 1953.
+  If you ever try them in Hungary, please keep in mind that the prices to vary from place to place a lot, these are just estimated prices for a small village pub in 2018.
+  Also, there are a lot of other variants, but we will stick to only this 8 now.  
+</p>
+
+<p>
+  After this cultural detour, let's get back on track and define our optimization problem: we have a fixed stock of 100 litres of wine and 150 litres of soda for a day, and want to achieve maximal profit.
+  We can assume a few tings:
+</p>
+
+<ul>
+  <li>The guests will ask us what to drink</li>
+  <li>Our guests will always remain thirsty</li>
+  <li>The guests even accept "partial" servings as well, e.g., we can sell them a half Krúdy fröccs for 800 HUF</li>
+</ul>
+
+<p>
+  I'm well aware that this is a very ideal and non-realistic example, but it will serve us well for now.
+  Also, the profit value, that we determine this way will be a strict upper bound on the real profit that we can get in a real case scenario where these assumptions are not met.
+</p>
+
+<h2>Trial and error approach</h2>
+
+<p>
+  Similarly to the <a href="{{site.url}}/pages/festival.html">festivals example</a>, try to find a good solution by hand first.
+  Do it either on paper, excel, or use this simple tool below.  
+</p>
+
+<div id="froccs">
+<form>
+  <div class="form-group row">
+    <label for="kf" class="col-sm-4 col-md-3" >Kisfröccs - ${kf}</label>
+    <input id="kf" name="kf" class="form-control col-sm-8 col-md-9" type="range" min="0" max="1000" v-model="kf">
+    <label for="nf" class="col-sm-4 col-md-3" >Nagyfröccs - ${nf}</label>
+    <input id="nf" name="nf" class="form-control col-sm-8 col-md-9" type="range" min="0" max="1000" v-model="nf">
+    <label for="hl" class="col-sm-4 col-md-3" >Hosszúlépés - ${hl}</label>
+    <input id="hl" name="hl" class="form-control col-sm-8 col-md-9" type="range" min="0" max="1000" v-model="hl">
+    <label for="hm" class="col-sm-4 col-md-3" >Házmester - ${hm}</label>
+    <input id="hm" name="hm" class="form-control col-sm-8 col-md-9" type="range" min="0" max="1000" v-model="hm">
+    <label for="vhf" class="col-sm-4 col-md-3" >Viceházmester - ${vhm}</label>
+    <input id="vhm" name="vhm" class="form-control col-sm-8 col-md-9" type="range" min="0" max="1000" v-model="vhm">
+    <label for="krf" class="col-sm-4 col-md-3" >Krúdy fröccs - ${krf}</label>
+    <input id="krf" name="krf" class="form-control col-sm-8 col-md-9" type="range" min="0" max="1000" v-model="krf">
+    <label for="sf" class="col-sm-4 col-md-3" >Sóherfröccs - ${sf}</label>
+    <input id="sf" name="sf" class="form-control col-sm-8 col-md-9" type="range" min="0" max="1000" v-model="sf">
+    <label for="pf" class="col-sm-4 col-md-3" >Puskás fröccs - ${pf}</label>
+    <input id="pf" name="pf" class="form-control col-sm-8 col-md-9" type="range" min="0" max="1000" v-model="pf">
+  </div>
+  <div class="form-group row">
+    <label class="col-sm-6 col-md-4" >Wine - <span :style="winecolor">${wine} l</span></label>
+    <label class="col-sm-6 col-md-4" >Soda - <span :style="sodacolor">${soda} l</span></label>
+    <label class="col-sm-6 col-md-4" >Profit - ${profit} HUF</label>
+  </div>
+</form>
+
+
+</div>
 
 
 <hr />
-
 <div class="alert alert-dark">
-  
-<h1 class="alert-heading">Final notes</h1>
-
-This problem class is the called <a href="https://en.wikipedia.org/wiki/Set_cover_problem">Set covering problem</a>, which was dressed up in this festival-band theme. 
-This problem class is known to be <a href="https://en.wikipedia.org/wiki/NP-completeness">NP-Complete</a>, i.e., unless P=NP, no "fast" algorithm can be expected to solve it for larger instances.
-
+  <h1 class="alert-heading">Final notes</h1>
 </div>
 
-</div>
+
+
 <script src="https://unpkg.com/vue"></script>
 <script>
   const app = new Vue({
     el: '#froccs',
     delimiters: ['${', '}'],
     data: {
-       cb: ['','','','','','',''],
-       mb: ['Haggard', 'Stratovarius', 'Epica', 'Dalriada', 'Apocalyptica', 'Liva','Eluveitie'],
+       kf: 0,
+       nf: 0,
+       hl: 0,
+       hm: 0,
+       vhm: 0,
+       krf: 0,
+       sf: 0,
+       pf: 0
     },    
     computed: {
-      b1(){if(this.cb[0]=="") return this.mb[0]; else return this.cb[0];},
-      b2(){if(this.cb[1]=="") return this.mb[1]; else return this.cb[1];},
-      b3(){if(this.cb[2]=="") return this.mb[2]; else return this.cb[2];},
-      b4(){if(this.cb[3]=="") return this.mb[3]; else return this.cb[3];},
-      b5(){if(this.cb[4]=="") return this.mb[4]; else return this.cb[4];},
-      b6(){if(this.cb[5]=="") return this.mb[5]; else return this.cb[5];},
-      b7(){if(this.cb[6]=="") return this.mb[6]; else return this.cb[6];}
+      wine(){return (1*this.kf+2*this.nf+1*this.hl+3*this.hm+2*this.vhm+9*this.krf+1*this.sf+6*this.pf)/10;},
+      soda(){return (1*this.kf+1*this.nf+2*this.hl+2*this.hm+3*this.vhm+1*this.krf+9*this.sf+3*this.pf)/10;},
+      profit(){return 110*this.kf+200*this.nf+130*this.hl+260*this.hm+200*this.vhm+800*this.krf+200*this.sf+550*this.pf;},
+      winecolor(){if(this.wine<=100) return "color: green;"; else return "color: red;";},
+      sodacolor(){if(this.soda<=150) return "color: green;"; else return "color: red;";},
     }
   })
 </script>
