@@ -1,0 +1,44 @@
+---
+title: "Motivational example: fröccs"
+layout: lecture
+lead: "A continuous decision problem for motivation, and to discuss basic concepts and principles"
+id: foccs
+prerequisite: ["festivals"]
+---
+
+<div id="froccs">
+<h2>Problem description</h2>
+
+
+<hr />
+
+<div class="alert alert-dark">
+  
+<h1 class="alert-heading">Final notes</h1>
+
+This problem class is the called <a href="https://en.wikipedia.org/wiki/Set_cover_problem">Set covering problem</a>, which was dressed up in this festival-band theme. 
+This problem class is known to be <a href="https://en.wikipedia.org/wiki/NP-completeness">NP-Complete</a>, i.e., unless P=NP, no "fast" algorithm can be expected to solve it for larger instances.
+
+</div>
+
+</div>
+<script src="https://unpkg.com/vue"></script>
+<script>
+  const app = new Vue({
+    el: '#froccs',
+    delimiters: ['${', '}'],
+    data: {
+       cb: ['','','','','','',''],
+       mb: ['Haggard', 'Stratovarius', 'Epica', 'Dalriada', 'Apocalyptica', 'Liva','Eluveitie'],
+    },    
+    computed: {
+      b1(){if(this.cb[0]=="") return this.mb[0]; else return this.cb[0];},
+      b2(){if(this.cb[1]=="") return this.mb[1]; else return this.cb[1];},
+      b3(){if(this.cb[2]=="") return this.mb[2]; else return this.cb[2];},
+      b4(){if(this.cb[3]=="") return this.mb[3]; else return this.cb[3];},
+      b5(){if(this.cb[4]=="") return this.mb[4]; else return this.cb[4];},
+      b6(){if(this.cb[5]=="") return this.mb[5]; else return this.cb[5];},
+      b7(){if(this.cb[6]=="") return this.mb[6]; else return this.cb[6];}
+    }
+  })
+</script>
