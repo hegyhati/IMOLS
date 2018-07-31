@@ -143,9 +143,62 @@ prerequisite: ["festivals"]
     <label class="col-sm-6 col-md-3" >Max - ${maxprofit} HUF</label>
   </div>
 </form>
-
-
 </div>
+
+
+
+<h2>Applying the ideas from the <a href="{{site.url}}/pages/festival.html">festivals example</a></h2>
+
+<p>
+  If you don't remember them, follow the link above, and after re-reading it, try to figure out yourself, which ideas can be used for this example, and which can not.
+</p>
+
+<h3>Brute force approach</h3>
+
+<p>
+  Our third assumption above was to allow "proportional servings" of these beverages.
+  It is easy to see, that this results in an infinitely large solution set.
+  If only rational numbers are allowed, than "just" countably infinite, otherwise, if irrational proportions are also allowed, then the cardinality of the set of solutions is the same as that of the real numbers.
+  Either way, no brute force algorithm can cover all that.
+</p>
+
+<h3>Greedy approach</h3>
+
+<p>
+  A greedy approach can be constructed to probably any problem, and this one is not an exception either.
+  Several variations could be designed, just a few example:
+</p>
+
+<ul>
+  <li>The Krúdy fröccs is the most expensive one, sell as much as possible from that</li>
+  <li>Based on the wine/price ratio, the Sóherfröccs is the most expensive, sell as much as possible from that one</li>
+  <li>Since we have 1.5 times as many soda as wine, wine is 3/2 more "valuable resource" than soda. Based on this, we could calculate a price/ingredient value ratio for all of them, and produce the most from the one that is on the top of that list.</li>
+</ul>
+
+<p>
+  Generally, a greedy algorithm would continue with something like "and then select the second most valuable item, and sell as much as possible from that, and continue this until we can still sell something".
+  Since here we only have 2 ingredients, and both of them are required by all of the fröccs types, there could be no such iteration.
+  This type of iterative approavch would have meaning for more ingredients and products, where the products do not always require all of the ingredients in some proportion.
+</p>
+
+<p>
+  Similarly to the festivals problem, the greedy approach will not necessarily provide the optimal solution here either.
+</p>
+
+<h3>Simplify the problem by presolve</h3>
+
+<p>
+  Some types above are just not worth to sell.
+  Try to figure out which ones yourself, and why.
+</p>
+
+<h3>Investigate only feasible solutions</h3>
+
+
+
+
+
+
 
 
 <hr />
