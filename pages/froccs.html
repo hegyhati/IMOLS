@@ -122,24 +122,25 @@ prerequisite: ["festivals"]
     <label for="kf" class="col-sm-4 col-md-3" >Kisfröccs - ${kf}</label>
     <input id="kf" name="kf" class="form-control col-sm-8 col-md-9" type="range" min="0" max="1000" v-model="kf">
     <label for="nf" class="col-sm-4 col-md-3" >Nagyfröccs - ${nf}</label>
-    <input id="nf" name="nf" class="form-control col-sm-8 col-md-9" type="range" min="0" max="1000" v-model="nf">
+    <input id="nf" name="nf" class="form-control col-sm-8 col-md-9" type="range" min="0" max="500" v-model="nf">
     <label for="hl" class="col-sm-4 col-md-3" >Hosszúlépés - ${hl}</label>
-    <input id="hl" name="hl" class="form-control col-sm-8 col-md-9" type="range" min="0" max="1000" v-model="hl">
+    <input id="hl" name="hl" class="form-control col-sm-8 col-md-9" type="range" min="0" max="750" v-model="hl">
     <label for="hm" class="col-sm-4 col-md-3" >Házmester - ${hm}</label>
-    <input id="hm" name="hm" class="form-control col-sm-8 col-md-9" type="range" min="0" max="1000" v-model="hm">
+    <input id="hm" name="hm" class="form-control col-sm-8 col-md-9" type="range" min="0" max="350" v-model="hm">
     <label for="vhf" class="col-sm-4 col-md-3" >Viceházmester - ${vhm}</label>
-    <input id="vhm" name="vhm" class="form-control col-sm-8 col-md-9" type="range" min="0" max="1000" v-model="vhm">
+    <input id="vhm" name="vhm" class="form-control col-sm-8 col-md-9" type="range" min="0" max="500" v-model="vhm">
     <label for="krf" class="col-sm-4 col-md-3" >Krúdy fröccs - ${krf}</label>
-    <input id="krf" name="krf" class="form-control col-sm-8 col-md-9" type="range" min="0" max="1000" v-model="krf">
+    <input id="krf" name="krf" class="form-control col-sm-8 col-md-9" type="range" min="0" max="150" v-model="krf">
     <label for="sf" class="col-sm-4 col-md-3" >Sóherfröccs - ${sf}</label>
-    <input id="sf" name="sf" class="form-control col-sm-8 col-md-9" type="range" min="0" max="1000" v-model="sf">
+    <input id="sf" name="sf" class="form-control col-sm-8 col-md-9" type="range" min="0" max="200" v-model="sf">
     <label for="pf" class="col-sm-4 col-md-3" >Puskás fröccs - ${pf}</label>
-    <input id="pf" name="pf" class="form-control col-sm-8 col-md-9" type="range" min="0" max="1000" v-model="pf">
+    <input id="pf" name="pf" class="form-control col-sm-8 col-md-9" type="range" min="0" max="200" v-model="pf">
   </div>
   <div class="form-group row">
-    <label class="col-sm-6 col-md-4" >Wine - <span :style="winecolor">${wine} l</span></label>
-    <label class="col-sm-6 col-md-4" >Soda - <span :style="sodacolor">${soda} l</span></label>
-    <label class="col-sm-6 col-md-4" >Profit - ${profit} HUF</label>
+    <label class="col-sm-6 col-md-3" >Wine - <span :style="winecolor">${wine} l</span></label>
+    <label class="col-sm-6 col-md-3" >Soda - <span :style="sodacolor">${soda} l</span></label>
+    <label class="col-sm-6 col-md-3" >Profit - <span :style="profitcolor">${profit} HUF</span></label>
+    <label class="col-sm-6 col-md-3" >Max - ${maxprofit} HUF</label>
   </div>
 </form>
 
@@ -167,14 +168,17 @@ prerequisite: ["festivals"]
        vhm: 0,
        krf: 0,
        sf: 0,
-       pf: 0
+       pf: 0,
+       maxp: 0
     },    
     computed: {
       wine(){return (1*this.kf+2*this.nf+1*this.hl+3*this.hm+2*this.vhm+9*this.krf+1*this.sf+6*this.pf)/10;},
       soda(){return (1*this.kf+1*this.nf+2*this.hl+2*this.hm+3*this.vhm+1*this.krf+9*this.sf+3*this.pf)/10;},
       profit(){return 110*this.kf+200*this.nf+130*this.hl+260*this.hm+200*this.vhm+800*this.krf+200*this.sf+550*this.pf;},
+      maxprofit(){if(this.wine<=100 && this.soda<=150 && this.profit>this.maxp) {this.maxp=this.profit;} return this.maxp;},
       winecolor(){if(this.wine<=100) return "color: green;"; else return "color: red;";},
       sodacolor(){if(this.soda<=150) return "color: green;"; else return "color: red;";},
+      profitcolor(){if(this.wine<=100 && this.wine<=100) return "color: green;"; else return "color: red;";}
     }
   })
 </script>
