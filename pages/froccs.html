@@ -52,7 +52,7 @@ prerequisite: ["festivals"]
       <th scope="row">Hosszúlépés</th>
       <td>Long step</td>
       <td>1</td><td>2</td>
-      <td>130</td>
+      <td>120</td>
     </tr>
     <tr>
       <th scope="row">Házmester</th>
@@ -112,7 +112,7 @@ prerequisite: ["festivals"]
 <h2>Trial and error approach</h2>
 
 <p>
-  Similarly to the <a href="{{site.url}}/pages/festival.html">festivals example</a>, try to find a good solution by hand first.
+  Similarly to the <a href="{{site.baseurl}}/pages/festival.html">festivals example</a>, try to find a good solution by hand first.
   Do it either on paper, excel, or use this simple tool below.  
 </p>
 
@@ -147,7 +147,7 @@ prerequisite: ["festivals"]
 
 
 
-<h2>Applying the ideas from the <a href="{{site.url}}/pages/festival.html">festivals example</a></h2>
+<h2>Applying the ideas from the <a href="{{site.baseurl}}/pages/festival.html">festivals example</a></h2>
 
 <p>
   If you don't remember them, follow the link above, and after re-reading it, try to figure out yourself, which ideas can be used for this example, and which can not.
@@ -189,21 +189,189 @@ prerequisite: ["festivals"]
 
 <p>
   Some types above are just not worth to sell.
-  Try to figure out which ones yourself, and why.
+  Try to figure out which ones yourself, and why, then click on the button to check if you have discovered them all.
+  
+ <a class = "btn btn-block btn-outline-primary" data-toggle="collapse" href="#presolveCollapse" role="button">Show unprofitable fröccs types</a>
 </p>
 
+
+<div class="collapse" id="presolveCollapse">
+  <div class="card card-body">
+    <p>
+      The simplest to observe is probably the Puskás fröccs, as it is equivalent of selling 3 Nagyfröccs. 
+      The latter would make 600 HUF profit, while the former costs only 550. 
+    </p> 
+    <p>
+      Házmester is a slightly more difficult to see. 
+      It is equivalent of selling a Kisfröccs and a Nagyfröccs. 
+      While the combination of those two would bring us 310 HUF, Házmester does only 260.
+      In a similar fashion, instead of selling Viceházmester, it is better to sell a Kisfröccs and a Hosszúlépés, as it would bring 230 HUF instead of 200.
+    </p>
+    <p>
+      The only types that remains are the following ones:
+    </p>
+    
+    <table class="table" id="example-data">
+      <thead>
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">Wine (dl)</th>
+          <th scope="col">Soda (dl)</th>
+          <th scope="col">Price (HUF)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">Kisfröccs</th>
+          <td>1</td><td>1</td>
+          <td>110</td>housekeeper
+        </tr>
+        <tr>
+          <th scope="row">Nagyfröccs</th>
+          <td>2</td><td>1</td>
+          <td>200</td>
+        </tr>
+        <tr>
+          <th scope="row">Hosszúlépés</th>
+          <td>1</td><td>2</td>
+          <td>120</td>
+        </tr>
+        <tr>
+          <th scope="row">Krúdy fröccs</th>
+          <td>9</td><td>1</td>
+          <td>800</td>
+        </tr>
+        <tr>
+          <th scope="row">Sóherfröccs</th>
+          <td>1</td><td>9</td>
+          <td>200</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>
+      Another easy thing to observe is, that if we sell a single Nagyfröccs ad Hosszúlépés, that would require 3 dl of both wine and soda, and produce 320 HUF income. 
+      That is less then selling 3 portions of Kisfröccs for 330, that would take the same amount of ingredients.
+      This means, that Nagyfröccs and Hosszúlépés will definitely not sold together in an optimal solution.
+      Similarly, 10 Kisfröccs is better than a Krúdy fröccs and a Sóherfröccs.
+    </p>
+    
+    <p>
+      As a result, we know, that in the optimal solution at most 3 different types of fröccs will be sold, but we can not eliminate yet any more rows from the table.
+    </p>
+    
+    <p>
+      What we did when we eliminated some fröccs types was to "cook up" a recipe, how it can be made from other types in a more profitable ways.
+      If we order the types based on wine / soda ratio, we get the following table:
+    </p>
+    
+    <table class="table" id="example-data">
+      <thead>
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">Wine/Soda ratio</th>
+          <th scope="col">Wine (dl)</th>
+          <th scope="col">Soda (dl)</th>
+          <th scope="col">Price (HUF)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">Krúdy fröccs</th>
+          <td>9</td>
+          <td>9</td><td>1</td>
+          <td>800</td>
+        </tr>
+        <tr>
+          <th scope="row">Nagyfröccs</th>
+          <td>2</td>
+          <td>2</td><td>1</td>
+          <td>200</td>
+        </tr>
+        <tr>
+          <th scope="row">Kisfröccs</th>
+          <td>1</td>
+          <td>1</td><td>1</td>
+          <td>110</td>housekeeper
+        </tr>
+        <tr>
+          <th scope="row">Hosszúlépés</th>
+          <td>0.5</td>
+          <td>1</td><td>2</td>
+          <td>120</td>
+        </tr>
+        <tr>
+          <th scope="row">Sóherfröccs</th>
+          <td>0.111</td>
+          <td>1</td><td>9</td>
+          <td>200</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>
+      It is simple to see, that any fröccs type can be "cooked up" from a stronger and from a weaker beverage.
+      If there are 3 types in decreasing wine/soda ratio: <var>A, B, C</var>, then there are non-negative integers \(\lambda_A,\lambda_C\) such that \(\lambda_A\cdot A + \lambda_C \cdot C = B\).
+    </p>
+    <p>
+      But what does <var>A,B,C</var>  exactly mean in this equation? 
+      What we want to express is the amount of ingredients that they take. 
+      So they are basically ingredient vectors.
+      Let's look at an example with Krúdy fröccs (<var>A</var>), Nagyfröccs (<var>B</var>), and Kisfröccs (<var>C</var>) as an example:
+      \[ (9,1)\cdot\lambda_{A}+(1,1)\cdot\lambda_{C}=(2,1)\]
+    </p>
+    <p>
+      Which basically results in the following equation system:
+      \[
+        \begin{array}{rcl}
+          9\cdot\lambda_{A}+1\cdot\lambda_{C} & = & 2\\
+          1\cdot\lambda_{A}+1\cdot\lambda_{C} & = & 1\\
+        \end{array}
+      \]
+    </p>
+    
+    <p>
+      The solution to this system is \(\lambda_{A}=\frac{1}{8}\) and \(\lambda_{C}=\frac{7}{8}\).
+      This means, that a Nagyfröccs can be made up by 1/8th Krúdy fröccs, and 7/8th Kisfröccs.
+      The profit from that would be \(\frac{1}{8}\cdot 800 + \frac{7}{8}\cdot 110 = 196.25\) HUF.
+      This is less than the price of a Nagyfröcs (200 HUF), which means, that selling Krúdy fröccs and Kisfröccs together is not a good deal.
+    </p>
+
+    <p>
+      Without realizing it, this is basically, how we proved, that Krúdy and Sóher fröccs are not good together nor are Nagyfröccs and Hosszúlépés. 
+      The other outcome of solving such an equation system could have been, that the midlde one (<var>B</var>) is less profitable, which would mean, that it can be eliminated. 
+    </p>
+    
+    <p>
+      Try to eliminate some other fröccs types with this approach.
+    </p>
+    
+    <div class="alert alert-info">
+      This type of elimination is a glimpse into the logic of the simplex method, which will be discussed later. 
+      If the stronger and weaker beverages will be in the "basis", the difference between the price of the middle one, and that of the mixture will be called as "shadow price" later. 
+    </div>    
+  </div>
+</div>
+
 <h3>Investigate only feasible solutions</h3>
-
-
-
-
-
-
+<p>
+  As discussed previously in the case of the brute force approach, there are infinitely many solutions. 
+  That is also true for the feasible ones, so this would not really help us. 
+  The <em>search space</em> could significantly be decreased if only such solutions are examined, that use up at least one ingredient completely, which means, that they can not be improved by selling a bit more of something atop of that solution. 
+  This way a lot of <em>sub-optimal</em> solution can  be disregarded. 
+</p>
+<p>  
+  However, even if we only consider Kisfröccs and Nagyfröcs, it is still easy to see, that there are infinitely many solutions that use up all of our wine storage.
+  Try to find such solutions yourself, and prove, that there are infinitely many others.
+</p>
 
 
 <hr />
 <div class="alert alert-dark">
   <h1 class="alert-heading">Final notes</h1>
+  <p>
+    This problem is seemingly more difficult than the <a href="{{site.baseurl}}/pages/festival.html">festivals example</a>, because having proportional servings made the number of solutions infinitely large. 
+    At this point we would assume, that restricting the problem to whole servings would render it simpler, because the number of solutions would become finite, and thus enumerable in a finite amount of time. 
+    Contrary to our expectations, it is the other way around, as we will see in the following lectures.
+  </p>
 </div>
 
 
@@ -227,7 +395,7 @@ prerequisite: ["festivals"]
     computed: {
       wine(){return (1*this.kf+2*this.nf+1*this.hl+3*this.hm+2*this.vhm+9*this.krf+1*this.sf+6*this.pf)/10;},
       soda(){return (1*this.kf+1*this.nf+2*this.hl+2*this.hm+3*this.vhm+1*this.krf+9*this.sf+3*this.pf)/10;},
-      profit(){return 110*this.kf+200*this.nf+130*this.hl+260*this.hm+200*this.vhm+800*this.krf+200*this.sf+550*this.pf;},
+      profit(){return 110*this.kf+200*this.nf+120*this.hl+260*this.hm+200*this.vhm+800*this.krf+200*this.sf+550*this.pf;},
       maxprofit(){if(this.wine<=100 && this.soda<=150 && this.profit>this.maxp) {this.maxp=this.profit;} return this.maxp;},
       winecolor(){if(this.wine<=100) return "color: green;"; else return "color: red;";},
       sodacolor(){if(this.soda<=150) return "color: green;"; else return "color: red;";},
