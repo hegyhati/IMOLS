@@ -13,8 +13,11 @@
             <p>Prerequisites:
               <ul>
                 {% for p in page.prerequisite %}
-                  {% assign s = site.pages | where:p, s.id %}
-                  <li><a href="{{site.baseurl}}{{s[0].url}}">{{ s[0].title }}</a></li>
+                  {% for s in site.pages %}
+                    {% if p == s.id %}
+                    <li><a href="{{site.baseurl}}{{s.url}}">{{ s.title }}</a></li>
+                    {% endif %}
+                  {% endfor %}
                 {% endfor %}
               </ul>
             </p>
