@@ -22,3 +22,46 @@ prerequisite: ["festivals","froccs"]
   Other models may employ different mathematical structures, such as graphs.
   In this course, we will focus on algebraic models as discussed below.
 </p>
+
+<p>
+  It is important to note, that in most of the cases, a model is only a "simplification" of a real life phenomena.
+  Usually, the model disregards some parameters, that may influence the behavior of a system.
+  In the above example, it was assumed, that the object moved along a straight line.
+  When a real life problem emerges, the modeler has a great responsibility in selecting the parameters to be included into model, and the level of detail, how they are represented.
+</p>
+
+<p>
+  This can be very well presented on the evolution of GPS navigation tools.
+  The basic problem is simple, we want to get from point A to point B as fast as possible.
+  <ol>
+    <li>
+      The simplest approach to apply is to find the shortest path between the locations.
+      This could be done easily, if the weighted graph of the road network is available.
+    </li>
+    <li>
+      A bit more advanced approach would be, if we would take into account the speed limit on each part of the road, and replace the distances in the graph with the minimal travel time needed.
+      Computationally speaking, this approach requires the same resources, however, more input data is required.
+    </li>
+    <li>
+      Most of the modern navigation systems, that run on devices with internet connection go a step further, and use real time traffic data to consider while planning a trip.
+    </li>
+  </ol>
+  We could even go further by including weather data, road conditions, characteristics of the driver, etc.
+  As we include more and more parameters, the model becomes more and more accure, but also more difficult to handle.
+</p>
+
+<div class="alert alert-primary">
+  In general, the goal is to find a model, which
+  <ol>
+    <li>can be solved/simulated/etc. with the available computing resources in a reasonable amount of time</li>
+    <li>can provide results, that are accurate enough to be relevant for the original real life problem</li>
+    <li>requires only such data, that can be provided</li>
+  </ol>
+</div>
+
+<p>
+  Later on, we will not focus on this very first step of modeling, and we will assume, that these decisions are already made, and we just have to construct and solve the appropriate mathematical model.
+</p>
+
+<h2>Model for the <a href="{{site.baseurl}}/pages/froccs.html">Fröccs example</a></h2>
+
