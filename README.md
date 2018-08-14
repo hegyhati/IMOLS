@@ -14,3 +14,6 @@ Short courses:
  - Optimization, Programming, Scheduling in Energy Planning (University of Zagreb, Croatia, 2015, CEEPUS)
  - Introduction into Optimization (University of Akureyry, Iceland, 2017, EGT Staff mobility)
  - Practical Linear Optimization (University of Central Lancashire, Cyprus, 2018, Erasmus+ Staff Mobility)
+
+
+Online hosted here: https://hegyhati.github.io/IMOLS/
