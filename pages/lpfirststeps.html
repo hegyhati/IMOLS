@@ -47,7 +47,7 @@ prerequisite: ["festivals","froccs"]
     </li>
   </ol>
   We could even go further by including weather data, road conditions, characteristics of the driver, etc.
-  As we include more and more parameters, the model becomes more and more accure, but also more difficult to handle.
+  As we include more and more parameters, the model becomes more and more accurate, but also more difficult to handle.
 </p>
 
 <div class="alert alert-primary">
@@ -65,3 +65,52 @@ prerequisite: ["festivals","froccs"]
 
 <h2>Model for the <a href="{{site.baseurl}}/pages/froccs.html">Fröccs example</a></h2>
 
+<p>
+  Let us assume, that we have a solution.
+  Not necessarily optimal, but any solution.
+  The solution entails, how much we sell from different kinds of beverages.
+  Let \(x_{KF}\) denote the number of portions we sell from kisfröccs,  \(x_{NF}\) the number of portions for nagyfröccs, and so on. 
+</p>
+
+<p>
+  Based on these values, we can calculate, how much wine was needed for this solution in a simple way.
+  For \(x_{KF}\) portions of kisfröccs \(x_{KF}\cdot 1\) dl of wine is needed.
+  Similarly,  \(x_{NF}\cdot 2\) dl of wine had to be used for \(x_{NF}\) portions of nagyfröccs.
+  Following this logic, the total amount of wine used in deciliters is:
+  \[1 \cdot x_{KF} + 2 \cdot x_{NF}\ + 1 \cdot x_{HL} + 3 \cdot x_{HM} + 2 \cdot x_{VHM} + 9 \cdot x_{KrF} + 1 \cdot x_{SF} + 6 \cdot x_{PF}\]
+</p>
+
+<p>
+  The stock for wines is 100 litres = 1000 deciliters, so, whatever those values are, the following inequality must hold in a good solution:
+  \[1 \cdot x_{KF} + 2 \cdot x_{NF}\ + 1 \cdot x_{HL} + 3 \cdot x_{HM} + 2 \cdot x_{VHM} + 9 \cdot x_{KrF} + 1 \cdot x_{SF} + 6 \cdot x_{PF} \le 1000\]
+</p>
+
+<p>
+  A very similar <emph>constraint</emph> could be constructed for the soda as well:
+  \[1 \cdot x_{KF} + 1 \cdot x_{NF}\ + 2 \cdot x_{HL} + 2 \cdot x_{HM} + 3 \cdot x_{VHM} + 1 \cdot x_{KrF} + 9 \cdot x_{SF} + 3 \cdot x_{PF} \le 1500\]
+</p>
+
+<p>
+  If the values for \(x_{KF}, x_{NF}, \dots\) are selected from the \([0,\infty[\) interval so, that the two inequalities above are satisfied, then that solution is feasible and good.
+  We have now a simple algebraic model for the restrictions of the model.
+  The only thing missing is to express our objective.
+</p>
+
+<p>
+  Similarly to the wine and soda usage, the profit attained with such a plan is:
+  \[110 \cdot x_{KF} + 200 \cdot x_{NF}\ + 120 \cdot x_{HL} + 260 \cdot x_{HM} + 200 \cdot x_{VHM} + 800 \cdot x_{KrF} + 200 \cdot x_{SF} + 550 \cdot x_{PF}\]
+  And this is, what we want to maximize.
+</p>
+
+<p>
+  Now, if we put together everything, we get:
+</p>
+
+<div class="alert alert-success">
+  \[x_{KF},x_{NF},x_{HL},x_{HM},x_{VHM},x_{KrF},x_{SF},x_{PF} \in [0,\infty[ \]
+  <br>
+  \[1 \cdot x_{KF} + 2 \cdot x_{NF}\ + 1 \cdot x_{HL} + 3 \cdot x_{HM} + 2 \cdot x_{VHM} + 9 \cdot x_{KrF} + 1 \cdot x_{SF} + 6 \cdot x_{PF} \le 1000\]
+  \[1 \cdot x_{KF} + 1 \cdot x_{NF}\ + 2 \cdot x_{HL} + 2 \cdot x_{HM} + 3 \cdot x_{VHM} + 1 \cdot x_{KrF} + 9 \cdot x_{SF} + 3 \cdot x_{PF} \le 1500\]
+  <hr />
+  \[110 \cdot x_{KF} + 200 \cdot x_{NF}\ + 120 \cdot x_{HL} + 260 \cdot x_{HM} + 200 \cdot x_{VHM} + 800 \cdot x_{KrF} + 200 \cdot x_{SF} + 550 \cdot x_{PF} \to max\]
+</div>

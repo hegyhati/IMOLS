@@ -3,17 +3,18 @@ title: Contents
 layout: default
 ---
 
-{% assign lectures = (site.pages | where: "layout", "lecture")  %}
-<div class="list-group">
-{% for lecture in lectures %}
-    <a href="{{site.baseurl}}{{lecture.url}}" class="list-group-item list-group-item-action">{{lecture.title}}</a>
-{% endfor %}
-</div>
+<div class="container">
+  {% assign lectures = (site.pages | where: "layout", "lecture")  %}
+  <div class="list-group">
+  {% for lecture in lectures %}
+      <a href="{{site.baseurl}}{{lecture.url}}" class="list-group-item list-group-item-action"><b>{{lecture.title}}</b><br/>{{lecture.lead}}</a>
+  {% endfor %}
+  </div>
 
-Plan:
+
+<h5 class="my-3">Planned further pages:</h5>
 
 <ul>
-  <li>Motivating examples</li>
   <li>Linear model of motivating examples</li>
   <li>Basics of GMPL</li>
   <li>Advanced GMPL: sets</li>
@@ -21,6 +22,7 @@ Plan:
   <li>Under the hood: B&B techniques</li>
   <li>Advanced modelling: Big-M constraints</li>
   <li>Advanced GMPL: Custom output</li>
+  <li>Advanced modelling: Nonlinear function approximation with piecewise linear functions</li>
   <li>GMPL hacks and best practices</li>
   <li>GLPK API</li>
   <li>COIN/OR, Gurobi, CPLEX</li>
@@ -28,3 +30,4 @@ Plan:
   <li>Applications: Batch process scheduling</li>
 </ul>
 
+</div>
