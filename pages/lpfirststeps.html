@@ -114,3 +114,173 @@ prerequisite: ["festivals","froccs"]
   <hr />
   \[110 \cdot x_{KF} + 200 \cdot x_{NF}\ + 120 \cdot x_{HL} + 260 \cdot x_{HM} + 200 \cdot x_{VHM} + 800 \cdot x_{KrF} + 200 \cdot x_{SF} + 550 \cdot x_{PF} \to max\]
 </div>
+
+
+<p>
+  This mathematical description of the problems restrictions, goals, decision flexibilities adheres the rules of a <emph>Linear Programming</emph> model, or LP for short:
+  <ol>
+    <li>There are a finite number of <emph>variables</emph></li>
+    <li>The domain of each variable is a continuous interval</li>
+    <li>There are a finite number of <emph>constraints</emph></li>
+    <li>The left hand side (LHS) of each constraint is a linear expression of the variables</li>
+    <li>The relation in each constraint is either \(\le\),\(=\), or \(\ge\)</li>
+    <li>The right hand side (RHS) of each constraint is a constant <span class="badge badge-info" data-toggle="popover" title="Disclaimer" data-content="In practice the RHS is often a linear expression as well, but it is easy to see, that such a definition would be equivalent">Note</span></li>
+    <li>The <emph>objective function</emph> is a linear expression of the variables, that can be either maximized or minimized</li>    
+  </ol> 
+</p>
+
+
+<p>
+  Mathematical models that meet the above conditions are LP models, and can be solved to optimality efficiently (computational time is bounded by a polinomial function of the number of variables) by a <a href="https://en.wikipedia.org/wiki/Simplex_algorithm" target="_blank">simplex algorithm</a> variant or <a href="https://en.wikipedia.org/wiki/Interior-point_method" target = "_blank">interior point method</a>.
+  
+</p>
+
+<h2>Model for the <a href="{{site.baseurl}}/pages/festival.html">Festival example</a></h2>
+
+<p>
+  Let's try to create a model similar to the previous one for the festival example.
+  First, observe the relation between the parts of the problem description and the parts of the mathematical model.
+</p>
+
+<p>
+  In the LP model above, the variables represented the decisions that we can make, i.e., a flexibility of a problem.
+  Each possible option for a decision is encoded by a value in the domain of the corresponding variable, and vica-versa.
+  The restrictions of the problem description were expressed via constraints.
+  Finally, the objective function modeled our goal.
+</p>
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col" style="text-align: right">Problem definition</th>
+      <th />
+      <th scope="col">Linear Programming model</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: right">Decision</td>
+      <td style="text-align: center">\(\iff\)</td>
+      <td>Variable</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">Option for decision</td>
+      <td style="text-align: center">\(\iff\)</td>
+      <td>Value of the variable</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">Restriction</td>
+      <td style="text-align: center">\(\iff\)</td>
+      <td>Constraints</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">Goal</td>
+      <td style="text-align: center">\(\iff\)</td>
+      <td>Objective function</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Let's construct the model along these lines in three simple step:</p>
+
+<h5>Step 1: variables</h5>
+
+<p>
+  For the festival example, the decisions we can make is, whether we go to a festival or not.
+  Let's represent that with variables \(y_1,y_2,y_3,y_4\) and \(y_5\).
+</p>
+
+<p>
+  Now, we have to define the domain of each variable, and assign a "meaning" (decision option) to each possible value.
+  In this case, the possible outcome for each decision is either that we go to that particular festival or not.
+  Thus, the domain must have two elements.
+  Theoretically, we could choose any two numerical value, however, it is logical (and it will be useful later) to have the following assignments:
+  <dl class="row">
+    <dt class="col-3"  style="text-align: right">\(y_n=1\)</dt><dd class="col-9">We will go to the \(n\)-th festival</dd>
+    <dt class="col-3"  style="text-align: right">\(y_n=0\)</dt><dd class="col-9">We will not go to the \(n\)-th festival</dd>
+  </dl> 
+</p>
+
+<h5>Step 2: constraints</h5>
+
+<p>
+  If the variables and the value assignments are selected appropriately, deriving the equations is often rather straight forward, like for the fröccs example above.
+  Sometimes it is a bit more tricky, like in this case.
+</p>
+
+<p>
+  First we have to identify our restrictions.
+  In this case the only restriction is: we have to see all of our favorite bands at least once.
+  Truthfully, that actually means 7 separate conditions for the 7 bands.
+</p>
+
+<p>
+  Sticking to my favorites, we know that we have to go to at least one of festivals 1,3 and 4 in order to see Haggard.
+  Translating that to our variables: at least one of \(y_1,y_3,y_4\) must take the value of 1.
+  So we have to construct a constraint, that evaluates to true if and only if at least one of these variables are 1.
+</p>
+
+<p>
+  Try to figure out a (linear) constraint like that yourself before scrolling further!
+</p>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>\(y_1\)</th>
+      <th>\(y_3\)</th>
+      <th>\(y_4\)</th>
+      <th scope="col">\(y_1+y_2+y_3 \ge 1 \)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>0</td><td>0</td><td>0</td><td><b>\( 0 \not\ge 1\)</b></td></tr>
+    <tr><td>0</td><td>0</td><td>1</td><td><b>\( 1 \ge 1\)</b></td></tr>
+    <tr><td>0</td><td>1</td><td>0</td><td><b>\( 1 \ge 1\)</b></td></tr>
+    <tr><td>0</td><td>1</td><td>1</td><td><b>\( 2 \ge 1\)</b></td></tr>
+    <tr><td>1</td><td>0</td><td>0</td><td><b>\( 1 \ge 1\)</b></td></tr>
+    <tr><td>1</td><td>0</td><td>1</td><td><b>\( 2 \ge 1\)</b></td></tr>
+    <tr><td>1</td><td>1</td><td>0</td><td><b>\( 2 \ge 1\)</b></td></tr>
+    <tr><td>1</td><td>1</td><td>1</td><td><b>\( 3 \ge 1\)</b></td></tr>
+  </tbody>
+</table>
+
+<p>
+  Following this example, a similar constraint could be derived for all of the bands, e.g., for Stratovarius:
+  \[ y_1 + y_2 + y_3 + y_5 \ge 1 \]
+  for Dalriada:
+  \[y_3 + y_5 \ge 5 \]
+  The case of Apocalyptica is very special: \(y_4 \ge 1\), which basically sets \(y_4\) to 1.
+  That is expected, as the 4th festival is the only one, where Apocalyptica performs.
+</p>
+
+<h5>Step 3: objective</h5>
+
+<p>
+  Our objective is to go to as few festivals as possible.
+  Using the \(y_n\) variables, we should somehow express the number of festivals that we visit.
+  It is not difficult to see, that \(y_1+y_2+y_3+y_4+y_5\) does exactly that.
+</p>
+
+<h5>Finally, the whole model</h5>
+
+<p>
+  Putting everything from above together:
+</p>
+
+<div class="alert alert-success">
+  \[y_1,y_2,y_3,y_4,y_5 \in \{0,1\} \]
+  <br>
+  \[
+    \begin{array}{rcl}
+      y_1+y_3+y_4 &\ge& 1 \\
+      y_1+y_2+y_3+y_5 &\ge& 1 \\
+      y_1+y_2+y_4+y_5 &\ge& 1 \\
+      y_3+y_5 &\ge& 1 \\
+      y_2+y_3+y_4+y_5 &\ge& 1 \\
+      y_3+y_5 &\ge& 1 \\
+    \end{array}
+  \]
+  <hr />
+  \[ y_1+y_2+y_3+y_4+y_5 \to min\]
+</div>
