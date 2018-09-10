@@ -284,3 +284,50 @@ prerequisite: ["festivals","froccs"]
   <hr />
   \[ y_1+y_2+y_3+y_4+y_5 \to min\]
 </div>
+
+<p>
+  Now, let's see, if this model adheres the rules of an LP model (above) or not:
+  <ol>
+    <li>There are a finite number of <emph>variables</emph> - <b>🗸</b></li> 
+    <li><s>The domain of each variable is a continuous interval</s></li>
+    <li>There are a finite number of <emph>constraints</emph> - <b>🗸</b></li>
+    <li>The left hand side (LHS) of each constraint is a linear expression of the variables - <b>🗸</b></li>
+    <li>The relation in each constraint is either \(\le\),\(=\), or \(\ge\) - <b>🗸</b></li>
+    <li>The right hand side (RHS) of each constraint is a constant - <b>🗸</b></li>
+    <li>The <emph>objective function</emph> is a linear expression of the variables, that can be either maximized or minimized - <b>🗸</b></li>    
+  </ol>
+  So, this is not an LP model, but something very similar.
+  The only difference is, that (some of) the variables take their values from a <emph>discrete</emph> set.
+  These types of problems are termed <emph>Mixed-Integer Linear Programming (MILP)</emph> problems.
+  In these models some variables may take values from a continuous interval, some may take only discrete values, such as integers.
+  Theoretically speaking, any kind of discrete set could be used for a variable, but usually only subsets of \(\mathbb{Z}\) are considered, and thus these are called as <emph>integer variables</emph>.
+  It is very common, that this subset is \(\{0,1\}\), so these type of variables have their own name, <emph>binary variables</emph>.
+  In our example, all of the variables are binary, and there are no other integer or continuous variables are used.
+</p>
+
+<p>
+  MILP models are (computationally speaking) more difficult to solve.
+  MILP solvers usually combine the simplex algorithm with some other technique, such as a <a href="https://en.wikipedia.org/wiki/Branch_and_bound" target="_blank">Branch-and-Bound (B\&B) algorithm </a>  or <a href="https://en.wikipedia.org/wiki/Cutting-plane_method" target="_blank">Cutting-plane</a> / <a href="https://en.wikipedia.org/wiki/Branch_and_cut" target="_blank">Branch-and-Cut</a> method.
+  Speaking vaguely, the time (number of steps) required to solve a general MILP problem is an exponential function of the number of integer variables.
+  This means, that after a certain number of variables, the problem becomes really hard, and practically unsolvable to optimality.
+  The aforementioned tools will still provide a solution if the solver is shut down after a time limit, but the optimality of that solution is not guaranteed.
+</p>
+
+<p>
+  Note, that not all MILP models are difficult to solve.
+  If, for example, the matrix of the coefficients in the model is <a href="https://en.wikipedia.org/wiki/Unimodular_matrix#Total_unimodularity" target="_blank">totally unimodular</a>, the problem can be solved in polinomial time, just as in the case for LP problems.
+  A famous example is the <a href="https://en.wikipedia.org/wiki/Assignment_problem" target="_blank">Assignment problem</a>, which can be solved efficiently by the <a href="https://en.wikipedia.org/wiki/Hungarian_algorithm" target="_blank">Hungarian method</a>. (The algorithm was developed by an american mathemtician, <a href="https://en.wikipedia.org/wiki/Harold_W._Kuhn" target="_blank">Harold W. Kuhn</a>, who gave this name because the algorithm was based on the former works of two Hungarian mathematicians: <a href="https://en.wikipedia.org/wiki/D%C3%A9nes_K%C5%91nig" target="_blank">Dénes Kőnig</a> and <a href="https://en.wikipedia.org/wiki/Jen%C5%91_Egerv%C3%A1ry" target="_blank">Jenő Egerváry</a>. The former is the author of the fist <a href="https://books.google.hu/books?id=zQ2X8NNPL_wC&pg=PP3&source=gbs_selected_pages&cad=3#v=onepage&q&f=false" target="_blank">graph-theory textbook.</a>)
+</p>
+
+
+<hr />
+
+<div class="alert alert-dark">
+  
+<h1 class="alert-heading">Final notes</h1>
+
+The takeaway from this section is, that certain problems can be described by algebraic models such as the LP or MILP.
+If a practical problem can be adequately represented by one of those, it can be solved by well known (and very well implemented) algorithms.
+If the problem has only linear constraints and continuous decisions, the problem is easy to solve, and it gets troublesome with discrete decisions.
+
+</div>
