@@ -1,0 +1,101 @@
+---
+title: "GMPL basics"
+layout: lecture
+lead: "Implementing the (MI)LP models of the motivational examples in GMPL."
+id: gmplbasics
+prerequisite: ["lpfirststeps"]
+---
+
+<h2>(MI)LP description languages and solvers</h2>
+
+<p>
+  Since MILP and LP models are widely used in practice, the algorithms solving them are well implemented already.
+  Thus, there is no need to implement the simplex algorithm ourselves.
+  Thruthfully, it is better if one doesn't do that unless it is for getting a bit of coding practice.
+  State-of-the-art solvers are rather complex, and there are small but significant details (like floating point rounding), that have to be addressed to produce a stable solver, and even if that is done, the result will be nowhere close to the efficiency of the solvers mentioned below.
+  The solvers in the list use a lot of theoretical accelerations (e.g. <a href="https://en.wikipedia.org/wiki/LU_decomposition" target="_blank">LU decomposition</a>), implementational "tricks" (e.g. <a href="https://en.wikipedia.org/wiki/Sparse_matrix" target="_blank">Sparse representation</a>), and a lots of heuristic accelerations.
+</p>
+
+<p>
+  There are several choices for solving MILP/LP problems.
+  Some are listed below, with some information about them.
+</p>
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">Solver</th>
+      <th scope="col">License</th>
+      <th scope="col">Problem classes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td scope="row"><a href="http://lpsolve.sourceforge.net/5.5/Intro.htm" target="_blank">lp_solve</a></td>
+      <td><a href="https://opensource.org/licenses/lgpl-license" target="_blank">LGPL</a></td>
+      <td>MILP</td>
+    </tr>
+    <tr>
+      <td scope="row"><a href="https://www.gnu.org/software/glpk/" target="_blank">GLPK</a></td>
+      <td><a href="https://opensource.org/licenses/gpl-license" target="_blank">GPL</a></td>
+      <td>MILP</td>
+    </tr>
+    <tr>
+      <td scope="row"><a href="https://projects.coin-or.org/Clp" target="_blank">COIN-OR CLP</a></td>
+      <td><a href="https://opensource.org/licenses/EPL-1.0" target="_blank">EPL</a></td>
+      <td>LP</td>
+    </tr>
+    <tr>
+      <td scope="row"><a href="https://projects.coin-or.org/Cbc" target="_blank">COIN-OR CBC</a></td>
+      <td><a href="https://opensource.org/licenses/EPL-1.0" target="_blank">EPL</a></td>
+      <td>MILP</td>
+    </tr>
+    <tr>
+      <td scope="row"><a href="https://gurobi.com" target="_blank">Gurobi</a></td>
+      <td>Proprietary - Gurobi Optimization</td>
+      <td>MIQP <span class="badge badge-info" data-toggle="popover" title="Mixed-Integer Quadratically Constrained Programming" data-content="The constraints and the objective function may have quadratic terms.">i</span></li></td>
+    </tr>
+    <tr>
+      <td scope="row"><a href="https://gurobi.com" target="_blank">CPLEX</a></td>
+      <td>Proprietary - IBM</td>
+      <td>MIQP <span class="badge badge-info" data-toggle="popover" title="Mixed-Integer Quadratically Constrained Programming" data-content="The constraints and the objective function may have quadratic terms.">i</span></li></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>
+  As this selective list shows, there are a lot of options to chose from, and <a href="https://en.wikipedia.org/wiki/List_of_optimization_software" target="_blank">there is even more</a>.  
+</p>
+
+<p>
+  Regarding performance, the proprietary tools outperform the open source alternatives by far.
+  Among the open source solutions, the COIN OR project can be considered the fastest one.
+  Ultimately, the situation dictates, which one you should apply.
+  For example, I use (or would use)
+  <ul>
+    <li>the standalone solver of GLPK for teaching purposes, as it is really simple to install/use, and it is freely available.</li>
+    <li>the API of COIN OR in scientific software, that need to solve MILP problems as subproblems.</li>
+    <li>Gurobi/CPLEX and COIN OR CBC for comparison purposes in scientific papers.</li>
+    <li>Gurobi/CPLEX in an industrial environment where efficiency is key.</li>
+  </ul>
+  These are of course only my recommendations, and each situation is different.
+  Note, that there are academic licenses for the proprietary tools as well.
+</p>
+
+<p>
+  If the solver is selected, you can either use its API from your code, or use the standalone solver with a model file.
+  Different tools support API for different languages, but let us focus on the second option for now.
+  There is a wide variety of languages for describing MILP models, and the tools usually support several of them.
+  The table below shows some examples.
+</p>
+
+
+<hr />
+
+<div class="alert alert-dark">
+  
+<h1 class="alert-heading">Final notes</h1>
+
+
+
+</div>
