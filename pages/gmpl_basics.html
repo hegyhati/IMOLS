@@ -90,6 +90,138 @@ prerequisite: ["lpfirststeps"]
 </p>
 
 
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">Format name</th>
+      <th scope="col">Usual extension</th>
+      <th scope="col">Description, notes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td scope="row"><a href="https://en.wikipedia.org/wiki/AMPL" target="_blank">AMPL</a></td>
+      <td><code>.mod .dat .run</code></td>
+      <td>A Mathematical Programming Language. Very general and multipurpose language, widely used.</td>
+    </tr>
+    <tr>
+      <td scope="row"><a href="https://en.wikibooks.org/wiki/GLPK/GMPL_(MathProg)" target="_blank">GMPL</a></td>
+      <td><code>.mod .dat</code></td>
+      <td>GNU Mathematical Programming Language. Subset of AMPL, default for glpk.</td>
+    </tr>
+    <tr>
+      <td scope="row"><a href="https://en.wikibooks.org/wiki/GLPK/GMPL_(MathProg)" target="_blank">MPS</a></td>
+      <td><code>.mod .dat</code></td>
+      <td>Mathematical Programming System. Old format, most solvers can use it as a legacy option.</td>
+    </tr>
+    <tr>
+      <td scope="row"><a href="https://en.wikipedia.org/wiki/General_Algebraic_Modeling_System" target="_blank">GAMS</a></td>
+      <td><code>TODO</code></td>
+      <td>General Algebraic Modeling System. A file format, an interpreter, an IDE and an API for solvers.</td>
+    </tr>    
+    <tr>
+      <td scope="row"><a href="http://lpsolve.sourceforge.net/5.0/CPLEX-format.htm" target="_blank">CPLEX</a></td>
+      <td><code>.lp</code></td>
+      <td>Default format for CPLEX, widely accepted by other solvers.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>
+  Below You can see the same example in a few different formats for comapirson.
+</p>
+
+<ul class="nav nav-tabs" id="fortmatTab" role="tablist">
+  <li class="nav-item">
+    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#mathematic" role="tab" aria-controls="mathematic" aria-selected="true">Mathematical Model</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="mps-tab" data-toggle="tab" href="#mps" role="tab" aria-controls="mps" aria-selected="false">MPS (fixed)</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="mps2-tab" data-toggle="tab" href="#mps2" role="tab" aria-controls="mps2" aria-selected="false">MPS (free)</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="clp-tab" data-toggle="tab" href="#clp" role="tab" aria-controls="clp" aria-selected="false">CPLEX</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="gmpl-tab" data-toggle="tab" href="#gmpl" role="tab" aria-controls="gmpl" aria-selected="false">GMPL</a>
+  </li>
+</ul>
+<div class="tab-content b-2" id="myTabContent">
+  <div class="tab-pane fade show active" id="mathematic" role="tabpanel" aria-labelledby="mathematic-tab">
+      \[x,y \in [0,\infty[ \]
+      <br>
+      \[x+2\cdot y\le 15\]
+      \[3\cdot x+y\le 20\]
+      <hr />
+      \[x+y \to max\]
+  </div>
+  <div class="tab-pane fade" id="mps" role="tabpanel" aria-labelledby="mps-tab">
+    <pre><code>{% include sources/helloworld/helloworld_fix.mps %}</code></pre>
+  </div>
+  <div class="tab-pane fade" id="mps2" role="tabpanel" aria-labelledby="mps2-tab">
+    <pre><code>{% include sources/helloworld/helloworld_free.mps %}</code></pre>
+  </div>
+  <div class="tab-pane fade" id="clp" role="tabpanel" aria-labelledby="clp-tab">
+    <pre><code>{% include sources/helloworld/helloworld.lp %}</code></pre>
+  </div>
+  <div class="tab-pane fade" id="gmpl" role="tabpanel" aria-labelledby="gmpl-tab">
+    <pre><code>{% include sources/helloworld/helloworld.m %}</code></pre>
+  </div>
+</div>
+
+<div class="alert alert-primary">
+  On this site, we will use the <b>GMPL</b> file format, and the <b>glpsol</b> solver to solve our problems.
+  Please note, that if you need Your model in a different format, You can also use glpsol to convert it with the <code>--wmps</code>, <code>--wfreemps</code>, <code>--wlp</code> options.
+</div>
+
+<h2>GMPL basics</h2>
+
+<p>
+  As it was discussed <a href="{{site.baseurl}}/pages/lpfirststeps.html">previously</a>, the model can be partitioned into three parts: variable declarations, constraints, and the objective function.
+  We will follow this order to introduce the basic syntactic elements of GMPL.
+  You can find a detailed <a href="https://www.gnu.org/software/glpk/#documentation" target="_blank">reference of the GMPL format</a> if You download the package from the website of glpk.
+</p>
+
+<h3>Variables</h3>
+
+<p>
+  Variables can be defined with the <code>var</code> keyword, that should be followed by the name of the variable, restrictions on the domain, and finally a semicolon.
+  Some examples:
+</p>
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">Mathematical notation</th>
+      <th scope="col">GMPL description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>\(x\in[0,\infty[\)</td>
+      <td><code>var x>=0;</code></td>
+    </tr>    
+    <tr>
+      <td>\(x\in[0,8]\)</td>
+      <td><code>var x>=0,<=8;</code></td>
+    </tr>  
+    <tr>
+      <td>\(y\in\{0,1\}\)</td>
+      <td><code>var y binary;</code></td>
+    </tr>
+    <tr>
+      <td>\(y\in\mathbb{Z}\)</td>
+      <td><code>var y integer;</code></td>
+    </tr>
+    <tr>
+      <td>\(y\in\mathbb{N}\)</td>
+      <td><code>var y integer >=0;</code></td>
+    </tr>
+  </tbody>
+</table>
+
 <hr />
 
 <div class="alert alert-dark">
