@@ -1,7 +1,7 @@
 ---
-title: "GMPL basics"
+title: "GMPL/glpk basics"
 layout: lecture
-lead: "Implementing the (MI)LP models of the motivational examples in GMPL."
+lead: "An overview of tools and languages for (MI)LP problems, and a bit of introduction to glpk and GMPL"
 id: gmplbasics
 prerequisite: ["lpfirststeps"]
 ---
@@ -195,7 +195,7 @@ prerequisite: ["lpfirststeps"]
   <thead>
     <tr>
       <th scope="col">Mathematical notation</th>
-      <th scope="col">GMPL description</th>
+      <th scope="col">GMPL code</th>
     </tr>
   </thead>
   <tbody>
@@ -222,12 +222,129 @@ prerequisite: ["lpfirststeps"]
   </tbody>
 </table>
 
+<h3>Constraints</h3>
+
+<p>
+  Constraints are written in the form of <code>s.t. CNAME: LHS OP RHS;</code> where <code>CNAME</code> is an expressive name for the constraint, <code>LHS,RHS</code> are the left- and right hand side of the inequality/equasion respectively, separated by a comparison operator, that could be either <code><=</code>,<code>>=</code> or <code>=</code>.
+  The name of the constraint does not hold any importance to the solver, it is just an identifier, that also helps to make the code more human-readible and maintainable.
+  Also, mind the colon for separating the name and the constraint, and a semicolon closing the statement. Some examples:
+</p>
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">Mathematical notation</th>
+      <th scope="col">GMPL code</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>\(x_1+x_2\le 10\)</td>
+      <td><code>s.t. SumBound: x1+x2 <= 10; </code></td>
+    </tr> 
+    <tr>
+      <td>\(y_1+y_2+y_3+y_5\ge 1\)</td>
+      <td><code>s.t. Stratovarius: y1+y2+y3+y5 >= 1; </code></td>
+    </tr> 
+    <tr>
+      <td>\(1 \cdot x_{KF} + 2\cdot x_{NF} +1\cdot x_{HL} = 1000\)</td>
+      <td><code>s.t. UseUpAllTheWine: 1*xKF+2*xNF+1*xHL = 1000; </code></td>
+    </tr>  
+  </tbody>
+</table>
+
+<h3>Objective function</h3>
+
+<p>
+  The syntax for the objective function very similar to that of the constraint: <code>[minimize|maximize] ONAME: EXPRESSION;</code>, where <code>ONAME</code> is a name assigned to the objective function, and the <code>EXPRESSION</code> is the linear expression for it.
+  Again, mind the colons, semi-colons.
+</p>
+
+<div class="alert alert-info">
+  <b>Tip:</b> If You have a model with perfect syntax, make it incorrect in any possible way You can think of, and have a look at the compiler error messages. Sometimes they are not giving much clue, but this way You can build a connection between the seemingly unrelated error message and the type of the problem.  
+</div>
+
+<p>Two examples:</p>
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">Mathematical notation</th>
+      <th scope="col">GMPL code</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>\( y_1+y_2+y_3+y_4+y_5 \to min\)</td>
+      <td><code>minimize VisitedFestivals: y1+y2+y3+y4+y5; </code></td>
+    </tr> 
+    <tr>
+      <td>\( 110 \cdot x_{KF} + 200 \cdot x_{NF}  + 120 \cdot x_{HL}   \to max\)</td>
+      <td><code>maximize TotalIncome: 110*xKF+200*xNF+120*xHL; </code></td>
+    </tr> 
+  </tbody>
+</table>
+
+<p>
+  We are ready to solve our motivational examples, but let's see how we can make the solver find the optimal solution for the models we implement in GMPL.
+</p>
+
+<h2>Using GLPK</h2>
+
+<p>The examples here will assume, that You run <code>glpsol</code> from the command line.</p>
+
+<div class="alert alert-info">
+  If You use GUSEK on Windows, two important things:
+  <ul>
+    <li>Always save Your model with the <code>.mod</code> extension, otherwise the editor will not consider it as a GMPL file.</li>
+    <li>Before clicking on Go, or pressing <kbd>F5</kbd>, make sure to check the "Generate output file on go" option in the Tools menu.</li>    
+  </ul>
+</div>
+
+<p>
+  The basic command to solve a file is <code>glspsol -m model.m -o output.txt</code>.
+  This will read the model from <code>model.m</code>, write the results to <code>output.txt</code>, and display some info on the standard output whilst doing it. 
+</p>
+
+<p>
+  If You run the above command on the simple example used above for demonstrating the different file formats, You will get this in the terminal:
+</p>
+
+<pre><code>{% include sources/helloworld/output.log %}</code></pre>
+
+<p>
+  There are a bunch of things here, familiar ringing words, like "Preprocessing", but for now, we will only focus on the line with all capitals: <code>OPTIMAL LP SOLUTION FOUND</code>. This line indicates, that the problem has been solved to optimality.
+  For MILP models, the message would be a little different: <code>INTEGER OPTIMAL SOLUTION FOUND</code>.
+  If we see other messages indicating that no feasible solution were found, or the solution is unbounded, than we have probably over- or underconstrained the problem, respectively.
+  More about that later, let's see, what is in the generated <code>output.txt</code> file.
+</p>
+
+<pre><code>{% include sources/helloworld/output.txt %}</code></pre>
+
+<p>
+  Again, there is plenty of information here as well, but we will only need specific lines for now.
+  First, the fifth line with <code>Status: OPTIMAL</code> indicates again, that everything went well, and we have found an optimal solution.
+  The line below that tells us, what that optimal solution is.
+  Here, the word "Objective" appears twice, which seems buggy.
+  But this is just a coincidence, as the firt appearance is burned in the solver, and the second is the name that we gave to our objective function, which happened to be "Objective" as well for this simple problem.
+</p>
+
+<p>
+  It is good to know the quality of the optimal solution (10 in this case), but in general, we also want to know, <emph>how</emph> we can achieve that solution, i.e., what decisions should we make to get there.
+  Each decision outcome is linked to a variable value, so we basically want to know the values of the variables in the optimal solution.
+  These values are given in the <code>Activity</code> column of the second table.
+  In this case, we can see, that the optimal solution is achieved by setting both <var>x</var> and <var>y</var> to 5.
+</p>
+
 <hr />
 
 <div class="alert alert-dark">
   
 <h1 class="alert-heading">Final notes</h1>
 
-
+The takeaway of this section is, that there are a lot of formats for implementing (MI)LP models, and plenty of solvers that can read and solve them.
+Gurobi and CPLEX are the non-free state-of-the art solvers, and the COIN-OR project provides the best open-source alternative.
+For studying purposes, we use glpk and the GMPL language, which uses a simple syntax to represent variables, constraints and objective functions.
+As the complexity of the model description grows, we will learn more and more elements of the language to comfortably formalize our models.
 
 </div>
