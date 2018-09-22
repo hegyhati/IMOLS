@@ -1,0 +1,109 @@
+---
+title: "GMPL model of motivational examples"
+layout: lecture
+lead: "Simple GMPL models of the motivational examples"
+id: gmplmotivational
+prerequisite: ["gmplbasics","lpfirststeps"]
+---
+
+<h2><a href="{{site.baseurl}}/pages/festival.html">Festivals example</a></h2>
+
+<p>
+  The final mathematical model for the Festivals example looked like this:
+</p>
+
+<div>
+  \[y_1,y_2,y_3,y_4,y_5 \in \{0,1\} \]
+  <br>
+  \[
+    \begin{array}{rcl}
+      y_1+y_3+y_4 &\ge& 1 \\
+      y_1+y_2+y_3+y_5 &\ge& 1 \\
+      y_1+y_2+y_4+y_5 &\ge& 1 \\
+      y_3+y_5 &\ge& 1 \\
+      y_4 &\ge& 1\\
+      y_2+y_3+y_4+y_5 &\ge& 1 \\
+      y_3+y_5 &\ge& 1 \\
+    \end{array}
+  \]
+  <hr />
+  \[ y_1+y_2+y_3+y_4+y_5 \to min\]
+</div>
+
+<p>
+  Let,s see step by step, how this can be formulated in GMPL:
+</p>
+
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">Mathematical notation</th>
+      <th scope="col">GMPL code</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td colspan="2" class="table-info">Variables</td></tr>
+    <tr>
+      <td rowspan="5">\(y_1,y_2,y_3,y_4,y_5 \in \{0,1\} \)</td>
+      <td><code>var y1 binary; </code></td>
+    </tr>
+    <tr><td><code>var y2 binary; </code></td></tr>
+    <tr><td><code>var y3 binary; </code></td></tr>
+    <tr><td><code>var y4 binary; </code></td></tr>
+    <tr><td><code>var y5 binary; </code></td></tr>
+    <tr><td colspan="2" class="table-info">Constraints</td></tr>
+    <tr>
+      <td>\(  y_1+y_3+y_4 \ge 1 \)</td>
+      <td><code>s.t. Haggard: y1 + y3 + y4 >= 1;</code></td>
+    </tr> 
+    <tr>
+      <td>\(  y_1+y_2+y_3+y_5 \ge 1 \)</td>
+      <td><code>s.t. Stratovarius: y1 + y2 + y3 + y5 >= 1;</code></td>
+    </tr> 
+    <tr>
+      <td>\(  y_1+y_2+y_4+y_5 \ge 1 \)</td>
+      <td><code>s.t. Epica: y1 + y2 + y4 + y5 >= 1;</code></td>
+    </tr> 
+    <tr>
+      <td>\(  y_3+y_4 \ge 1 \)</td>
+      <td><code>s.t. Dalriada: y3 + y4 >= 1;</code></td>
+    </tr> 
+    <tr>
+      <td>\(  y_4 \ge 1 \)</td>
+      <td><code>s.t. Apocalyptica: y4 >= 1;</code></td>
+    </tr> 
+    <tr>
+      <td>\(  y_2+y_3+y_4+y_4+y_5 \ge 1 \)</td>
+      <td><code>s.t. Liva: y2 + y3 + y4 +y5 >= 1;</code></td>
+    </tr> 
+    <tr>
+      <td>\(  y_3+y_5 \ge 1 \)</td>
+      <td><code>s.t. Eluveitie: y3 + y5 >= 1;</code></td>
+    </tr>
+    <tr><td colspan="2" class="table-info">Objective function</td></tr>    
+    <tr>
+      <td>\(  y_1+y_2+y_3+y_4+y_5 \to min \)</td>
+      <td><code>minimize NumberOfFestivals: y1 + y2 + y3 + y4 + y5;</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>
+  Let's have a look at the ouptut:
+</p>
+
+
+
+<h2><a href="{{site.baseurl}}/pages/froccs.html">Fröccs example</a></h2>
+
+<h2>A bonus problem</h2>
+
+<hr />
+
+<div class="alert alert-dark">
+  
+<h1 class="alert-heading">Final notes</h1>
+
+
+</div>
