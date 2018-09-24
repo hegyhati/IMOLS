@@ -149,7 +149,7 @@ prerequisite: ["lpfirststeps"]
   </li>
 </ul>
 <div class="tab-content b-2" id="myTabContent">
-  <div class="tab-pane fade show active" id="mathematic" role="tabpanel" aria-labelledby="mathematic-tab">
+  <div class="tab-pane fade show active border border-2 border-dark p-2" id="mathematic" role="tabpanel" aria-labelledby="mathematic-tab">
       \[x,y \in [0,\infty[ \]
       <br>
       \[x+2\cdot y\le 15\]
@@ -158,16 +158,16 @@ prerequisite: ["lpfirststeps"]
       \[x+y \to max\]
   </div>
   <div class="tab-pane fade" id="mps" role="tabpanel" aria-labelledby="mps-tab">
-    <pre><code>{% include sources/helloworld/helloworld_fix.mps %}</code></pre>
+    <pre class="border border-2 border-dark p-2"><code>{% include sources/helloworld/helloworld_fix.mps %}</code></pre>
   </div>
   <div class="tab-pane fade" id="mps2" role="tabpanel" aria-labelledby="mps2-tab">
-    <pre><code>{% include sources/helloworld/helloworld_free.mps %}</code></pre>
+    <pre class="border border-2 border-dark p-2"><code>{% include sources/helloworld/helloworld_free.mps %}</code></pre>
   </div>
   <div class="tab-pane fade" id="clp" role="tabpanel" aria-labelledby="clp-tab">
-    <pre><code>{% include sources/helloworld/helloworld.lp %}</code></pre>
+    <pre class="border border-2 border-dark p-2"><code>{% include sources/helloworld/helloworld.lp %}</code></pre>
   </div>
   <div class="tab-pane fade" id="gmpl" role="tabpanel" aria-labelledby="gmpl-tab">
-    <pre><code>{% include sources/helloworld/helloworld.m %}</code></pre>
+    <pre class="border border-2 border-dark p-2"><code>{% include sources/helloworld/helloworld.m %}</code></pre>
   </div>
 </div>
 
@@ -310,7 +310,7 @@ prerequisite: ["lpfirststeps"]
   If You run the above command on the simple example used above for demonstrating the different file formats, You will get this in the terminal:
 </p>
 
-<pre><code>{% include sources/helloworld/output.log %}</code></pre>
+<pre class="border border-2 border-dark p-2"><code>{% include sources/helloworld/output.log %}</code></pre>
 
 <p>
   There are a bunch of things here, familiar ringing words, like "Preprocessing", but for now, we will only focus on the line with all capitals: <code>OPTIMAL LP SOLUTION FOUND</code>. This line indicates, that the problem has been solved to optimality.
@@ -319,7 +319,7 @@ prerequisite: ["lpfirststeps"]
   More about that later, let's see, what is in the generated <code>output.txt</code> file.
 </p>
 
-<pre><code>{% include sources/helloworld/output.txt %}</code></pre>
+<pre  class="border border-2 border-dark p-2"><code>{% include sources/helloworld/output.txt %}</code></pre>
 
 <p>
   Again, there is plenty of information here as well, but we will only need specific lines for now.

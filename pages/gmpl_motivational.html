@@ -38,8 +38,8 @@ prerequisite: ["gmplbasics","lpfirststeps"]
 <table class="table table-hover">
   <thead>
     <tr>
-      <th scope="col">Mathematical notation</th>
-      <th scope="col">GMPL code</th>
+      <th style="width:50%" scope="col">Mathematical notation</th>
+      <th style="width:50%" scope="col">GMPL code</th>
     </tr>
   </thead>
   <tbody>
@@ -94,16 +94,133 @@ prerequisite: ["gmplbasics","lpfirststeps"]
 </p>
 
 
+<pre class="border border-2 border-dark p-2"><code>{% include sources/motivational/festival.txt %}</code></pre>
+
+<p>
+  From the line <code>Status:     INTEGER OPTIMAL</code> we know that the solver managed to find the optimal solution.
+  From the line <code>Objective:  NumberOfFestivals = 2 (MINimum)</code> we also know that the optimal number of festivals is 2.
+  We have to scroll down to the second table, to find out, that this could be achieved when the value of <code>y3</code> and <code>y4</code> is 1, and all of the other variables take the value of zero.
+  This means, that we need to go to only the third and fourth festivals.
+</p>
+
+
 
 <h2><a href="{{site.baseurl}}/pages/froccs.html">Fröccs example</a></h2>
 
-<h2>A bonus problem</h2>
+<p>
+  Similarly to the above example, we have already constructed the following LP model for the fröccs problem: 
+</p>
+
+<div>
+  \[x_{KF},x_{NF},x_{HL},x_{HM},x_{VHM},x_{KrF},x_{SF},x_{PF} \in [0,\infty[ \]
+  <br>
+  \[1 \cdot x_{KF} + 2 \cdot x_{NF}\ + 1 \cdot x_{HL} + 3 \cdot x_{HM} + 2 \cdot x_{VHM} + 9 \cdot x_{KrF} + 1 \cdot x_{SF} + 6 \cdot x_{PF} \le 1000\]
+  \[1 \cdot x_{KF} + 1 \cdot x_{NF}\ + 2 \cdot x_{HL} + 2 \cdot x_{HM} + 3 \cdot x_{VHM} + 1 \cdot x_{KrF} + 9 \cdot x_{SF} + 3 \cdot x_{PF} \le 1500\]
+  <hr />
+  \[110 \cdot x_{KF} + 200 \cdot x_{NF}\ + 120 \cdot x_{HL} + 260 \cdot x_{HM} + 200 \cdot x_{VHM} + 800 \cdot x_{KrF} + 200 \cdot x_{SF} + 550 \cdot x_{PF} \to max\]
+</div>
+
+<p>
+  Again, let's implement that in GMPL step by step:
+</p>
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th style="width:50%" scope="col">Mathematical notation</th>
+      <th style="width:50%" scope="col">GMPL code</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td colspan="2" class="table-info">Variables</td></tr>
+    <tr>
+      <td rowspan="8">\( x_{KF},x_{NF},x_{HL},x_{HM},x_{VHM},x_{KrF},x_{SF},x_{PF} \in [0,\infty[ \)</td>
+      <td><code>var xKF >=0; </code></td>
+    </tr>
+    <tr><td><code>var xNF >=0; </code></td></tr>
+    <tr><td><code>var xHL >=0; </code></td></tr>
+    <tr><td><code>var xHM >=0; </code></td></tr>
+    <tr><td><code>var xVHM >=0; </code></td></tr>
+    <tr><td><code>var xKrF >=0; </code></td></tr>
+    <tr><td><code>var xSF >=0; </code></td></tr>
+    <tr><td><code>var xPF >=0; </code></td></tr>
+    <tr><td colspan="2" class="table-info">Constraints</td></tr>
+    <tr>
+      <td>\(  1 \cdot x_{KF} + 2 \cdot x_{NF} + 1 \cdot x_{HL} + 3 \cdot x_{HM} + 2 \cdot x_{VHM} + 9 \cdot x_{KrF} + 1 \cdot x_{SF} + 6 \cdot x_{PF} \le 1000 \)</td>
+      <td><code>s.t. Wine: 1*xKF + 2*xNF + 1*xHL + 3*xHM + 2*xVHM + 9*xKrF + 1*xSF + 6*xPF  <= 1000;</code></td>
+    </tr> 
+    <tr >
+      <td>\(  1 \cdot x_{KF} + 1 \cdot x_{NF}\ + 2 \cdot x_{HL} + 2 \cdot x_{HM} + 3 \cdot x_{VHM} + 1 \cdot x_{KrF} + 9 \cdot x_{SF} + 3 \cdot x_{PF} \le 1500 \)</td>
+      <td><code>s.t. Soda: 1*xKF + 1*xNF + 2*xHL + 2*xHM + 3*xVHM + 1*xKrF + 9*xSF + 3*xPF  <= 1500;</code></td>
+    </tr> 
+    <tr><td colspan="2" class="table-info">Objective function</td></tr>    
+    <tr>
+      <td>\(  110 \cdot x_{KF} + 200 \cdot x_{NF}\ + 120 \cdot x_{HL} + 260 \cdot x_{HM} + 200 \cdot x_{VHM} + 800 \cdot x_{KrF} + 200 \cdot x_{SF} + 550 \cdot x_{PF} \to max\)</td>
+      <td><code>maximize TotalIncome: 110*xKF + 200*xNF + 120*xHL + 260*xHM + 200*xVHM + 800*xKrF + 200*xSF + 550*xPF;</code></td>
+    </tr>
+  </tbody>
+</table>
+
+
+<p>
+  Again, let's have a look at the ouptut:
+</p>
+
+
+<pre class="border border-2 border-dark p-2"><code>{% include sources/motivational/froccs.txt %}</code></pre>
+
+<p>
+  From the line <code>Status:     OPTIMAL</code> we know that the solver managed to find the optimal solution.
+  Note, that the word "INTEGER" is missing, as we had no discrete variables, this model is "just" and LP, not an MILP.
+  From the line <code>Objective:  TotalIncome = 115625 (MAXimum)</code> we also know that the maximal income we can have is 115625.
+  We have to scroll down to the second table, to find out, that this could be achieved by selling 937.5 portions of kisfröccs, and 62.5 portions of sóherfröccs.
+</p>
+
+
+<h2>Let's make mistakes!</h2>
+
+<p>
+  Regardless of the programming or modelling language, small syntax mistekes are regularly made by beginners and experienced users alike.
+  The only difference is, that those, who have a lot of practice, can correct those small mistakes quickly and easily, while beginners can spend a lot of time on this instead of focusing the "essence" (semantics) of the model.
+  The parsers usually provide more useful error messages instead of "Your input is incorrect.", but still, sometimes the message seems to have nothing to do with the actual problem. 
+</p>
+
+<p>
+  A good practice is to find out this messages in a "safe environment".
+  By this I mean, that if You have a perfect code, make small mistakes to it on purpose, and then look at the error message You get.
+  This way You can easily make the connection between error messages and the types of mistakes that can be made.
+  A bonus benefit of this approach is, that You know You have only done a single mistake, and the error messages are not the results of the combination of a few mistypos. 
+</p>
+
+<p>
+  Some typical mistakes that You should check are:
+  <ul>
+    <li>Missing semicolon at the end of variable declaration/constraint/objective function</li>
+    <li>Missing the <code>s.t.</code>, or mistyping it somehow, like <code>st.</code>.</li>
+    <li>Some countries use a decimal comma instead of a dot, try to give numbers like that.</li>
+    <li>Writing <code><</code> instead of <code><=</code></li>
+    <li>Trying to declare varianles in a single line, i.e., <code>var x1,x2 >=0;</code></li>
+    <li>Putting semicolon instead of a colon, or the other way around.</li>
+    <li>Forgetting the semicolon after the name of the constraint or objective function name, or using equal instead in the latter case.</li>
+
+    <li>Using non-ascii characters for names, or names starting with numbers.</li>
+    <li>Check if the names are case-sensitive or not? (I.e., <code>var xKF;</code> and <code>var Xkf;</code> would collide or not?)</li>
+    <li>If it is case-sensitive, check the error message if You use the variable with incorrect spelling in the constraint/objective function.</li>
+    <li>...</li>
+  </ul>
+</p>
+
+
+
+
+
+
+<!--h2>A bonus problem</h2-->
 
 <hr />
 
 <div class="alert alert-dark">
   
 <h1 class="alert-heading">Final notes</h1>
-
-
+We have seen how the LP/MILP model of the motivational examples can be implemented in GMPL, and how we can interpret the output file.
 </div>

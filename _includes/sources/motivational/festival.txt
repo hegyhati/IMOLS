@@ -1,0 +1,38 @@
+Problem:    froccs
+Rows:       8
+Columns:    5 (5 integer, 5 binary)
+Non-zeros:  25
+Status:     INTEGER OPTIMAL
+Objective:  NumberOfFestivals = 2 (MINimum)
+
+   No.   Row name        Activity     Lower bound   Upper bound
+------ ------------    ------------- ------------- -------------
+     1 Haggard                     2             1               
+     2 Stratovarius                1             1               
+     3 Epica                       1             1               
+     4 Dalriada                    2             1               
+     5 Apocalyptica                1             1               
+     6 Liva                        2             1               
+     7 Eluveitie                   1             1               
+     8 NumberOfFestivals
+                                   2                             
+
+   No. Column name       Activity     Lower bound   Upper bound
+------ ------------    ------------- ------------- -------------
+     1 y1           *              0             0             1 
+     2 y2           *              0             0             1 
+     3 y3           *              1             0             1 
+     4 y4           *              1             0             1 
+     5 y5           *              0             0             1 
+
+Integer feasibility conditions:
+
+KKT.PE: max.abs.err = 0.00e+00 on row 0
+        max.rel.err = 0.00e+00 on row 0
+        High quality
+
+KKT.PB: max.abs.err = 0.00e+00 on row 0
+        max.rel.err = 0.00e+00 on row 0
+        High quality
+
+End of output
