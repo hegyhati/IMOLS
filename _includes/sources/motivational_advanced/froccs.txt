@@ -1,0 +1,51 @@
+Problem:    froccs
+Rows:       3
+Columns:    8
+Non-zeros:  24
+Status:     OPTIMAL
+Objective:  Income = 115625 (MAXimum)
+
+   No.   Row name   St   Activity     Lower bound   Upper bound    Marginal
+------ ------------ -- ------------- ------------- ------------- -------------
+     1 SodaUsage    NU          1500                        1500         11.25 
+     2 WineUsage    NU          1000                        1000         98.75 
+     3 Income       B         115625                             
+
+   No. Column name  St   Activity     Lower bound   Upper bound    Marginal
+------ ------------ -- ------------- ------------- ------------- -------------
+     1 quantity[kisfroccs]
+                    B          937.5             0               
+     2 quantity[nagyfroccs]
+                    NL             0             0                       -8.75 
+     3 quantity[hosszulepes]
+                    NL             0             0                       -1.25 
+     4 quantity[hazmester]
+                    NL             0             0                      -58.75 
+     5 quantity[vicehazmester]
+                    NL             0             0                      -31.25 
+     6 quantity[krudyfroccs]
+                    NL             0             0                        -100 
+     7 quantity[soherfroccs]
+                    B           62.5             0               
+     8 quantity[puskasfroccs]
+                    NL             0             0                      -76.25 
+
+Karush-Kuhn-Tucker optimality conditions:
+
+KKT.PE: max.abs.err = 0.00e+00 on row 0
+        max.rel.err = 0.00e+00 on row 0
+        High quality
+
+KKT.PB: max.abs.err = 0.00e+00 on row 0
+        max.rel.err = 0.00e+00 on row 0
+        High quality
+
+KKT.DE: max.abs.err = 0.00e+00 on column 0
+        max.rel.err = 0.00e+00 on column 0
+        High quality
+
+KKT.DB: max.abs.err = 0.00e+00 on row 0
+        max.rel.err = 0.00e+00 on row 0
+        High quality
+
+End of output

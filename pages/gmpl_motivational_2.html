@@ -1,0 +1,128 @@
+---
+title: "Advanced GMPL models for motivational examples"
+layout: lecture
+lead: "Advanced GMPL models of the motivational examples"
+id: gmplmotivational2
+prerequisite: ["gmpladvanced1","froccs"]
+---
+<p>
+We have <a href="{{site.baseurl}}/pages/gmpl_advanced_1.html">already made</a> the advanced model of for the <a href="{{site.baseurl}}/pages/festival.html">Festivals example</a>.
+In this practice session, try to do the same for the <a href="{{site.baseurl}}/pages/froccs.html">Fröccs example</a>.
+</p>
+
+<h2 id="froccs1">Advanced GMPL model for the fröccs example</h2>
+
+<p>
+  First try to create a more general model, where the fröccs types are given as data.
+  The very first step is to identify the necessary set and parameter definitions.
+  <a class = "btn btn-block btn-outline-primary" data-toggle="collapse" href="#froccs1Collapse1" role="button">Reveal set and parameter definitions</a>
+</p>
+
+
+<div class="collapse" id="froccs1Collapse1">
+  <div class="card card-body">
+    <table class="table table-hover" id="generic-gmpl-table">
+      <thead>
+        <tr>
+          <th style="width:50%" scope="col">Mathematical notation</th>
+          <th style="width:50%" scope="col">GMPL code</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td colspan="2" class="table-info">Sets and parameters</td></tr>
+        <tr><td>\(F\)</td><td><code>set FroccsTypes;</code></td></tr>
+        <tr><td>\(p_{f}\qquad f\in F\)</td><td><code>param price{FroccsTypes};</code></td></tr>
+        <tr><td>\(s^{s}\)</td><td><code>param soda_stock;</code></td></tr>
+        <tr><td>\(s^{w}\)</td><td><code>param wine_stock;</code></td></tr>
+        <tr><td>\(c^{s}_{f}\qquad f\in F\)</td><td><code>param soda_content{FroccsTypes};</code></td></tr>
+        <tr><td>\(c^{w}_{f}\qquad f\in F\)</td><td><code>param wine_content{FroccsTypes};</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<p class="py-3">
+  The second step is to create the variables, constraints and objective function of the generic model.
+  <a class = "btn btn-block btn-outline-primary" data-toggle="collapse" href="#froccs1Collapse2" role="button">Reveal the generic model</a>
+</p>
+
+
+<div class="collapse" id="froccs1Collapse2">
+  <div class="card card-body">
+    <table class="table table-hover" id="generic-gmpl-table">
+      <thead>
+        <tr>
+          <th style="width:50%" scope="col">Mathematical notation</th>
+          <th style="width:50%" scope="col">GMPL code</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td colspan="2" class="table-info">Variables</td></tr>
+        <tr><td>\(q_f\qquad f\in F\)</td>
+        <td><code>var quantity{FroccsTypes}>=0;</code></td></tr>
+        <tr><td colspan="2" class="table-info">Constraints</td></tr>
+        <tr><td>\(\displaystyle\sum_{f\in F} q_f \cdot c^s_f \le s^s\)</td>
+        <td><code>s.t. SodaUsage: sum{f in FroccsTypes} quantity[f] * soda_content[f] <= soda_stock;</code></td></tr>
+        <tr><td>\(\displaystyle\sum_{f\in F} q_f \cdot c^w_f \le s^w\)</td>
+        <td><code>s.t. WineUsage: sum{f in FroccsTypes} quantity[f] * wine_content[f] <= wine_stock;</code></td></tr>
+        <tr><td colspan="2" class="table-info">Objective function</td></tr>
+        <tr><td>\(\displaystyle\sum_{f\in F} q_f \cdot p_f \to max\)</td>
+        <td><code>maximize Income: sum{f in FroccsTypes} price[f] * quantity[f];</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<p class="py-3">
+  Last, but not least, provide data for the model in a data file
+  <a class = "btn btn-block btn-outline-primary" data-toggle="collapse" href="#froccs1Collapse3" role="button">Reveal data file</a>
+</p>
+
+
+<div class="collapse" id="froccs1Collapse3">
+  <div class="card card-body">
+    <pre class="border border-2 border-dark p-2" id="generic-gmpl-data"><code>{% include sources/motivational_advanced/froccs.d %}</code></pre>
+  </div>
+</div>
+
+<h2 id="froccs2">More general Product-mix model</h2>
+
+<p class="py-3">
+  We feel, that this model is still very specific to beverages made from soda and wine.
+  If we were to have a problem instance with different products, that use given portions of certain raw materials, and given were all the price and stock data as well, the model would be very similar.
+  So now, try to create a model, where it is not hardcoded to have two types of ingredients, but it would be given by a set.  
+  <a class = "btn btn-block btn-outline-primary" data-toggle="collapse" href="#froccs1Collapse4" role="button">Reveal model file with data section</a>
+</p>
+
+
+<div class="collapse" id="froccs1Collapse4">
+  <div class="card card-body">
+    <pre class="border border-2 border-dark p-2" id="generic-gmpl-data"><code>{% include sources/motivational_advanced/productmix.m %}</code></pre>
+  </div>
+</div>
+
+<h2 id="festivals++">More general Product-mix model</h2>
+
+<p>
+  To test Your skills, try to make the generic model for a more sophisticated festival example.
+  First, to warm-up, include the price of each festival, and make the objective to minimize the total cost instead of the number of festivals.
+</p>
+
+<p>
+  Secondly, define the dates of the festivals, and introduce a new constraint, that You can not be at two places at the same time.
+</p>
+
+<p>
+  Finally, try to extend the model with something on Your own, to make it more realistic.
+</p>
+
+
+<hr />
+
+<div class="alert alert-dark" id="final-notes">
+  
+<h1 class="alert-heading">Final notes</h1>
+
+The main point of this practice session was to get used to generic models, and their syntax in GMPL.
+
+</div>
