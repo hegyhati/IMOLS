@@ -1,12 +1,12 @@
 ---
-title: "Advanced GMPL techniques: data/model decoupling"
+title: "Advanced GMPL techniques: data/logic decoupling"
 layout: lecture
 lead: "Introduction to using sets and parameters in GMPL in order to separate data from the logic"
 id: gmpladvanced1
 prerequisite: ["gmplmotivational"]
 ---
 
-<h2>Our previous good model is actually bad</h2>
+<h2 id="bad-model">Our previous good model is actually bad</h2>
 
 <p>
   The models we created so far are correct, there is no mistake about that.
@@ -40,7 +40,7 @@ prerequisite: ["gmplmotivational"]
   This repetition, let us call it redundancy is hardly ever a sign of a quality code.
 </p>
 
-<p>
+<p id="logic-data">
   What we feel here is, that there are two things in our model, that are "interlaced" in the same file:
   <ol>
     <li><b>Logic:</b> The "soul" of our model. What are the decisions to be made, how are they represented with variables, what kind of constraints are defined on them, what is our goal, etc.</li>
@@ -55,7 +55,7 @@ prerequisite: ["gmplmotivational"]
   GMPL allows this kind of separation of the code into model and data section (or even files) but let us go back to the mathematical realm of optimization briefly.
 </p>
 
-<h2>Problems, problem classes, instances</h2>
+<h2 id="problem-class">Problems, problem classes, instances</h2>
 
 <p>
   Looking at the same thing from a different perspective: if we have a model for this years festivals, another one for next years festivals, and a third for the fröccs example, then we would know that the first two is "similar" and the third is "different".
@@ -83,7 +83,7 @@ prerequisite: ["gmplmotivational"]
   But let us have a hands on experience now:
 </p>
 
-<h2>Generic mathematical model for the <a href="{{site.baseurl}}/pages/festival.html">Festivals example</a></h2>
+<h2 id="festival-generic">Generic mathematical model for the <a href="{{site.baseurl}}/pages/festival.html">Festivals example</a></h2>
 
 <p>
   To create our generic model, we need to scrap away the instance specific data, and describe it in a generic manner:
@@ -117,7 +117,7 @@ prerequisite: ["gmplmotivational"]
   Putting all of these together, we have:
 </p>
 
-<div class="alert alert-success">
+<div class="alert alert-success" id="festival-model">
  
   \[
     \begin{array}{rclp{2cm}r}
@@ -161,7 +161,7 @@ prerequisite: ["gmplmotivational"]
   To keep things simpler, we will focus on the second model below.
 </p>
 
-<h2>Generic GMPL models</h2>
+<h2 id="generic-gmpl">Generic GMPL models</h2>
 
 <p>
   GMPL (and most modern modeling languages) support this generic model definition.
@@ -203,7 +203,7 @@ prerequisite: ["gmplmotivational"]
   The syntax for the sum symbol is similar, but let's see how it looks for our second model with \(p_{b,f}\) parameter:
 </p>
 
-<table class="table table-hover">
+<table class="table table-hover" id="generic-gmpl-table">
   <thead>
     <tr>
       <th style="width:50%" scope="col">Mathematical notation</th>
@@ -251,7 +251,7 @@ prerequisite: ["gmplmotivational"]
   But we have already learned, that it is always a good practice to have meaningful names, so before we dive into the data section, let's refactor our model to this:
 </p>
 
-<pre class="border border-2 border-dark p-2"><code>{% include sources/motivational_advanced/festival.m %}</code></pre>
+<pre class="border border-2 border-dark p-2" id="generic-gmpl-model"><code>{% include sources/motivational_advanced/festival.m %}</code></pre>
 
 <p>
   If we were to "run" this model with the usual <code>glspsol -m model.mod</code> command, we would receive an error message something like this: <var>Missing value for S</var>.
@@ -296,7 +296,7 @@ prerequisite: ["gmplmotivational"]
   For now, let's write our data section with the syntax above:
 </p>
 
-<pre class="border border-2 border-dark p-2"><code>{% include sources/motivational_advanced/festival.d %}</code></pre>
+<pre class="border border-2 border-dark p-2" id="generic-gmpl-data"><code>{% include sources/motivational_advanced/festival.d %}</code></pre>
 
 <p>
   Note, that in the definition of the set Bands, the elements are given in new lines.
@@ -306,7 +306,7 @@ prerequisite: ["gmplmotivational"]
   <pre>param Param1:= element1 value1 element3 value3 element2 value2;</pre>
 </p>
 
-<h2>Solve the new model</h2>
+<h2 id="glpsol">Solve the new model</h2>
 
 <p>
   We are nearly done, we just have to copy this two parts of code into a single file, and separate them with <code>data;</code>.
@@ -318,7 +318,7 @@ prerequisite: ["gmplmotivational"]
   The solver puts similar things to the standard output as before, but let's have a look at the solution file:
 </p>
 
-<pre class="border border-2 border-dark p-2"><code>{% include sources/motivational_advanced/festival.txt %}</code></pre>
+<pre class="border border-2 border-dark p-2" id="glpsol-output"><code>{% include sources/motivational_advanced/festival.txt %}</code></pre>
 
 <p>
   From the first table we can see, that the constraints were really generated separately for all of the bands, and from the second table, that the <var>go</var> variables were generated for all of the festivals.
@@ -331,7 +331,7 @@ prerequisite: ["gmplmotivational"]
 
 <hr />
 
-<div class="alert alert-dark">
+<div class="alert alert-dark" id="final-notes">
   
 <h1 class="alert-heading">Final notes</h1>
 

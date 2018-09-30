@@ -6,7 +6,7 @@ id: lpfirststeps
 prerequisite: ["festivals","froccs"]
 ---
 
-<h2>Modeling in general</h2>
+<h2 id="modeling">Modeling in general</h2>
 
 <p>
   Modeling is a technique used in many fields with different purposes, such as simulation, planning, and of course, optimization.
@@ -63,7 +63,7 @@ prerequisite: ["festivals","froccs"]
   Later on, we will not focus on this very first step of modeling, and we will assume, that these decisions are already made, and we just have to construct and solve the appropriate mathematical model.
 </p>
 
-<h2>Model for the <a href="{{site.baseurl}}/pages/froccs.html">Fröccs example</a></h2>
+<h2 id="froccs-example">Model for the <a href="{{site.baseurl}}/pages/froccs.html">Fröccs example</a></h2>
 
 <p>
   Let us assume, that we have a solution.
@@ -106,7 +106,7 @@ prerequisite: ["festivals","froccs"]
   Now, if we put together everything, we get:
 </p>
 
-<div class="alert alert-success">
+<div class="alert alert-success" id="froccs-model">
   \[x_{KF},x_{NF},x_{HL},x_{HM},x_{VHM},x_{KrF},x_{SF},x_{PF} \in [0,\infty[ \]
   <br>
   \[1 \cdot x_{KF} + 2 \cdot x_{NF}\ + 1 \cdot x_{HL} + 3 \cdot x_{HM} + 2 \cdot x_{VHM} + 9 \cdot x_{KrF} + 1 \cdot x_{SF} + 6 \cdot x_{PF} \le 1000\]
@@ -116,7 +116,7 @@ prerequisite: ["festivals","froccs"]
 </div>
 
 
-<p>
+<p id="lp-definition">
   This mathematical description of the problems restrictions, goals, decision flexibilities adheres the rules of a <emph>Linear Programming</emph> model, or LP for short:
   <ol>
     <li>There are a finite number of <emph>variables</emph></li>
@@ -135,7 +135,7 @@ prerequisite: ["festivals","froccs"]
   
 </p>
 
-<h2>Model for the <a href="{{site.baseurl}}/pages/festival.html">Festival example</a></h2>
+<h2 id="festival-example">Model for the <a href="{{site.baseurl}}/pages/festival.html">Festival example</a></h2>
 
 <p>
   Let's try to create a model similar to the previous one for the festival example.
@@ -149,7 +149,7 @@ prerequisite: ["festivals","froccs"]
   Finally, the objective function modeled our goal.
 </p>
 
-<table class="table table-hover">
+<table class="table table-hover" id="reality-model">
   <thead>
     <tr>
       <th scope="col" style="text-align: right">Problem definition</th>
@@ -268,7 +268,7 @@ prerequisite: ["festivals","froccs"]
   Putting everything from above together:
 </p>
 
-<div class="alert alert-success">
+<div class="alert alert-success" id="festival-model">
   \[y_1,y_2,y_3,y_4,y_5 \in \{0,1\} \]
   <br>
   \[
@@ -325,7 +325,7 @@ prerequisite: ["festivals","froccs"]
 
 <div class="alert alert-dark">
   
-<h1 class="alert-heading">Final notes</h1>
+<h1 class="alert-heading" id="final-notes">Final notes</h1>
 
 The takeaway from this section is, that certain problems can be described by algebraic models such as the LP or MILP.
 If a practical problem can be adequately represented by one of those, it can be solved by well known (and very well implemented) algorithms.

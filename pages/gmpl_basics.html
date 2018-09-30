@@ -6,7 +6,7 @@ id: gmplbasics
 prerequisite: ["lpfirststeps"]
 ---
 
-<h2>(MI)LP description languages and solvers</h2>
+<h2 id="languages-and-solvers">(MI)LP description languages and solvers</h2>
 
 <p>
   Since MILP and LP models are widely used in practice, the algorithms solving them are well implemented already.
@@ -21,7 +21,7 @@ prerequisite: ["lpfirststeps"]
   Some are listed below, with some information about them.
 </p>
 
-<table class="table table-hover">
+<table class="table table-hover" id="solvers">
   <thead>
     <tr>
       <th scope="col">Solver</th>
@@ -90,7 +90,7 @@ prerequisite: ["lpfirststeps"]
 </p>
 
 
-<table class="table table-hover">
+<table class="table table-hover" id="languages">
   <thead>
     <tr>
       <th scope="col">Format name</th>
@@ -131,7 +131,7 @@ prerequisite: ["lpfirststeps"]
   Below You can see the same example in a few different formats for comapirson.
 </p>
 
-<ul class="nav nav-tabs" id="fortmatTab" role="tablist">
+<ul class="nav nav-tabs" id="language-example" role="tablist">
   <li class="nav-item">
     <a class="nav-link active" id="home-tab" data-toggle="tab" href="#mathematic" role="tab" aria-controls="mathematic" aria-selected="true">Mathematical Model</a>
   </li>
@@ -176,7 +176,7 @@ prerequisite: ["lpfirststeps"]
   Please note, that if you need Your model in a different format, You can also use glpsol to convert it with the <code>--wmps</code>, <code>--wfreemps</code>, <code>--wlp</code> options.
 </div>
 
-<h2>GMPL basics</h2>
+<h2 id="gmpl-basics">GMPL basics</h2>
 
 <p>
   As it was discussed <a href="{{site.baseurl}}/pages/lpfirststeps.html">previously</a>, the model can be partitioned into three parts: variable declarations, constraints, and the objective function.
@@ -184,7 +184,7 @@ prerequisite: ["lpfirststeps"]
   You can find a detailed <a href="https://www.gnu.org/software/glpk/#documentation" target="_blank">reference of the GMPL format</a> if You download the package from the website of glpk.
 </p>
 
-<h3>Variables</h3>
+<h3 id="gmpl-variables">Variables</h3>
 
 <p>
   Variables can be defined with the <code>var</code> keyword, that should be followed by the name of the variable, restrictions on the domain, and finally a semicolon.
@@ -222,7 +222,7 @@ prerequisite: ["lpfirststeps"]
   </tbody>
 </table>
 
-<h3>Constraints</h3>
+<h3 id="gmpl-constraints">Constraints</h3>
 
 <p>
   Constraints are written in the form of <code>s.t. CNAME: LHS OP RHS;</code> where <code>CNAME</code> is an expressive name for the constraint, <code>LHS,RHS</code> are the left- and right hand side of the inequality/equasion respectively, separated by a comparison operator, that could be either <code><=</code>,<code>>=</code> or <code>=</code>.
@@ -253,7 +253,7 @@ prerequisite: ["lpfirststeps"]
   </tbody>
 </table>
 
-<h3>Objective function</h3>
+<h3 id="gmpl-objective">Objective function</h3>
 
 <p>
   The syntax for the objective function very similar to that of the constraint: <code>[minimize|maximize] ONAME: EXPRESSION;</code>, where <code>ONAME</code> is a name assigned to the objective function, and the <code>EXPRESSION</code> is the linear expression for it.
@@ -289,7 +289,7 @@ prerequisite: ["lpfirststeps"]
   We are ready to solve our motivational examples, but let's see how we can make the solver find the optimal solution for the models we implement in GMPL.
 </p>
 
-<h2>Using GLPK</h2>
+<h2 id="glpsol">Using GLPK</h2>
 
 <p>The examples here will assume, that You run <code>glpsol</code> from the command line.</p>
 
@@ -338,7 +338,7 @@ prerequisite: ["lpfirststeps"]
 
 <hr />
 
-<div class="alert alert-dark">
+<div class="alert alert-dark" id="final-notes">
   
 <h1 class="alert-heading">Final notes</h1>
 

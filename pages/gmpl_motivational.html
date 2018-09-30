@@ -6,7 +6,7 @@ id: gmplmotivational
 prerequisite: ["gmplbasics","lpfirststeps"]
 ---
 
-<h2><a href="{{site.baseurl}}/pages/festival.html">Festivals example</a></h2>
+<h2 id="festival"><a href="{{site.baseurl}}/pages/festival.html">Festivals example</a></h2>
 
 <p>
   The final mathematical model for the Festivals example looked like this:
@@ -35,7 +35,7 @@ prerequisite: ["gmplbasics","lpfirststeps"]
 </p>
 
 
-<table class="table table-hover">
+<table class="table table-hover" id="festival-table">
   <thead>
     <tr>
       <th style="width:50%" scope="col">Mathematical notation</th>
@@ -94,7 +94,7 @@ prerequisite: ["gmplbasics","lpfirststeps"]
 </p>
 
 
-<pre class="border border-2 border-dark p-2"><code>{% include sources/motivational/festival.txt %}</code></pre>
+<pre id="festival-output" class="border border-2 border-dark p-2"><code>{% include sources/motivational/festival.txt %}</code></pre>
 
 <p>
   From the line <code>Status:     INTEGER OPTIMAL</code> we know that the solver managed to find the optimal solution.
@@ -105,7 +105,7 @@ prerequisite: ["gmplbasics","lpfirststeps"]
 
 
 
-<h2><a href="{{site.baseurl}}/pages/froccs.html">Fröccs example</a></h2>
+<h2 id="froccs"><a href="{{site.baseurl}}/pages/froccs.html">Fröccs example</a></h2>
 
 <p>
   Similarly to the above example, we have already constructed the following LP model for the fröccs problem: 
@@ -124,7 +124,7 @@ prerequisite: ["gmplbasics","lpfirststeps"]
   Again, let's implement that in GMPL step by step:
 </p>
 
-<table class="table table-hover">
+<table class="table table-hover" id="froccs-table">
   <thead>
     <tr>
       <th style="width:50%" scope="col">Mathematical notation</th>
@@ -167,7 +167,7 @@ prerequisite: ["gmplbasics","lpfirststeps"]
 </p>
 
 
-<pre class="border border-2 border-dark p-2"><code>{% include sources/motivational/froccs.txt %}</code></pre>
+<pre id="froccs-output" class="border border-2 border-dark p-2"><code>{% include sources/motivational/froccs.txt %}</code></pre>
 
 <p>
   From the line <code>Status:     OPTIMAL</code> we know that the solver managed to find the optimal solution.
@@ -177,7 +177,7 @@ prerequisite: ["gmplbasics","lpfirststeps"]
 </p>
 
 
-<h2>Let's make mistakes!</h2>
+<h2 id="mistakes">Let's make mistakes!</h2>
 
 <p>
   Regardless of the programming or modelling language, small syntax mistekes are regularly made by beginners and experienced users alike.
@@ -219,7 +219,7 @@ prerequisite: ["gmplbasics","lpfirststeps"]
 
 <hr />
 
-<div class="alert alert-dark">
+<div class="alert alert-dark" id="final-notes">
   
 <h1 class="alert-heading">Final notes</h1>
 We have seen how the LP/MILP model of the motivational examples can be implemented in GMPL, and how we can interpret the output file.
