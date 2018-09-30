@@ -1,0 +1,344 @@
+---
+title: "Advanced GMPL techniques: data/model decoupling"
+layout: lecture
+lead: "Introduction to using sets and parameters in GMPL in order to separate data from the logic"
+id: gmpladvanced1
+prerequisite: ["gmplmotivational"]
+---
+
+<h2>Our previous good model is actually bad</h2>
+
+<p>
+  The models we created so far are correct, there is no mistake about that.
+  However, when building a mathematical model, we should pay attention to how "manageable" the code is in the future.
+  Similar to programming, there is a huge difference between a code that just works, and a code that is easy to use if later modifications are needed.
+</p>
+
+<p>
+  Let us have a look at the festival model again:
+</p>
+
+<pre class="border border-2 border-dark p-2"><code>{% include sources/motivational/festival.m %}</code></pre>
+
+<p>
+  We use our model, plan our summer, everything is fine.
+  Then, a new festival <code>F6</code> is announced, where Haggard, Epica, and Apocalyptica will perform.
+  What kind of changes would be needed for the model?
+  <ul>
+    <li>A new variable <code>y6</code> will be needed.</li>
+    <li>In the constraints of Haggard, Epica, and Apocalyptica, an additional <code>+y6</code> is needed to be added</li>
+    <li>The objective function needs an additional <code>+y6</code> too.</li>
+  </ul>
+</p>
+
+<p>
+  This is a lot of changes, in different places of our code.
+  But still more-or-less manageable.
+  Now imagine, that we want to use our model for one year later for the next summer as well.
+  Our favorite bands may have changed, the set of interesting festivals may remain the same, but their list of bands will definitely change.
+  We can, obviously, build a model similar to this one using the same logic, but we feel, that we would be doing something unnecessary repeatedly.
+  This repetition, let us call it redundancy is hardly ever a sign of a quality code.
+</p>
+
+<p>
+  What we feel here is, that there are two things in our model, that are "interlaced" in the same file:
+  <ol>
+    <li><b>Logic:</b> The "soul" of our model. What are the decisions to be made, how are they represented with variables, what kind of constraints are defined on them, what is our goal, etc.</li>
+    <li><b>Data:</b> The "physical body" of our model. Which festivals do we have, which bands do we like, where do they perform.</li>
+  </ol>
+</p>
+
+<p>
+  The logic of the model is the same regardless of the actual data, and such, it should be separated from it.
+  This is similar to programming, where we do not want to include our database in our source code.
+  Besides redundancy, it is really easy to make semantic mistakes, when changing the data can alter the logic of the model as well. (Imagine to put somewhere a minus instead of plus, or write y23 instead of y32 somewhere. It will be really difficult to debug and find this kind of mistake in a bigger model.)
+  GMPL allows this kind of separation of the code into model and data section (or even files) but let us go back to the mathematical realm of optimization briefly.
+</p>
+
+<h2>Problems, problem classes, instances</h2>
+
+<p>
+  Looking at the same thing from a different perspective: if we have a model for this years festivals, another one for next years festivals, and a third for the fröccs example, then we would know that the first two is "similar" and the third is "different".
+  We would may even say, that the first two models are of the same type, but different instances.
+  But how can we define when two models are similar or different?
+  What is the exact dividing factor?
+</p>
+
+<p>
+  After the introduction in the previous section, it is easy to see, that the first two model share the same logic, but have different data, while the third one has a completely different model as well.
+  In practice, it is very common, that we have a lot of instances of the problems with the same logic but different data.
+  For example: planning the schedule of a factory for the next week is always a similar task, but each week have different set of products, deadlines, initial resource stocks,  etc.
+</p>
+
+<p>
+  As a result, we are usually more interested to provide a general solution for a type of problems, not just a single instance.
+  On this page, we will use the term <emph>Problem class</emph> to denote the set of all of the problems, that are of the same type, i.e., share the same logic.
+  The problem class itself has no data, but it has "features", that are shared among all of its members.
+  Each element of a problem class is termed a <emph>problem instance</emph>, which already have the data as well.
+</p>
+
+<p>
+  We will generally want to provide generic models (model logic) to a problem class, rather than to an instance, and then it can be used for all of the instances in that class.
+  In that sence, a generic model can be considered as a "recipe" which can be used to generate a complete model, once the data is provided for it.
+  But let us have a hands on experience now:
+</p>
+
+<h2>Generic mathematical model for the <a href="{{site.baseurl}}/pages/festival.html">Festivals example</a></h2>
+
+<p>
+  To create our generic model, we need to scrap away the instance specific data, and describe it in a generic manner:
+  <ol>
+    <li>There will be five feastivals this summer, this is a problem-specific data. In general, we could say, that there will be a set of festivals, and we could denote that with \(S\).</li>
+    <li>We are interested in the bands Haggard, Stratovarius, etc. That is again, something very specific, Your music taste is probably different from mine. In general we could say, that there is a set of interesting bands, and we could denote that with \(B\).</li>
+    <li>Finally, we know, that Haggard will perform at festivals 1, 3 and 4. In general we could say, that for each band we have a subset of festivals, where it will perform, we may denote it by \(F_b\) for each \(b\in B\). While this is true, having a set of sets is a bit complex, so a simpler way to look at it would be to have parameter, that describes whether a band  \(b\in B\) performs at a festival \(f\in F\), and it could be denoted by \(p_{b,f}\)</li>. Either way is fine.
+  </ol>
+</p>
+
+<div class="alert alert-info">
+  Note, that if there is something, that has to be defined for all values from a set, that will only have value in a problem instance, we put a dummy index into the subscript of that something.
+  A subscript is like a key for an associative array in programming languages.
+  On the contrary, when we will use superscripts, it will be the part of the name of the variable, not an index.
+</div>
+
+<p>
+  Now, we have a generic problem definition: Given a set of bands \(B\), a set of festivals \(F\), and a subset of festivals  \(F_b\subseteq F\) for all \(b\in B\), we should find a minimal set of festivels \(F^*\) such that each \(F_b\) has at least one element in it.
+</p>
+
+
+
+<p>
+  To make our model, we just have to follow the previously learnt 3 steps, only do it in a general way:
+  <dl>
+    <dt>Step 1: Variables</dt><dd>We still have to make the same decision: whether we go to a festival or not. We do not know, how many festivals there will be in a problem instance, but we can say, that we will declare a binary variable \(x_f\) for all of them (for all \(f\in F\)). </dd>
+    <dt>Step 2: Constraints</dt><dd>We should have a constraint for all of the bands \(b\in B\), and in the constraints we should sum up the variables with and \(f\in F_b\), and that should be greater or equal to 1.
+    Note, that we already have a value for \(b\) if we are writing a specific constraint.</dd>
+    <dt>Step 3: Objective function</dt><dd>The objective function is simple: sum all the variables, and that should be minimal.</dd>
+  </dl>
+  Putting all of these together, we have:
+</p>
+
+<div class="alert alert-success">
+ 
+  \[
+    \begin{array}{rclp{2cm}r}
+      y_f &\in& \{0,1\} & & \quad \forall f\in F\\
+      \\
+      \displaystyle\sum_{f \in F_b} y_f &\ge& 1 & & \forall b\in B\\
+      \\
+      \hline
+      \\
+      \displaystyle\sum_{f \in F} y_f &\to& min
+    \end{array}
+  \]
+  <hr />
+</div>
+
+<p>
+  Or, if You prefer to use the \(p_{b,f}\) parameter instead of the \(F_b\) sets, where we assume that \(p_{b,f}=1\) if band \(b\) performs at festival \(f\), and 0 otherwise, then:
+</p>
+
+<div class="alert alert-success"> 
+  \[
+    \begin{array}{rclp{2cm}r}
+      y_f &\in& \{0,1\} & & \quad \forall f\in F\\
+      \\
+      \displaystyle\sum_{f \in F} p_{b,f} \cdot y_f &\ge& 1 & & \forall b\in B\\
+      \\
+      \hline
+      \\
+      \displaystyle\sum_{f \in F} y_f &\to& min
+    \end{array}
+  \]
+  <hr />
+</div>
+
+<p>
+  Note, that in this version, the constraint is a bit different, here the sum goes over all of the festivals, however, the variables for festivals where the band \(b\) does not perform are multiplied by 0, and all the others are multiplied by 1, so the constraints will be the same.
+  For example, instead of \(y_1+y_3+y_4 \ge 1\) it will be \(1\cdot y_1 + 0\cdot y_2 + 1\cdot y_3 + 1\cdot y_4 + 0\cdot y_5\ge1\).
+</p>
+
+<p>
+  To keep things simpler, we will focus on the second model below.
+</p>
+
+<h2>Generic GMPL models</h2>
+
+<p>
+  GMPL (and most modern modeling languages) support this generic model definition.
+  The previous structure for our GMPL model was this:
+  <ol>
+    <li>Variable declarations</li>
+    <li>Constraint definitions</li>
+    <li>Objective function definition</li>
+  </ol>
+</p>
+
+<p>
+  To make the desired separation, the model file has to have this structure:
+  <ol>
+    <li>Model logic / Generic model</li>
+    <li><code>data;</code> keyword</li>
+    <li>Model data</li>
+    <li><code>end;</code> keywords</li>
+  </ol>
+</p>
+
+<p>
+  Note, that the ansence of the <code>end;</code> keyword resulted a warning in our previous models too.
+  We will talk a bit later about the data section, let's focus on the generic model first which usually follows this template:
+  <ol>
+    <li>Generic set and parameter definitions</li>
+    <li>Generic Variable declarations</li>
+    <li>Generic Constraint definitions</li>
+    <li>Generic Objective function definition</li>
+  </ol>
+</p>
+
+<p>
+  Sets and and parameters can be declared with the <code>set</code> and <code>param</code> keywords, respectively.
+  If a set, parameter, variable has an subscript/index, the name should be followed by the following in the declaration: <code>{Setname}</code>, where <var>Setname</var> is the domain on which that set,parameter,variable is defined.
+  When using this set, variable or parameter, the index should be put within brackets after the name of the variable.
+  If there are more indeces, they should be sparated by commas both in the definition and in case of use.
+  If we want a constraint to be defined for each element of a set, a <code>{s \in Setname}</code> should be put after the name of the constraint, where <var>Setname</var> is the name of the set, and <var>s</var> is a dummy index that can be used within the constraint.
+  The syntax for the sum symbol is similar, but let's see how it looks for our second model with \(p_{b,f}\) parameter:
+</p>
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th style="width:50%" scope="col">Mathematical notation</th>
+      <th style="width:50%" scope="col">GMPL code</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td colspan="2" class="table-info">Sets and parameters</td></tr>
+    <tr><td>\(F\)</td><td><code>set F;</code></td></tr>
+    <tr><td>\(B\)</td><td><code>set B;</code></td></tr>
+    <tr><td>\(p_{b,f}\)</td><td><code>param p{B,F};</code></td></tr>
+    <tr><td colspan="2" class="table-info">Variables</td></tr>
+    <tr>
+      <td>\(y_f \in \{0,1\} \qquad \quad \forall f\in F\)</td>
+      <td><code>var y{F} binary;</code></td>
+    </tr>
+    <tr><td colspan="2" class="table-info">Constraints</td></tr>
+    <tr>
+      <td>\(\displaystyle\sum_{f \in F} p_{b,f} \cdot y_f \ge 1 \qquad \forall b\in B\)</td>
+      <td><code>s.t. Constraints{b in B}: sum{f in F} p[b,f]*y[f] >= 1;</code></td>
+    </tr>
+    <tr><td colspan="2" class="table-info">Objective function</td></tr>
+    <tr>
+      <td>\(\displaystyle\sum_{f \in F} y_f \to min\)</td>
+      <td><code>minimize Objective: sum{f in F} y[f];</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>
+  So all in all, our model is something like this:
+  <code><pre>
+    set B;
+    set F;
+    param p{B,F};
+
+    var p{F} binary;
+
+    s.t. Constraints{b in B}:
+      sum{f in F} p[b,f]*y[f] >= 1;
+
+    minimize Objective:
+      sum{f in F} y[f];
+  </pre></code>
+  But we have already learned, that it is always a good practice to have meaningful names, so before we dive into the data section, let's refactor our model to this:
+</p>
+
+<pre class="border border-2 border-dark p-2"><code>{% include sources/motivational_advanced/festival.m %}</code></pre>
+
+<p>
+  If we were to "run" this model with the usual <code>glspsol -m model.mod</code> command, we would receive an error message something like this: <var>Missing value for S</var>.
+  That is because the data section is still missing. 
+</p>
+
+<p>
+  The data section gives values for sets and parameters.
+  Many syntax tweaks can be used here, so reading the GMPL reference is highly recommended.
+  We only mention here the 4 simplest cases:
+  <pre>
+    # Set definition
+    set Setname := element1 element2 element3;
+    set Setname2 :=  element anotherelement;
+
+    # Definition of parameter with 0 subscripts/indices/dimensions:
+    # E.g. for declaration param Paramname0;
+    param Paramname0 := numericvalue;
+
+    # Definition of parameter with 1 subscript/index/dimension:
+    # E.g. for declaration param Paramname1{Setname};
+    param Paramname :=
+      element3  numericvalue
+      element2  numericvalue
+      element1  numericvalue
+      ;
+
+    # Definition of parameter with 2 subscripts/indices/dimensions:
+    # E.g. for declaration param Paramname2{Setname,Setname2}
+    param Paramname :
+                element         anotherelement :=
+      element1  numericvalue    numericvalue
+      element3  numericvalue    numericvalue
+      element2  numericvalue    numericvalue
+      ;
+  </pre>
+</p>
+
+<p>
+  Note, that the order in which the element of a set are listed in the parameter definitions is irrelevant.
+  Also, sets can have numeric elements, and parameters can be symbolic too, but we will discuss such things in more advanced models.
+  For now, let's write our data section with the syntax above:
+</p>
+
+<pre class="border border-2 border-dark p-2"><code>{% include sources/motivational_advanced/festival.d %}</code></pre>
+
+<p>
+  Note, that in the definition of the set Bands, the elements are given in new lines.
+  This is ok, GMPL does not care about the number and type of white space characters (spaces, tabs, new lines).
+  So if our model is more readible like this, feel free to put in additional newlines or spaces.
+  Similarly, a 1 dimensional parameter could be defined like this as well:
+  <pre>param Param1:= element1 value1 element3 value3 element2 value2;</pre>
+</p>
+
+<h2>Solve the new model</h2>
+
+<p>
+  We are nearly done, we just have to copy this two parts of code into a single file, and separate them with <code>data;</code>.
+  While that is good (and You should definitely try it), a better way is to put the model part into a <code>festival.mod</code> and the data part to a <code>SummerOf18.dat</code>.
+  Then run the following command: <code>glpsol -m Festival.mod -d SummerOf18.dat -o FestivalsSummer18.out</code>
+</p>
+
+<p>
+  The solver puts similar things to the standard output as before, but let's have a look at the solution file:
+</p>
+
+<pre class="border border-2 border-dark p-2"><code>{% include sources/motivational_advanced/festival.txt %}</code></pre>
+
+<p>
+  From the first table we can see, that the constraints were really generated separately for all of the bands, and from the second table, that the <var>go</var> variables were generated for all of the festivals.
+  Also, we get the same optimal solution of going to <var>F3</var> and <var>F4</var> only. 
+</p>
+
+<p>
+  Later on, we will learn some other features of GMPL, with which we can tweak this model to be nicer, but for now, we have all the tools needed to build more complex models.
+</p>
+
+<hr />
+
+<div class="alert alert-dark">
+  
+<h1 class="alert-heading">Final notes</h1>
+
+Putting the logic and the data in one place is never a good idea, and it isn't different for mathematical modeling either. GMPL let us separate these things by abstracting the data into sets, parameters, and putting their declaration to the generic model, and their definition into a separate file.
+
+
+
+
+
+</div>

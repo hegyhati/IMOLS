@@ -1,0 +1,53 @@
+Problem:    festival
+Rows:       8
+Columns:    5
+Non-zeros:  25
+Status:     OPTIMAL
+Objective:  FestivalsWentTo = 2 (MINimum)
+
+   No.   Row name   St   Activity     Lower bound   Upper bound    Marginal
+------ ------------ -- ------------- ------------- ------------- -------------
+     1 ListenToAllBandsAtLeastOnce[Haggard]
+                    B              2             1               
+     2 ListenToAllBandsAtLeastOnce[Stratovarius]
+                    NL             1             1                           1 
+     3 ListenToAllBandsAtLeastOnce[Epica]
+                    B              1             1               
+     4 ListenToAllBandsAtLeastOnce[Dalriada]
+                    B              1             1               
+     5 ListenToAllBandsAtLeastOnce[Apocalyptica]
+                    NL             1             1                           1 
+     6 ListenToAllBandsAtLeastOnce[Liva]
+                    B              2             1               
+     7 ListenToAllBandsAtLeastOnce[Eluveitie]
+                    B              1             1               
+     8 FestivalsWentTo
+                    B              2                             
+
+   No. Column name  St   Activity     Lower bound   Upper bound    Marginal
+------ ------------ -- ------------- ------------- ------------- -------------
+     1 go[F1]       NF             0                                     < eps
+     2 go[F2]       NF             0                                     < eps
+     3 go[F3]       B              1                             
+     4 go[F4]       B              1                             
+     5 go[F5]       NF             0                                     < eps
+
+Karush-Kuhn-Tucker optimality conditions:
+
+KKT.PE: max.abs.err = 0.00e+00 on row 0
+        max.rel.err = 0.00e+00 on row 0
+        High quality
+
+KKT.PB: max.abs.err = 0.00e+00 on row 0
+        max.rel.err = 0.00e+00 on row 0
+        High quality
+
+KKT.DE: max.abs.err = 0.00e+00 on column 0
+        max.rel.err = 0.00e+00 on column 0
+        High quality
+
+KKT.DB: max.abs.err = 0.00e+00 on row 0
+        max.rel.err = 0.00e+00 on row 0
+        High quality
+
+End of output
