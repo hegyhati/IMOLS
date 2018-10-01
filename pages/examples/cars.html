@@ -1,0 +1,113 @@
+---
+title: "Practice example: Car dealership"
+layout: lecture
+lead: "A practice example for GMPL skills with increasing difficulty."
+id: example_cars
+prerequisite: ["gmpladvanced2","gmplmotivational"]
+---
+
+<h2 id="simple">Simple warm-up example</h2>
+
+<p>
+  We are the collectors of old eastern european cars, namely, we want to buy the following cars one by one during the 5 weekdays:
+  <ul> <!-- TODO fancy photos -->
+    <li><a href="https://en.wikipedia.org/wiki/Wartburg_353" target="_blank">Wartburg 353</a></li>
+    <li><a href="https://en.wikipedia.org/wiki/Lada_Riva" target="_blank">Lada Nova</a></li>
+    <li><a href="https://en.wikipedia.org/wiki/Fiat_126" target="_blank">Polski Fiat 126p</a></li>
+    <li><a href="https://en.wikipedia.org/wiki/Trabant_601" target="_blank">Trabant 601</a></li>
+    <li><a href="https://en.wikipedia.org/wiki/%C5%A0koda_120" target="_blank">Škoda 125</a></li>    
+  </ul>
+  Each day we can buy exactly one of them, and a geany has told us, how the prices of these cars will change on the market in advance:
+</p>
+
+<table class="table table-striped" id="car-prices">
+  <thead>
+    <tr>
+      <th scope="col">Cars/Days</th>
+      <th scope="col">Monday</th>
+      <th scope="col">Tuesday</th>
+      <th scope="col">Wednesday</th>
+      <th scope="col">Thursday</th>
+      <th scope="col">Friday</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">Wartburg</th>
+      <td>60000</td><td>65000</td><td>61000</td><td>66000</td><td>60000</td>
+    </tr>
+    <tr>
+      <th scope="row">Lada</th>
+      <td>50000</td><td>55000</td><td>63000</td><td>60000</td><td>52000</td>
+    </tr>
+    <tr>
+      <th scope="row">Fiat</th>
+      <td>30000</td><td>32000</td><td>33000</td><td>30000</td><td>27000</td>
+    </tr>
+    <tr>
+      <th scope="row">Trabant</th>
+      <td>70000</td><td>65000</td><td>77000</td><td>85000</td><td>100000</td>
+    </tr>
+    <tr>
+      <th scope="row">Skoda</th>
+      <td>65000</td><td>70000</td><td>75000</td><td>90000</td><td>70000</td>
+    </tr>
+  </tbody>
+</table>
+
+
+  
+
+
+<p class="py-3">
+  The goal is simple: buy all of the cars, one at a day, so that we spend the smallest amount of money possible.
+  <a class = "btn btn-block btn-outline-primary" data-toggle="collapse" href="#car1" role="button">Reveal solution</a>
+</p>
+
+
+<div class="collapse" id="car1">
+  <div class="card card-body">
+    <pre class="border border-2 border-dark p-2"><code>{% include sources/cars/Cars2.m %}</code></pre>
+  </div>
+</div>
+
+
+<h2 id="trading">Making things a bit more complex: trading</h2>
+
+<p>
+  Let us make the problem more realistic (and complex).
+  Remove the restriction of only buying one car at a day.
+  Let us have an initial budget of 200000, and we can decide how and when we want to use it.
+  We can buy cars, and sell them a day or two later.
+  The only restriction is, that we have 4 garages, where we can store cars during the night.
+</p>
+
+<p class="py-3">
+  The goal is to maximize our budget by the end of the week.
+  <a class = "btn btn-block btn-outline-primary" data-toggle="collapse" href="#car2" role="button">Reveal solution</a>
+</p>
+
+
+<div class="collapse" id="car2">
+  <div class="card card-body">
+    <pre class="border border-2 border-dark p-2"><code>{% include sources/cars/Cars3.m %}</code></pre>
+  </div>
+</div>
+
+<h2 id="loan-rent">Final step: money loans and garage renting</h2>
+
+<p>
+  Finally, let us assume, that we can rent an additional garage for one night for 4000, and we can also take loans from the bank with a 4% daily interest.
+</p>
+
+<p class="py-3">
+  The goal is the same: maximize our budget by the end of the week.
+  <a class = "btn btn-block btn-outline-primary" data-toggle="collapse" href="#car3" role="button">Reveal solution</a>
+</p>
+
+
+<div class="collapse" id="car3">
+  <div class="card card-body">
+    <pre class="border border-2 border-dark p-2"><code>{% include sources/cars/Cars5.m %}</code></pre>
+  </div>
+</div>
