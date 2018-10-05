@@ -1,0 +1,18 @@
+[
+  {
+    "id": "MOiP",
+    "title" : "Modeling and Optimization in Practice",
+    "description" : "14 week, 3 hour course at the Szechenyi Istvan University for 3rd year bachelors in IT",
+    "university" : "Szechenyi Istvan University",
+    "lectures" : [
+      "festivals",
+      "froccs",
+      "lpfirststeps",
+      "gmplbasics",
+      "gmplmotivational",
+      "gmpladvanced1",
+      "gmplmotivational2",
+      "gmpladvanced2"
+    ]
+  }
+]

@@ -2,8 +2,35 @@
 title: Contents
 layout: default
 ---
+<div class="container">
+{% for course in site.data.courses %}
+  <div class="jumbotron">
+    <h1 class="display-4">{{course.title}}</h1>
+    <p class="lead">{{course.description}}</p>
+  </div>
+  <ol>
+    {% for clecture in course.lectures %}
+        {% for lecture in site.pages %}          
+          {% if lecture.id == clecture %}
+            <li><a href="{{site.baseurl}}{{lecture.url}}"><b>{{lecture.title}}</b></a><br/>{{lecture.lead}}</li>
+          {% endif %}
+        {% endfor %}
+    {% endfor %}
+  </ol>
+{% endfor %}
+</div>
+
+
+<hr />
 
 <div class="container">
+
+  <div class="jumbotron">
+      <h1 class="display-4">List of all pages</h1>
+      <p class="lead">Temporary section for development. Pages are not ordered in any way.</p>
+  </div>
+
+
   {% assign lectures = (site.pages | where: "layout", "lecture")  %}
   <div class="list-group">
   {% for lecture in lectures %}
@@ -12,17 +39,17 @@ layout: default
   </div>
 
 
-<h5 class="my-3">Planned further pages:</h5>
+  <h5 class="my-3">Planned further pages:</h5>
 
-<ul>
-  <li>Under the hood: the simplex method</li>
-  <li>Under the hood: B&B techniques</li>
-  <li>Advanced modelling: Big-M constraints</li>
-  <li>Advanced modelling: Nonlinear function approximation with piecewise linear functions</li>
-  <li>GLPK API</li>
-  <li>COIN/OR, Gurobi, CPLEX</li>
-  <li>Special problem classes: Assignment problem</li>
-  <li>Applications: Batch process scheduling</li>
-</ul>
+  <ul>
+    <li>Under the hood: the simplex method</li>
+    <li>Under the hood: B&B techniques</li>
+    <li>Advanced modelling: Big-M constraints</li>
+    <li>Advanced modelling: Nonlinear function approximation with piecewise linear functions</li>
+    <li>GLPK API</li>
+    <li>COIN/OR, Gurobi, CPLEX</li>
+    <li>Special problem classes: Assignment problem</li>
+    <li>Applications: Batch process scheduling</li>
+  </ul>
 
 </div>
