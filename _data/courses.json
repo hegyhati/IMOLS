@@ -5,15 +5,16 @@
     "description" : "14 week, 3 hour course at the Szechenyi Istvan University for 3rd year bachelors in IT",
     "university" : "Szechenyi Istvan University",
     "lectures" : [
-      "festivals",
-      "froccs",
-      "lpfirststeps",
-      "gmplbasics",
-      "gmplmotivational",
-      "gmpladvanced1",
-      "gmplmotivational2",
-      "gmpladvanced2",
-      "example_cars"
+      "motivational_festivals",
+      "motivational_froccs",
+      "lp_first_steps",
+      "gmpl_basics",
+      "gmpl_motivational",
+      "gmpl_advanced_1",
+      "gmpl_motivational_2",
+      "gmpl_advanced_2",
+      "example_cars",
+      "bigM"
     ]
   }
 ]
