@@ -1,0 +1,327 @@
+---
+title: "Under the hood: Branch and Bound algorithm"
+layout: lecture
+lead: "General frame algorithm for solving discrete problems."
+id: branch_and_bound
+prerequisite: ["simplex"]
+---
+
+
+
+<h2>Brute force approach and enumeration of feasible solutions</h2>
+
+<p>
+  We have seen in case of the <a href="{{site.baseurl}}/pages/motivational_festival.html">festivals example</a>, that brute force approach is a probably very slow, but valid approach to find the optimal solution when the search space is discrete and finite.
+  Some acceleration ideas have also been mentioned, some of which may could be applied in a more general manner.
+  Let's focus on enumerating only the feasible solutions now.
+</p>
+
+<p>
+  Enumerating all of the solutions was simple for the festivals, travesing through all of the subsets of a set is a simple task to do.
+  We would only need to count from 0 to \(2^n-1\) and interpret the numbers binary representation as a subset indicator.
+  Many of those subsets are, however, infeasible, and things get a little bit more difficult, if we want to generate the feasible solutions only.
+  Try to figure out an approach to do so by yourself, or just click the button below.
+   <a class = "btn btn-block btn-outline-primary" data-toggle="collapse" href="#solutionCollapse" role="button">Show solution</a>
+</p>
+
+
+<div class="collapse" id="solutionCollapse">
+  <div class="card card-body">
+    <p>
+    There are many ways to do this, but a simple approach would be to follow these steps:
+    </p>
+
+    <p>
+      We wither go to F1 or not.
+      <ol>
+        <li>If we don't go to F1, we wither go to F2 or not
+          <ol>
+            <li>If we don't go to either F1 or F2, we can ither go to F3 or not
+              <ol>
+                <li>If we don't go to F1,F2,F3, we have to go to F4 because that's the last option for Apocalyptica and Haggard
+                  <ol>
+                    <li>If we go to F4, but not to F1, F2, or F3, we have to go to F5, as that is the last option for several bands.
+                      <ol>
+                        <li>We go to F4 and F5, but not to F1,F2,F3. There are no decisions left, and we have a solution with 2 festivals.</li></li>
+                      </ol>
+                    </li>
+                  </ol>
+                </li>
+                <li>
+                  If we don't go to F1 or F2, but go to F3, we have to go F4 because that's the last option for Apocalyptica and Haggard
+                  <ol>
+                      <li>If we go to F3 and F4, but not to F1 or F2, we wither go to F5 or not.
+                        <ol>
+                          <li>If we go to F3 and F4, but not F1,F2 or F5, we have a solution with two festivals.</li>
+                          <li>If we go to F3,F4 and F5, but not F1 or F2, we have a solution with three festivals.</li>
+                        </ol>
+                      </li>
+                  </ol>
+                </li>
+              </ol>
+            </li>
+            <li>If we go to F2, but not to F1, we can either go to F3 or not...</li>
+          </ol>      
+        </li>
+        <li>If we go to F1, we wither go to F2 or not...</li>
+      </ol>
+    </p>
+    <p>
+      A tree-style enumeration of the feasible solutions can be observed in the above approach:
+      <ul>
+        <li>The root of the tree represents the case, when no decisions are made.</li>
+        <li>The leafs represent solutions, where all the decisions are made.</li>
+        <li>At each non-leaf node, a decision is made with all the possible outcomes "encoded" in its children.</li>
+      </ul>
+    </p>
+    <div class="tree">
+      <ul>  
+        <li>
+          <a href="#">No decision</a>
+          <ul>
+            <li>
+              <a href="#"> go to F1</a>
+              <ul>
+                <li><a href="#">...</a></li>
+              </ul>
+            </li>
+            <li>
+              <a href="#"> don't go to F1</a>
+              <ul>
+                <li><a href="#"> go to F2</a>
+                  <ul>
+                    <li><a href="#">...</a></li>
+                  </ul>
+                </li>
+                <li><a href="#"> don't go to F2</a>
+                  <ul>
+                    <li><a href="#">go to F3</a>
+                      <ul>
+                        <li><a href="#">go to F4</a>                          
+                          <ul>
+                            <li><a href="#">go to F5</a></li>
+                            <li><a href="#">don't go to F5</a></li>
+                          </ul>
+                        </li>
+                      </ul>
+                    </li>
+                    <li><a href="#">don't go to F3</a>
+                      <ul>
+                        <li><a href="#">go to F4</a>                          
+                          <ul>
+                            <li><a href="#">go to F5</a></li>
+                          </ul>
+                        </li>
+                      </ul>
+                      
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+    <p>
+      Another way to look at the same tree is:
+      <ul>
+        <li>The root represents the set of all of the feasible solutions.</li>
+        <li>The leafs are single solutions, or more precisely: solution sets with a single element inside of them.</li>
+        <li>At each non-leaf node, a deacision is made, that divides the nodes'  set into subsets, that will be its children.</li>
+      </ul>
+    </p>
+  </div>
+</div>
+
+<h2>The "Branch" part</h2>
+
+<p>
+  The approach described above can be generalized to any problems with discrete decisions:
+  <ol>
+    <li>Take the set of all of the feasible solutions, and assign them to the root node of a tree.</li>
+    <li>For each tree node, whose set is not a singleton, select a decision, that has to be made, and parition the set assigned to that node so, that each subset contains the solutions having a specific outcome. Assign these subsets to children nodes. No children nodes are made for empty subsets.</li>
+    <li>If the set of a node is a singleton, that node will be a leaf, and the solution can be evaluated</li>
+  </ol>
+</p>
+
+<div class="alert alert-info">
+  Note, that in general, Branch and Bound algorithms does not require the branching part to partition, i.e., to create disjoint subsets, only subsets, whose union covers the original set.
+  Also, empty subsets may be represented and partitioned into further empty subsets, and singleton sets may be partitioned into empty sets and singleton sets, as reasoned below.
+</div>
+
+<p>
+  In practice, the sets assigned to nodes are usually not generated and partitioned explicitely.
+  Instead, the outcomes of the former decisions are kept, and at each node it is somehow checked, whether:
+  <ul>
+    <li>There is at least one feasible solution with the former decision outcomes.</li>
+    <li>If yes, are there more than one solutions in that set?</li>
+  </ul>
+  These checks do not need to be 100% precise, however they must declare emptyness, singleton sets only with 100 percent certainty.
+  This means, that it is ok, for the tester of "emptyness" to say "I'm not sure" on a set, and then treat it as a non-empty set, but it mustn't declare a set empty, if it is not.
+  The same goes for identifying singletons. 
+</p>
+
+<p>
+  If we already have the above branching algorithm, it can easily be extended with a minimum search on the leafs. 
+</p>
+
+<h2>The "Bound" part</h2>
+
+<p>
+  Let us consider a simple shortest path problem:
+  I am currently living in Győr, and my parents live in Nagykanizsa.
+  Let us assume, that I want to drive home the shortest way possible, only using main roads (roads with 1 and 2 digit numbers), but no highways to avoid additional fees.
+</p>
+
+<div class="alert alert-info">
+  This problem can obviously solved to optimality efficiently by e.g., <a href="https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm" target="_blank">Dijkstra's algorithm</a>.
+  Thus the presented approach here serves rather as an illustration, than as a recommendation for this particular problem class.
+</div>
+
+<div class="embed-responsive embed-responsive-4by3">
+  <iframe src="https://www.google.com/maps/embed?pb=!1m28!1m12!1m3!1d695632.3427923092!2d16.69038797759107!3d47.07330888104212!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m13!3e0!4m5!1s0x476bbf87407ea035%3A0x400c4290c1e11e0!2zR3nFkXIsIEh1bmdhcnk!3m2!1d47.6874569!2d17.6503974!4m5!1s0x476893061c075be9%3A0x400c4290c1e12b0!2sNagykanizsa%2C+Hungary!3m2!1d46.459021799999995!2d16.9896796!5e0!3m2!1sen!2s!4v1540798910120" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
+</div>
+
+
+<p>
+  A simple way to split all of the feasible routes to subsets is to make a decision on the first part of my track, which can be either:
+  <ol>
+    <li>Driving on road 1 to Mosonmagyaróvár</li>
+    <li>Driving on road 85 to Csorna</li>
+    <li>Driving on road 83 to Városlőd</li>
+    <li>Driving on road 82 to Veszprém</li>
+    <li>Driving on road 81 to Kisbér</li>
+    <li>Driving on road 1 (in the other direction) to Komárom</li>
+  </ol>
+</p>
+
+<p>
+  A children node is created for all of these 6 options, and for example, the fourth node represents all of the solutions that start with <emph>Győr-Veszprém-...</emph>.
+  For each node, branching can be done in the same fashion, for example, the route Győr-Veszprém can continue with:
+  <ul>
+    <li>Driving on road 8 to Városlőd</li>
+    <li>Driving on road 77 to Lesencetomaj</li>
+    <li>Driving on road 73 to Csopak</li>
+    <li>Driving on road 8 to the crossing near Litér</li>
+  </ul>
+  We don't list the option of driving the road 82 back to Győr, as we are not interested in circular routes.
+</p>
+
+<p>
+  This can be repeated for all of the nodes, until we reach Nagykanizsa.
+  If the "partial route" of a node ends at Nagykanizsa, it must be a leaf node, as that route is the only feasible solution with no circle that has that beginning.
+  The length of the route can be evaluated and used in the minimum search.
+</p>
+
+<p>
+  This approach, however, is not very efficient.
+  Assume, that we have already found the following leaf node: "Győr - Veszprém - Csopak - Balatonederics - Keszthely - Fenékpuszta - Balatonszentgyörgy - Nagykanizsa" with 217 km.
+  When we find this solution, there may be other uninvestigated nodes with partial routes, for example: "Győr - Komárom - Budapest - Szolnok".
+  If we were to blindly follow the instructions above, we would create two children nodes (branch this solution set into two) for following the direction towards either Jászberény or Törökszentmiklós.  
+</p>
+
+<p>
+  We can, however, observe, that the route until Szolnok is already 227 km long, that is longer than a feasible solution we have found so far.
+  Thus, there is no meaning in finding solutions in this subtree (in the set assigned to this node), as they will definitely be worse than a solution formerly found, hence not optimal.
+  So, we can prune this node (solution subset) from the search, and look for another one.
+</p>
+
+<p>
+  What we did essentially is to give a lower bound on all of the solutions in that subtree (in the set assigned to the node), and if it was worse than the best solution found so far, the subtree (solution subset) was pruned.
+  This idea can be generalized to any problem class, if there is a way to provide a lower bound on a subset of solutions.
+  A general, pseudo-code like structure of the Branch-and-Bound frame algorithm looks like this:
+</p>
+
+
+<div class="alert alert-primary">
+  <p>
+    <ol>
+      <li>Set \(min\) to \(\infty\)</li>
+      <li>Let \({\cal S}=\{ S \}\), where \(S\) is the set of all of the feasible solutions.</li>
+      <li>While \(\cal S\) is not empty:
+        <ol>
+          <li>Select and remove an element from \(\cal S\), and denote it with \(P\)</li>
+          <li>If the lower bound on the solutions in \(P\) is greater than \(min\), then prune this set, and continue with another set from \(\cal S\) if there is one.</li>
+          <li>Otherwise:
+            <ol>
+              <li>If \(P\) is a singleton, chech the value of that solution, and update \(min\) if it is better than that.</li>
+              <li>If \(P\) is not a singleton, find a decision that can further partition it, creating \(P_1,P_2,\dots\), then put the non-empty subsets into \(\cal S\)</li>
+            </ol>
+          </li>
+        </ol>
+      </li>
+      <li>If \(min\) is not infinity, it has the optimal solution, and there is no feasible solution otherwise</li>
+    </ol>
+  </p>
+</div>
+
+<p>
+  Note, that this is a frame algorithm, that can be used for a lot of problem classes, where the details has to be specified, e.g.:
+  <ul>
+    <li>How is \(P\) selected, i.e., what is the rule of selecting the next uninvestigated node in the tree?</li>
+    <li>Which decision is selected for a node?</li>
+    <li>How does the bound function work?</li>
+    <li>How can we decide if \(P\) is singleton or empty?</li>
+  </ul>
+</p>
+
+<p>
+  For example, we used the length of the "already traveled path" as the lower bound, and made branches based on the next segment in the path.
+</p>
+
+
+<div class="alert alert-info">
+  If the problem is maximization, we need to have an upper bound, and \(P\) is pruned if its bound is lower than the best solution so far (\(max\) in that case).
+  Moreover, bound functions are usually required to give back the exact value of the solution contained in a singleton.
+  If that is known about the bounding function, then no further conditional is needed to update \(min\) if \(P\) is a singleton, and its bound was already proven to be below \(min\).
+</div>
+
+<h2>Note about bounding functions</h2>
+
+<p>
+  The "tightness" of a bounding function can be the most important contributor to the efficiency of an algorithm.
+  If the bound is not tight, i.e., the bound is far from the actual value of the best solution in \(P\), then pruning will only happen deeper in the tree, and a subtree is investigated unnecessatily.
+  To understand this, let's go back to our pruned path, "Győr - Komárom - Budapest - Szolnok".
+  The parent of this node was "Győr - Komárom - Budapest", and it has 7 siblings.
+  The bound of the parent is 126 km, which is way below of the 217 km long solution we have found earlier, so all 8 children nodes are generated.
+  If we look at the map, we can see intuitievely, that this is really a wrong direction to go, as Budapest is east from Gyor, while Nagykanizsa is to the south-west.
+  What this means, that just by looking at the map, we know, that none of the solutions in this subtree (in the set assigned to "Győr - Komárom - Budapest") will be better than the one we have already found.
+  Still we need to generate the children, and in some cases the grandchildren to prove it, as our bound is not tight enough.
+</p>
+
+<p>
+  Our previous bound did not include anything about the distance, that is still to be traveled from the end of the current path.
+  However, it is not difficult to provide a lower bound for that either.
+  Simply we should add the geographical distance between the end of the current path and Nagykanizsa.
+  For the "Győr - Komárom - Budapest" node, this Budapest-Nagykanizsa distance is 190 km.
+  Adding the two together: 126 + 190 = 316 km, which is still a valid lower bound, as any "ending" of that path will be longer than 190 km.
+  316 km is way over 227, so with this tigther bound we can prune the "Győr - Komárom - Budapest" node, and we will not have to spend time generating and evaluating its children, grandchildren.
+</p>
+
+<div class="alert alert-info">
+  Note, that we can only prune "Győr - Komárom - Budapest", if we have a solution better than 316 km already.
+  Thus, the strategy to explore the nodes in the tree can be just as important as a tight bound.
+</div>
+
+<p>
+  It seems, that we always have to strive towards tighter and tighter bounds to keep the B&B tree as small as possible.
+  Tighter bounds, however, often require more complex calculations.
+  A slightly tigther bound may not prune enough nodes to make up for the additional time spent on calculating that complex bound at each node.
+  Selecting the best performing bound is not a trivial task, and is often done on a statistical basis.
+</p>
+
+<!-- TODO B&B for MILP -->
+
+<hr />
+
+<div class="alert alert-dark">
+  
+<h1 class="alert-heading" id="final-notes">Final notes</h1>
+
+The purpose of this lecture is to provide a small insight about how the discrete part of an optimization problem is often handled by a solver.
+
+
+
+
+</div>
