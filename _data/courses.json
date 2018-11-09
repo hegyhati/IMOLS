@@ -7,15 +7,16 @@
     "lectures" : [
       "motivational_festivals",
       "motivational_froccs",
-      "lp_first_steps",
+      "modelling_lp_first_steps",
       "gmpl_basics",
       "gmpl_motivational",
       "gmpl_advanced_1",
       "gmpl_motivational_2",
       "gmpl_advanced_2",
-      "bigM",
+      "modelling_redundant_variables"
+      "modelling_bigM",
       "example_cars",
-      "branch_and_bound",
+      "theory_branch_and_bound",
     ]
   }
 ]
