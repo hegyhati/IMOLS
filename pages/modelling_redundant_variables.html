@@ -1,0 +1,251 @@
+---
+title: "Advanced modelling techniques: \"Redundant\" variables"
+layout: lecture
+lead: "Introducing \"redundant\" variables to make models more transparent"
+id: modelling_redundant_variables
+prerequisite: ["modelling_lp_first_steps","gmpl_advanced_1"]
+---
+
+<h2>Motivational example</h2>
+
+<pre>
+I've decided to visit my friend Jacques in Capetown. 
+As I haven't been to Africa many times before, I decide to travel by car, so that I can see more of this beautiful continent. 
+Alae-Eddine was kind enough to lend me His car for this trip, so the only thing I'll have to pay for is the petrol for the journey. 
+Naturally, I would like to reduce the cost of the trip as much as possible, thus I'm planning in advance where and how much I'll refuel the car. 
+
+\section{Problem data}
+The trip is $11000$ km long, and there are $22$ petrol stations on the way, where I can buy petrol for different prices.
+The following table shows the petrol stations, their distance from Oujda, and the price of 1 liter of petrol there.
+
+\begin{center}
+  \begin{tabular}{r|c|c|}
+  Petrol station & Distance from Oujda (km) & Price of petrol (Dh/l) \\ \hline
+  Algeria1&  320&   100\\
+  Algeria2&  840&   90\\
+  Algeria3&  1350&  70\\
+  Algeria4&  2000&  80\\
+  Algeria5&  2580&  100\\
+  Algeria6&  3170&  90\\
+  Niger1&    3560&  120\\
+  Niger2&    4080&  130\\
+  Nigeria1&  4660&  140\\
+  Nigeria2&  5180&  120\\
+  Cameroon&  5500&  150\\
+  Gabon&     5950&  160\\
+  Congo1&    6479&  110\\
+  Congo2&    6990&  130\\
+  Angola1&   7440&  120\\
+  Angola2&   7960&  130\\
+  Angola3&   8410&  120\\
+  Namibia1&  8730&  140\\
+  Namibia2&  9250&  150\\
+  Namibia3&  9770&  130\\
+  SouthAfrica1&  10350& 140\\
+  SouthAfrica2&  10670& 120\\
+  \end{tabular}
+\end{center}
+The tank of the car can take at most $70$ liters of petrol, and in general, it consumes $7.5$ liters of petrol for $100$ km. 
+
+Although I'm eager to minimize my costs, I'd like to be safe in a sense, that I don't want to get to a petrol station with an empty tank. 
+I always would like to have enough petrol in my tank to travel an additional $50$ km, when I get to a petrol station.
+
+Finally, when I start in Oujda, the tank is full. 
+
+\section{Mathematical model for the problem}
+  \subsection{Decisions - Variables}
+  The only decision that I have to make at each petrol station is the amount of the petrol I refuel there. 
+  For these decisions I introduce $22$ non-negative continuous variables:
+  $$ \begin{array}{c} x_{Al1}, x_{Al2}, x_{Al3}, x_{Al4}, x_{Al5}, x_{Al6}, x_{Nr1}, x_{Nr2}, x_{Ni1}, x_{Ni2}, x_{Ca},\\ x_{Ga}, x_{Co1}, x_{Co2}, x_{An1}, x_{An2}, x_{An3}, x_{Na1}, x_{Na2}, x_{Na3}, x_{SA1}, x_{SA2} \in \mathbb{R}^+\end{array}$$
+  
+  \subsection{Constraints}
+  When I arrive to the first station, Algeria1, I shoud have enough petrol left in my tank to drive an other $50$ km. 
+  The petrol that I have used to get to Algeria1 is $(320/100) \cdot 7.5 = 24$  liters of petrol.
+  So, I still have $46$ liters left, that is more then enough for $50$ km. 
+  
+  Now I'll refuel $x_{Al1}$ liters of petrol. 
+  This has to satisfy two constraints. First $x_{Al1}$ must be less then $46$ as I don't have more space in my tank. Secondly, the amount of the petrol in the tank should be enough to get to Algeria2 and $50$ additional kilometers. 
+  
+  $$x_{Al1} \le 46$$
+  
+  The amount of kilometers for which the petrol will be enough is $ (46 + x_{Al1}) \cdot 100 / 7.5 $, and this should be less then the distance to Algeria2 and the $50$ km:
+  
+  $$ (46 + x_{Al1}) \cdot \frac{100}{7.5} \ge  (840-320) + 50 $$
+  
+  When I get to Algeria2, I refuel my car with $x_{Al2}$ liters of petrol. 
+  So far I have used $(840 / 100)\cdot 7.5 = 63$ liters of petrol. 
+  Initially I had $70$ and I've refueled $x_{Al1}$ at Algeria1, so I have now $70 + x_{Al1} - 63$ liters in my tank.
+  Again, I can not exceed the capacity of my tank, thus:
+  $$ x_{Al2} + 70 + x_{Al1} - 63 \le 70$$
+  
+  And as in the previous case, I must fuel enough to be able to get to Algeria3 (plus the $50$ km). 
+  The amount of petrol after the refuel is $70 + x_{Al1} + x_{Al2} - 63$, that must be enough for $1350-840 + 50$ kilometers:
+  
+  $$ (70 + x_{Al1} + x_{Al2} - 63) \cdot \frac{100}{7.5} \ge 1350-840 + 50 $$ 
+  
+  For all of the other stations, similar constraints must be set. As it is clear now, there are two types of constraints:
+  \begin{itemize}
+    \item an upper bound on the amount of petrol to buy, not to exceed the capacity of the tank
+    \item a lower bound on the amount of petrol to buy, so that the petrol in the tank should be enough to get to the next station (and for an additional 50 km)
+  \end{itemize}
+  
+  \subsubsection*{Lower bound on the amount of petrol}
+  If I'm at station $s$, the petrol that I've already used so far is $distance_s \cdot \frac{7.5}{100}$.
+  Initially I had 70 liters of petrol, and at all of the previous petrols stations $s'$ I've refueled $x_{s'}$ liters, so alltogether I had $70 + x_{Al1} + x_{Al2} + \dots + x_{prev_s}$ petrol ($prev_s$ is a station before $s$), that must be anough to get here, and an additional 50 km, i.e.:
+  $$ 70 + x_{Al1} + x_{Al2} + \dots + x_{prev_s} \ge (distance_s  + 50) \cdot \frac{7.5}{100}$$
+  
+  So the constraints for this type are the following:
+  
+  \begin{eqnarray}
+    70 & \ge & (320  + 50) \cdot \frac{7.5}{100}\\
+    70 + x_{Al1} & \ge & (840  + 50) \cdot \frac{7.5}{100}\\
+    70 + x_{Al1} + x_{Al2} & \ge & (1350  + 50) \cdot \frac{7.5}{100}\\
+    70 + x_{Al1} + x_{Al2} + x_{Al3} & \ge & (2000  + 50) \cdot \frac{7.5}{100}\\
+    70 + x_{Al1} + x_{Al2} + x_{Al3} + x_{Al4} & \ge & (2580  + 50) \cdot \frac{7.5}{100}\\
+    70 + x_{Al1} + x_{Al2} + x_{Al3} + x_{Al4} + x_{Al5} & \ge & (3170  + 50) \cdot \frac{7.5}{100}\\
+    70 + x_{Al1} + x_{Al2} + x_{Al3} + x_{Al4} + x_{Al5}  + x_{Al6} & \ge & (3560  + 50) \cdot \frac{7.5}{100}\\
+    70 + x_{Al1} + x_{Al2} + x_{Al3} + x_{Al4} + \cdots + x_{Nr1} & \ge & (4080  + 50) \cdot \frac{7.5}{100}\\
+    70 + x_{Al1} + x_{Al2} + x_{Al3} + x_{Al4} + \cdots + x_{Nr2} & \ge & (4660  + 50) \cdot \frac{7.5}{100}\\
+    70 + x_{Al1} + x_{Al2} + x_{Al3} + x_{Al4} + \cdots + x_{Ni1} & \ge & (5180  + 50) \cdot \frac{7.5}{100}\\
+    70 + x_{Al1} + x_{Al2} + x_{Al3} + x_{Al4} + \cdots + x_{Ni2} & \ge & (5500  + 50) \cdot \frac{7.5}{100}\\
+    70 + x_{Al1} + x_{Al2} + x_{Al3} + x_{Al4} + \cdots + x_{Ca} & \ge & (5950  + 50) \cdot \frac{7.5}{100}\\
+    70 + x_{Al1} + x_{Al2} + x_{Al3} + x_{Al4} + \cdots + x_{Ga} & \ge & (6479  + 50) \cdot \frac{7.5}{100}\\
+    70 + x_{Al1} + x_{Al2} + x_{Al3} + x_{Al4} + \cdots + x_{Co1} & \ge & (6990  + 50) \cdot \frac{7.5}{100}\\
+    70 + x_{Al1} + x_{Al2} + x_{Al3} + x_{Al4} + \cdots + x_{Co2} & \ge & (7440 + 50) \cdot \frac{7.5}{100}\\
+    70 + x_{Al1} + x_{Al2} + x_{Al3} + x_{Al4} + \cdots + x_{An1} & \ge & (7960 + 50) \cdot \frac{7.5}{100}\\
+    70 + x_{Al1} + x_{Al2} + x_{Al3} + x_{Al4} + \cdots + x_{An2} & \ge & (8410 + 50) \cdot \frac{7.5}{100}\\
+    70 + x_{Al1} + x_{Al2} + x_{Al3} + x_{Al4} + \cdots + x_{An3} & \ge & (8730 + 50) \cdot \frac{7.5}{100}\\
+    70 + x_{Al1} + x_{Al2} + x_{Al3} + x_{Al4} + \cdots + x_{Na1} & \ge & (9250 + 50) \cdot \frac{7.5}{100}\\
+    70 + x_{Al1} + x_{Al2} + x_{Al3} + x_{Al4} + \cdots + x_{Na2} & \ge & (9770 + 50) \cdot \frac{7.5}{100}\\
+    70 + x_{Al1} + x_{Al2} + x_{Al3} + x_{Al4} + \cdots + x_{Na3} & \ge & (10350 + 50) \cdot \frac{7.5}{100}\\    
+    70 + x_{Al1} + x_{Al2} + x_{Al3} + x_{Al4} + \cdots + x_{SA1} & \ge & (10670 + 50) \cdot \frac{7.5}{100}
+  \end{eqnarray}
+  
+  And finally, I should be able to get to Capetown:
+  \begin{eqnarray}
+    70 + x_{Al1} + x_{Al2} + x_{Al3} + x_{Al4} + \cdots + x_{SA2} & \ge & (11000 + 50) \cdot \frac{7.5}{100}
+  \end{eqnarray}
+  
+  In a general form these constraints could be stated as:
+  $$ 70 + \sum_{s'\atop {\text{$s'$ is a petrol }\atop\text{ station before $s$}}}x_{s'} \ge (distance_s + 50) \cdot \frac{7.5}{100} \qquad \forall s,\text{$s$ is a petrol station}$$
+  
+  And for the whole trip:
+  
+  $$ 70 + \sum_{s\atop {\text{$s$ is a petrol station}}}x_{s} \ge (11000 + 50) \cdot \frac{7.5}{100} $$
+  
+  \subsubsection*{Upper bound on the amount of petrol}
+  Initially I had 70 liters of petrol, and at all of the previous petrols stations $s'$ I've refueled $x_{s'}$ liters, so alltogether I had $70 + x_{Al1} + x_{Al2} + \dots + x_{s}$ petrol ($prev_s$ is a station before $s$). From this I've used  $distance_s \cdot \frac{7.5}{100}$. Together with $x_s$ this must not exceed the capacity of the tank, i.e., 70 liters:
+  $$ 70 + x_{Al1} + x_{Al2} + \dots + x_s - distance_s \cdot \frac{7.5}{100} \le 70$$
+  
+  Which can be stated simpler as:
+  
+  $$ x_{Al1} + x_{Al2} + \dots + x_s \le  distance_s \cdot \frac{7.5}{100}$$
+  
+  So the constraints for this type are the following:
+  
+  \begin{eqnarray}
+     x_{Al1} & \le & 320  \cdot \frac{7.5}{100}\\
+     x_{Al1} + x_{Al2} & \le & 840  \cdot \frac{7.5}{100}\\
+     x_{Al1} + x_{Al2} + x_{Al3} & \le & 1350  \cdot \frac{7.5}{100}\\
+     x_{Al1} + x_{Al2} + x_{Al3} + x_{Al4} & \le & 2000  \cdot \frac{7.5}{100}\\
+     x_{Al1} + x_{Al2} + x_{Al3} + x_{Al4} + x_{Al5} & \le & 2580  \cdot \frac{7.5}{100}\\
+     x_{Al1} + x_{Al2} + x_{Al3} + x_{Al4} + x_{Al5}  + x_{Al6} & \le & 3170  \cdot \frac{7.5}{100}\\
+     x_{Al1} + x_{Al2} + x_{Al3} + x_{Al4} + \cdots + x_{Nr1} & \le & 3560  \cdot \frac{7.5}{100}\\
+     x_{Al1} + x_{Al2} + x_{Al3} + x_{Al4} + \cdots + x_{Nr2} & \le & 4080  \cdot \frac{7.5}{100}\\
+     x_{Al1} + x_{Al2} + x_{Al3} + x_{Al4} + \cdots + x_{Ni1} & \le & 4660  \cdot \frac{7.5}{100}\\
+     x_{Al1} + x_{Al2} + x_{Al3} + x_{Al4} + \cdots + x_{Ni2} & \le & 5180  \cdot \frac{7.5}{100}\\
+     x_{Al1} + x_{Al2} + x_{Al3} + x_{Al4} + \cdots + x_{Ca} & \le & 5500  \cdot \frac{7.5}{100}\\
+     x_{Al1} + x_{Al2} + x_{Al3} + x_{Al4} + \cdots + x_{Ga} & \le & 5950  \cdot \frac{7.5}{100}\\
+     x_{Al1} + x_{Al2} + x_{Al3} + x_{Al4} + \cdots + x_{Co1} & \le & 6479  \cdot \frac{7.5}{100}\\
+     x_{Al1} + x_{Al2} + x_{Al3} + x_{Al4} + \cdots + x_{Co2} & \le & 6990 \cdot \frac{7.5}{100}\\
+     x_{Al1} + x_{Al2} + x_{Al3} + x_{Al4} + \cdots + x_{An1} & \le & 7440 \cdot \frac{7.5}{100}\\
+     x_{Al1} + x_{Al2} + x_{Al3} + x_{Al4} + \cdots + x_{An2} & \le & 7960 \cdot \frac{7.5}{100}\\
+     x_{Al1} + x_{Al2} + x_{Al3} + x_{Al4} + \cdots + x_{An3} & \le & 8410 \cdot \frac{7.5}{100}\\
+     x_{Al1} + x_{Al2} + x_{Al3} + x_{Al4} + \cdots + x_{Na1} & \le & 8730 \cdot \frac{7.5}{100}\\
+     x_{Al1} + x_{Al2} + x_{Al3} + x_{Al4} + \cdots + x_{Na2} & \le & 9250 \cdot \frac{7.5}{100}\\
+     x_{Al1} + x_{Al2} + x_{Al3} + x_{Al4} + \cdots + x_{Na3} & \le & 9770 \cdot \frac{7.5}{100}\\    
+     x_{Al1} + x_{Al2} + x_{Al3} + x_{Al4} + \cdots + x_{SA1} & \le & 10350 \cdot \frac{7.5}{100}\\
+     x_{Al1} + x_{Al2} + x_{Al3} + x_{Al4} + \cdots + x_{SA2} & \le & 10670 \cdot \frac{7.5}{100}
+  \end{eqnarray}
+  
+  In a general form these constraints could be stated as:
+  $$ \sum_{s'\atop {\text{$s'$ is a petrol }\atop\text{ station before $s$}}}x_{s'} + x_s \le distance_s \cdot \frac{7.5}{100} \qquad \forall s,\text{$s$ is a petrol station}$$
+  
+  \subsection{Objective}
+  My goal is to minimize the cost of petrol, that I buy, i.e.:
+  $$ \begin{array}{clclclclc} 
+  &100 \cdot x_{Al1}&+& 90 \cdot x_{Al2}&+& 70 \cdot x_{Al3}&+& 80 \cdot x_{Al4} &+\\
+  +& 100 \cdot x_{Al5}&+& 90\cdot x_{Al6}&+&120  \cdot x_{Nr1}&+& 130 \cdot x_{Nr2}&+\\
+  +& 140 \cdot x_{Ni1}&+& 120 \cdot x_{Ni2}&+& 150 \cdot x_{Ca}&+& 160\cdot  x_{Ga} &+\\
+  +& 110 \cdot x_{Co1}&+& 130 \cdot x_{Co2}&+& 120 \cdot x_{An1}&+& 130 \cdot x_{An2}&+\\
+  +& 120 \cdot x_{An3}&+& 140 \cdot x_{Na1}&+& 150 \cdot x_{Na2}&+& 130 \cdot x_{Na3}&+\\
+  +& 140 \cdot x_{SA1}&+& 120 \cdot x_{SA2}& \to &\min\end{array}$$
+  
+  Or in a general form:
+  $$ \sum_{s \atop \text{$s$ is a petrol station}} ( x_s \cdot price_s) \to \min$$
+  
+\section{GLPK model of the model}
+  \subsection{Sets and Parameters}
+    \Source{firstline=1,lastline=20}{model_advanced.mod}{\small}
+  \subsection{Variables}
+    \Source{firstline=22,lastline=23}{model_advanced.mod}{\small}
+  \subsection{Constraints}
+    \Source{firstline=25,lastline=36}{model_advanced.mod}{\small}
+  \subsection{Objective}
+    \Source{firstline=39,lastline=40}{model_advanced.mod}{\small}
+  \subsection{Display section}
+    \Source{firstline=44,lastline=55}{model_advanced.mod}{\small}
+  \subsection{Data section}
+    \Source{firstline=61,lastline=95}{model_advanced.mod}{\small}
+  
+
+\section{Results}
+  Solving the problem we got the optimal solution of 79062.96875 dirhams:
+   \Source{firstline=1,lastline=6}{model_advanced.out}{\small}
+   
+   The values of the variables in the optimal solution are:
+   \Source{firstline=102,lastline=147}{model_advanced.out}{\tiny}
+   
+   The display commands show the optimal solution in a nicer way in the output:
+    \Source{firstline=25,lastline=57}{model_advanced.txt}{\tiny}
+    
+    The amount of petrol that I have to refuel at each station:
+    \begin{center}
+      \begin{tabular}{|r|l|}\hline
+        Petrol station & Amount of petrol \\ \hline
+        Algeria1        & \\
+        Algeria2        &35    \\
+        Algeria3        &155.265625     \\
+        Algeria4        &40.265625      \\
+        Algeria5        &37.03125      \\
+        Algeria6        &29.8125     \\
+        Niger1          &30.375      \\
+        Niger2          &21.75     \\
+        Nigeria1        &     \\
+        Nigeria2        &66.5875     \\
+        Cameroon        &3.5875       \\
+        Gabon           &     \\
+        Congo1          &131.2     \\
+        Congo2          &26.625      \\
+        Angola1         &19.5      \\
+        Angola2         &     \\
+        Angola3         &77.25      \\
+        Namibia1        &19.5       \\
+        Namibia2        &       \\
+        Namibia3        &40.25      \\
+        SouthAfrica1    &       \\
+        SouthAfrica2    &24.75      \\ \hline
+      \end{tabular}
+    \end{center}
+
+</pre>
+
+
+<hr />
+
+<div class="alert alert-dark">
+  
+<h1 class="alert-heading" id="final-notes">Final notes</h1>
+
+
+</div>

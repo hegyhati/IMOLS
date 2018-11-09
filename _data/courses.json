@@ -5,7 +5,7 @@
     "description" : "14 week, 3 hour course at the Szechenyi Istvan University for 3rd year bachelors in IT",
     "university" : "Szechenyi Istvan University",
     "lectures" : [
-      "motivational_festivals",
+      "motivational_festival",
       "motivational_froccs",
       "modelling_lp_first_steps",
       "gmpl_basics",
@@ -13,7 +13,7 @@
       "gmpl_advanced_1",
       "gmpl_motivational_2",
       "gmpl_advanced_2",
-      "modelling_redundant_variables"
+      "modelling_redundant_variables",
       "modelling_bigM",
       "example_cars",
       "theory_branch_and_bound",
