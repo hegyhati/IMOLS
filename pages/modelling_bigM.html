@@ -6,7 +6,7 @@ id: modelling_bigM
 prerequisite: ["modelling_redundant_variables","gmpl_advanced_1"]
 ---
 
-<h2>The usual issue</h2>
+<h2 id="motivation">The usual issue</h2>
 
 <p>
   When we are modeling something we often face conditions in the form of <emph>"if something holds, another something should be like this"</emph>.
@@ -26,7 +26,7 @@ prerequisite: ["modelling_redundant_variables","gmpl_advanced_1"]
   First, however, let's see an example where this is needed:  
 </p>
 
-<h2>Repairman allocation problem</h2>
+<h2 id="example">Repairman allocation problem</h2>
 
 <p>
   We provide technical support for some companies located in different cities.
@@ -53,7 +53,7 @@ prerequisite: ["modelling_redundant_variables","gmpl_advanced_1"]
   Now, let's start making our model
 </p>
 
-<p>
+<p id="model">
   The input data for the problem is given with these sets and parameters:
   <pre>
     set Sites;
@@ -167,7 +167,7 @@ prerequisite: ["modelling_redundant_variables","gmpl_advanced_1"]
   </pre>
 </p>
 
-<h3>Pimping the model a little bit</h3>
+<h3 id="pimp">Pimping the model a little bit</h3>
 
 <p>
   Putting together everything from above, we have:
@@ -390,7 +390,7 @@ prerequisite: ["modelling_redundant_variables","gmpl_advanced_1"]
   Thus, these kind of constraints are often referred to as <emph>big-M constraints</emph>.
 </p>
 
-<h3>The final model</h3>
+<h3 id="finalmodel">The final model</h3>
 
 <p>
   <pre>
@@ -439,7 +439,7 @@ prerequisite: ["modelling_redundant_variables","gmpl_advanced_1"]
   </pre>
 </p>
 
-<h2>Several forms of big-M constraints / logical conditionals</h2>
+<h2 id="generalforms">Several forms of big-M constraints / logical conditionals</h2>
 
 <p>
   In the example above we have seen several different ways of implementing logical conditionals in simple linear constraints.
@@ -464,7 +464,7 @@ prerequisite: ["modelling_redundant_variables","gmpl_advanced_1"]
   </ul>
 </div>
 
-<h2>Bilinear terms</h2>
+<h2 id="bilinear">Bilinear terms</h2>
 <p>
   A bilinear term is something like \(y \cdot x\) where \(y\) is binary, and \(x\) is for example a non-negative continuous variable.
   Writing this kind of term in a constraint / objective function can be replaced by a new non-negative continuous variable \(z\), and the following constraints:
@@ -489,7 +489,7 @@ prerequisite: ["modelling_redundant_variables","gmpl_advanced_1"]
   </ol>
 </p>
 
-<h2>A note on efficiency</h2>
+<h2 id="efficiency">A note on efficiency</h2>
 
 <p>
   Big-M constraints can slow down the solution of an MILP problem, as they usually do not contribute well to the bounding of a subproblem.

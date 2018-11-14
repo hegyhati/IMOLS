@@ -8,7 +8,7 @@ prerequisite: ["theory_simplex"]
 
 
 
-<h2>Brute force approach and enumeration of feasible solutions</h2>
+<h2 id="bruteforce">Brute force approach and enumeration of feasible solutions</h2>
 
 <p>
   We have seen in case of the <a href="{{site.baseurl}}/pages/motivational_festival.html">festivals example</a>, that brute force approach is a probably very slow, but valid approach to find the optimal solution when the search space is discrete and finite.
@@ -134,7 +134,7 @@ prerequisite: ["theory_simplex"]
   </div>
 </div>
 
-<h2>The "Branch" part</h2>
+<h2 id="branch">The "Branch" part</h2>
 
 <p>
   The approach described above can be generalized to any problems with discrete decisions:
@@ -166,7 +166,7 @@ prerequisite: ["theory_simplex"]
   If we already have the above branching algorithm, it can easily be extended with a minimum search on the leafs. 
 </p>
 
-<h2>The "Bound" part</h2>
+<h2 id="bound">The "Bound" part</h2>
 
 <p>
   Let us consider a simple shortest path problem:
@@ -277,7 +277,7 @@ prerequisite: ["theory_simplex"]
   If that is known about the bounding function, then no further conditional is needed to update \(min\) if \(P\) is a singleton, and its bound was already proven to be below \(min\).
 </div>
 
-<h2>Note about bounding functions</h2>
+<h2 id="tightness">Note about bounding functions</h2>
 
 <p>
   The "tightness" of a bounding function can be the most important contributor to the efficiency of an algorithm.

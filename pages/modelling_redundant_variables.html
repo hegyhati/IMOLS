@@ -6,7 +6,7 @@ id: modelling_redundant_variables
 prerequisite: ["modelling_lp_first_steps","gmpl_advanced_1"]
 ---
 
-<h2>Motivational example</h2>
+<h2 id="example">Motivational example</h2>
 
 <p>
   For a couple of months I was working in Oujda, Morocco.
@@ -21,7 +21,7 @@ prerequisite: ["modelling_lp_first_steps","gmpl_advanced_1"]
   The following table shows the petrol stations, their distance from Oujda, and the price of 1 liter of petrol there.
 </p>
 
-<table class="table table-striped">
+<table class="table table-striped" id="data">
   <thead>
     <tr>
       <th scope="col">Petrol station</th>
@@ -70,7 +70,7 @@ prerequisite: ["modelling_lp_first_steps","gmpl_advanced_1"]
 </p>
 
 
-<h2>The first mathematical model</h2>
+<h2 id="firstmodel">The first mathematical model</h2>
 
 <h4>Sets and parameters</h4>
 
@@ -168,22 +168,22 @@ prerequisite: ["modelling_lp_first_steps","gmpl_advanced_1"]
   The overall modell looks like this:  
 </p>
 
-<pre class="border border-2 border-dark p-2">{% include sources/africa_car_ride/africa.m %}</pre>
+<pre class="border border-2 border-dark p-2" id="africa1m">{% include sources/africa_car_ride/africa.m %}</pre>
 
 <p>
   With the following data file
 </p>
 
-<pre class="border border-2 border-dark p-2">{% include sources/africa_car_ride/africa.d %}</pre>
+<pre class="border border-2 border-dark p-2" id="africad">{% include sources/africa_car_ride/africa.d %}</pre>
 
 
 <h4>The solution</h4>
 <p>
   After solving this simple model, we get the following output:
 </p>
-<pre class="border border-2 border-dark p-2">{% include sources/africa_car_ride/africa.txt %}</pre>
+<pre class="border border-2 border-dark p-2" id="africatxt">{% include sources/africa_car_ride/africa.txt %}</pre>
 
-<h2>A different way of modelling the problem</h2>
+<h2 id="othermodel">A different way of modelling the problem</h2>
 
 <p>
   If an IT person would look at the above code, he/she would probably consider it a bit ugly, as the term <code>initialTank + sum {s2 in Stations: distance[s2] < distance[s]} fill[s2]</code> repeats a couple of times thourough the model.
@@ -237,13 +237,13 @@ prerequisite: ["modelling_lp_first_steps","gmpl_advanced_1"]
   So, the final version looks like this:
 </p>
 
-<pre class="border border-2 border-dark p-2">{% include sources/africa_car_ride/africa2.m %}</pre>
+<pre class="border border-2 border-dark p-2" id="africa2m">{% include sources/africa_car_ride/africa2.m %}</pre>
 
 <p>
   The same data section can be used, and the output is exactly the same as above.
 </p>
 
-<h2>Readibility / maintainability over performance?</h2>
+<h2 id="tradeoff">Readibility / maintainability over performance?</h2>
 
 <p>
   One could rightfully raise their voice, and complain, that we made a bad deal, as our model now has twice as many variables and thus, solving it will be slower.
@@ -257,7 +257,7 @@ prerequisite: ["modelling_lp_first_steps","gmpl_advanced_1"]
   </ul>
 </p>
 
-<h2>Excercise for you</h2>
+<h2 id="exercise">Excercise for you</h2>
 <p>
   The model could be transformed a bit further as well based on the following idea: the fuel level in the tank at a station is simply the level when leaving the <emph>last</emph> station minus the fuel burned since then.
   Create a model, that calculates the <code>fuelAtArrival[s]</code> values based on this idea.
