@@ -8,244 +8,287 @@ prerequisite: ["modelling_lp_first_steps","gmpl_advanced_1"]
 
 <h2>Motivational example</h2>
 
-<pre>
-I've decided to visit my friend Jacques in Capetown. 
-As I haven't been to Africa many times before, I decide to travel by car, so that I can see more of this beautiful continent. 
-Alae-Eddine was kind enough to lend me His car for this trip, so the only thing I'll have to pay for is the petrol for the journey. 
-Naturally, I would like to reduce the cost of the trip as much as possible, thus I'm planning in advance where and how much I'll refuel the car. 
+<p>
+  For a couple of months I was working in Oujda, Morocco.
+  I have decided to visit my friend, Jacques in Capetown. 
+  As I haven't been to Africa many times before, I decided to travel by car, so that I can see more of that beautiful continent. 
+  A friend, Alae-Eddine was kind enough to lend me his car for this trip, so the only thing I'll had to pay for is the petrol for the journey. 
+  Naturally, I wanted to reduce the cost of the trip as much as possible, thus I planned in advance where and how much to refuel the car.
+</p>
 
-\section{Problem data}
-The trip is $11000$ km long, and there are $22$ petrol stations on the way, where I can buy petrol for different prices.
-The following table shows the petrol stations, their distance from Oujda, and the price of 1 liter of petrol there.
+<p>
+  The trip was 11000 km long, and there were 22 petrol stations along the way, where I could buy petrol for different prices.
+  The following table shows the petrol stations, their distance from Oujda, and the price of 1 liter of petrol there.
+</p>
 
-\begin{center}
-  \begin{tabular}{r|c|c|}
-  Petrol station & Distance from Oujda (km) & Price of petrol (Dh/l) \\ \hline
-  Algeria1&  320&   100\\
-  Algeria2&  840&   90\\
-  Algeria3&  1350&  70\\
-  Algeria4&  2000&  80\\
-  Algeria5&  2580&  100\\
-  Algeria6&  3170&  90\\
-  Niger1&    3560&  120\\
-  Niger2&    4080&  130\\
-  Nigeria1&  4660&  140\\
-  Nigeria2&  5180&  120\\
-  Cameroon&  5500&  150\\
-  Gabon&     5950&  160\\
-  Congo1&    6479&  110\\
-  Congo2&    6990&  130\\
-  Angola1&   7440&  120\\
-  Angola2&   7960&  130\\
-  Angola3&   8410&  120\\
-  Namibia1&  8730&  140\\
-  Namibia2&  9250&  150\\
-  Namibia3&  9770&  130\\
-  SouthAfrica1&  10350& 140\\
-  SouthAfrica2&  10670& 120\\
-  \end{tabular}
-\end{center}
-The tank of the car can take at most $70$ liters of petrol, and in general, it consumes $7.5$ liters of petrol for $100$ km. 
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">Petrol station</th>
+      <th scope="col">Distance from Oujda (km)</th>
+      <th scope="col">Price of petrol (Dh/l)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><th scope="row">Algeria1</th><td>320</td><td>100</td></tr>
+    <tr><th scope="row">Algeria2</th><td>840</td><td>90</td></tr>
+    <tr><th scope="row">Algeria3</th><td>1350</td><td>70</td></tr>
+    <tr><th scope="row">Algeria4</th><td>2000</td><td>80</td></tr>
+    <tr><th scope="row">Algeria5</th><td>2580</td><td>100</td></tr>
+    <tr><th scope="row">Algeria6</th><td>3170</td><td>90</td></tr>
+    <tr><th scope="row">Niger1</th><td>3560</td><td>120</td></tr>
+    <tr><th scope="row">Niger2</th><td>4080</td><td>130</td></tr>
+    <tr><th scope="row">Nigeria1</th><td>4660</td><td>140</td></tr>
+    <tr><th scope="row">Nigeria2</th><td>5180</td><td>120</td></tr>
+    <tr><th scope="row">Cameroon</th><td>5500</td><td>150</td></tr>
+    <tr><th scope="row">Gabon</th><td>5950</td><td>160</td></tr>
+    <tr><th scope="row">Congo1</th><td>6749</td><td>110</td></tr>
+    <tr><th scope="row">Congo2</th><td>6990</td><td>130</td></tr>
+    <tr><th scope="row">Angola1</th><td>7440</td><td>120</td></tr>
+    <tr><th scope="row">Angola2</th><td>7960</td><td>130</td></tr>
+    <tr><th scope="row">Angola3</th><td>8410</td><td>120</td></tr>
+    <tr><th scope="row">Namibia1</th><td>8730</td><td>140</td></tr>
+    <tr><th scope="row">Namibia2</th><td>9250</td><td>150</td></tr>
+    <tr><th scope="row">Namibia3</th><td>9770</td><td>130</td></tr>
+    <tr><th scope="row">SouthAfrica1</th><td>10350</td><td>140</td></tr>
+    <tr><th scope="row">SouthAfrica2</th><td>10670</td><td>120</td></tr>
+  </tbody>
+</table>
 
-Although I'm eager to minimize my costs, I'd like to be safe in a sense, that I don't want to get to a petrol station with an empty tank. 
-I always would like to have enough petrol in my tank to travel an additional $50$ km, when I get to a petrol station.
+<p>
+  The tank of the car could hold at most 70 liters of petrol, and in average, it consumed 7.5 liters of petrol for 100 km.
+</p>
 
-Finally, when I start in Oujda, the tank is full. 
+<p>
+  Although I was eager to minimize my costs, I wanted to be safe, i.e., I did not want to get to a petrol station with an empty tank.
+  My safety measure was to always have petrol enough for an additional 50 km.
+  Finally, when I startd in Oujda, the tank was full. 
+</p>
 
-\section{Mathematical model for the problem}
-  \subsection{Decisions - Variables}
-  The only decision that I have to make at each petrol station is the amount of the petrol I refuel there. 
-  For these decisions I introduce $22$ non-negative continuous variables:
-  $$ \begin{array}{c} x_{Al1}, x_{Al2}, x_{Al3}, x_{Al4}, x_{Al5}, x_{Al6}, x_{Nr1}, x_{Nr2}, x_{Ni1}, x_{Ni2}, x_{Ca},\\ x_{Ga}, x_{Co1}, x_{Co2}, x_{An1}, x_{An2}, x_{An3}, x_{Na1}, x_{Na2}, x_{Na3}, x_{SA1}, x_{SA2} \in \mathbb{R}^+\end{array}$$
-  
-  \subsection{Constraints}
-  When I arrive to the first station, Algeria1, I shoud have enough petrol left in my tank to drive an other $50$ km. 
-  The petrol that I have used to get to Algeria1 is $(320/100) \cdot 7.5 = 24$  liters of petrol.
-  So, I still have $46$ liters left, that is more then enough for $50$ km. 
-  
-  Now I'll refuel $x_{Al1}$ liters of petrol. 
-  This has to satisfy two constraints. First $x_{Al1}$ must be less then $46$ as I don't have more space in my tank. Secondly, the amount of the petrol in the tank should be enough to get to Algeria2 and $50$ additional kilometers. 
-  
-  $$x_{Al1} \le 46$$
-  
-  The amount of kilometers for which the petrol will be enough is $ (46 + x_{Al1}) \cdot 100 / 7.5 $, and this should be less then the distance to Algeria2 and the $50$ km:
-  
-  $$ (46 + x_{Al1}) \cdot \frac{100}{7.5} \ge  (840-320) + 50 $$
-  
-  When I get to Algeria2, I refuel my car with $x_{Al2}$ liters of petrol. 
-  So far I have used $(840 / 100)\cdot 7.5 = 63$ liters of petrol. 
-  Initially I had $70$ and I've refueled $x_{Al1}$ at Algeria1, so I have now $70 + x_{Al1} - 63$ liters in my tank.
-  Again, I can not exceed the capacity of my tank, thus:
-  $$ x_{Al2} + 70 + x_{Al1} - 63 \le 70$$
-  
-  And as in the previous case, I must fuel enough to be able to get to Algeria3 (plus the $50$ km). 
-  The amount of petrol after the refuel is $70 + x_{Al1} + x_{Al2} - 63$, that must be enough for $1350-840 + 50$ kilometers:
-  
-  $$ (70 + x_{Al1} + x_{Al2} - 63) \cdot \frac{100}{7.5} \ge 1350-840 + 50 $$ 
-  
-  For all of the other stations, similar constraints must be set. As it is clear now, there are two types of constraints:
-  \begin{itemize}
-    \item an upper bound on the amount of petrol to buy, not to exceed the capacity of the tank
-    \item a lower bound on the amount of petrol to buy, so that the petrol in the tank should be enough to get to the next station (and for an additional 50 km)
-  \end{itemize}
-  
-  \subsubsection*{Lower bound on the amount of petrol}
-  If I'm at station $s$, the petrol that I've already used so far is $distance_s \cdot \frac{7.5}{100}$.
-  Initially I had 70 liters of petrol, and at all of the previous petrols stations $s'$ I've refueled $x_{s'}$ liters, so alltogether I had $70 + x_{Al1} + x_{Al2} + \dots + x_{prev_s}$ petrol ($prev_s$ is a station before $s$), that must be anough to get here, and an additional 50 km, i.e.:
-  $$ 70 + x_{Al1} + x_{Al2} + \dots + x_{prev_s} \ge (distance_s  + 50) \cdot \frac{7.5}{100}$$
-  
-  So the constraints for this type are the following:
-  
-  \begin{eqnarray}
-    70 & \ge & (320  + 50) \cdot \frac{7.5}{100}\\
-    70 + x_{Al1} & \ge & (840  + 50) \cdot \frac{7.5}{100}\\
-    70 + x_{Al1} + x_{Al2} & \ge & (1350  + 50) \cdot \frac{7.5}{100}\\
-    70 + x_{Al1} + x_{Al2} + x_{Al3} & \ge & (2000  + 50) \cdot \frac{7.5}{100}\\
-    70 + x_{Al1} + x_{Al2} + x_{Al3} + x_{Al4} & \ge & (2580  + 50) \cdot \frac{7.5}{100}\\
-    70 + x_{Al1} + x_{Al2} + x_{Al3} + x_{Al4} + x_{Al5} & \ge & (3170  + 50) \cdot \frac{7.5}{100}\\
-    70 + x_{Al1} + x_{Al2} + x_{Al3} + x_{Al4} + x_{Al5}  + x_{Al6} & \ge & (3560  + 50) \cdot \frac{7.5}{100}\\
-    70 + x_{Al1} + x_{Al2} + x_{Al3} + x_{Al4} + \cdots + x_{Nr1} & \ge & (4080  + 50) \cdot \frac{7.5}{100}\\
-    70 + x_{Al1} + x_{Al2} + x_{Al3} + x_{Al4} + \cdots + x_{Nr2} & \ge & (4660  + 50) \cdot \frac{7.5}{100}\\
-    70 + x_{Al1} + x_{Al2} + x_{Al3} + x_{Al4} + \cdots + x_{Ni1} & \ge & (5180  + 50) \cdot \frac{7.5}{100}\\
-    70 + x_{Al1} + x_{Al2} + x_{Al3} + x_{Al4} + \cdots + x_{Ni2} & \ge & (5500  + 50) \cdot \frac{7.5}{100}\\
-    70 + x_{Al1} + x_{Al2} + x_{Al3} + x_{Al4} + \cdots + x_{Ca} & \ge & (5950  + 50) \cdot \frac{7.5}{100}\\
-    70 + x_{Al1} + x_{Al2} + x_{Al3} + x_{Al4} + \cdots + x_{Ga} & \ge & (6479  + 50) \cdot \frac{7.5}{100}\\
-    70 + x_{Al1} + x_{Al2} + x_{Al3} + x_{Al4} + \cdots + x_{Co1} & \ge & (6990  + 50) \cdot \frac{7.5}{100}\\
-    70 + x_{Al1} + x_{Al2} + x_{Al3} + x_{Al4} + \cdots + x_{Co2} & \ge & (7440 + 50) \cdot \frac{7.5}{100}\\
-    70 + x_{Al1} + x_{Al2} + x_{Al3} + x_{Al4} + \cdots + x_{An1} & \ge & (7960 + 50) \cdot \frac{7.5}{100}\\
-    70 + x_{Al1} + x_{Al2} + x_{Al3} + x_{Al4} + \cdots + x_{An2} & \ge & (8410 + 50) \cdot \frac{7.5}{100}\\
-    70 + x_{Al1} + x_{Al2} + x_{Al3} + x_{Al4} + \cdots + x_{An3} & \ge & (8730 + 50) \cdot \frac{7.5}{100}\\
-    70 + x_{Al1} + x_{Al2} + x_{Al3} + x_{Al4} + \cdots + x_{Na1} & \ge & (9250 + 50) \cdot \frac{7.5}{100}\\
-    70 + x_{Al1} + x_{Al2} + x_{Al3} + x_{Al4} + \cdots + x_{Na2} & \ge & (9770 + 50) \cdot \frac{7.5}{100}\\
-    70 + x_{Al1} + x_{Al2} + x_{Al3} + x_{Al4} + \cdots + x_{Na3} & \ge & (10350 + 50) \cdot \frac{7.5}{100}\\    
-    70 + x_{Al1} + x_{Al2} + x_{Al3} + x_{Al4} + \cdots + x_{SA1} & \ge & (10670 + 50) \cdot \frac{7.5}{100}
-  \end{eqnarray}
-  
-  And finally, I should be able to get to Capetown:
-  \begin{eqnarray}
-    70 + x_{Al1} + x_{Al2} + x_{Al3} + x_{Al4} + \cdots + x_{SA2} & \ge & (11000 + 50) \cdot \frac{7.5}{100}
-  \end{eqnarray}
-  
-  In a general form these constraints could be stated as:
-  $$ 70 + \sum_{s'\atop {\text{$s'$ is a petrol }\atop\text{ station before $s$}}}x_{s'} \ge (distance_s + 50) \cdot \frac{7.5}{100} \qquad \forall s,\text{$s$ is a petrol station}$$
-  
-  And for the whole trip:
-  
-  $$ 70 + \sum_{s\atop {\text{$s$ is a petrol station}}}x_{s} \ge (11000 + 50) \cdot \frac{7.5}{100} $$
-  
-  \subsubsection*{Upper bound on the amount of petrol}
-  Initially I had 70 liters of petrol, and at all of the previous petrols stations $s'$ I've refueled $x_{s'}$ liters, so alltogether I had $70 + x_{Al1} + x_{Al2} + \dots + x_{s}$ petrol ($prev_s$ is a station before $s$). From this I've used  $distance_s \cdot \frac{7.5}{100}$. Together with $x_s$ this must not exceed the capacity of the tank, i.e., 70 liters:
-  $$ 70 + x_{Al1} + x_{Al2} + \dots + x_s - distance_s \cdot \frac{7.5}{100} \le 70$$
-  
-  Which can be stated simpler as:
-  
-  $$ x_{Al1} + x_{Al2} + \dots + x_s \le  distance_s \cdot \frac{7.5}{100}$$
-  
-  So the constraints for this type are the following:
-  
-  \begin{eqnarray}
-     x_{Al1} & \le & 320  \cdot \frac{7.5}{100}\\
-     x_{Al1} + x_{Al2} & \le & 840  \cdot \frac{7.5}{100}\\
-     x_{Al1} + x_{Al2} + x_{Al3} & \le & 1350  \cdot \frac{7.5}{100}\\
-     x_{Al1} + x_{Al2} + x_{Al3} + x_{Al4} & \le & 2000  \cdot \frac{7.5}{100}\\
-     x_{Al1} + x_{Al2} + x_{Al3} + x_{Al4} + x_{Al5} & \le & 2580  \cdot \frac{7.5}{100}\\
-     x_{Al1} + x_{Al2} + x_{Al3} + x_{Al4} + x_{Al5}  + x_{Al6} & \le & 3170  \cdot \frac{7.5}{100}\\
-     x_{Al1} + x_{Al2} + x_{Al3} + x_{Al4} + \cdots + x_{Nr1} & \le & 3560  \cdot \frac{7.5}{100}\\
-     x_{Al1} + x_{Al2} + x_{Al3} + x_{Al4} + \cdots + x_{Nr2} & \le & 4080  \cdot \frac{7.5}{100}\\
-     x_{Al1} + x_{Al2} + x_{Al3} + x_{Al4} + \cdots + x_{Ni1} & \le & 4660  \cdot \frac{7.5}{100}\\
-     x_{Al1} + x_{Al2} + x_{Al3} + x_{Al4} + \cdots + x_{Ni2} & \le & 5180  \cdot \frac{7.5}{100}\\
-     x_{Al1} + x_{Al2} + x_{Al3} + x_{Al4} + \cdots + x_{Ca} & \le & 5500  \cdot \frac{7.5}{100}\\
-     x_{Al1} + x_{Al2} + x_{Al3} + x_{Al4} + \cdots + x_{Ga} & \le & 5950  \cdot \frac{7.5}{100}\\
-     x_{Al1} + x_{Al2} + x_{Al3} + x_{Al4} + \cdots + x_{Co1} & \le & 6479  \cdot \frac{7.5}{100}\\
-     x_{Al1} + x_{Al2} + x_{Al3} + x_{Al4} + \cdots + x_{Co2} & \le & 6990 \cdot \frac{7.5}{100}\\
-     x_{Al1} + x_{Al2} + x_{Al3} + x_{Al4} + \cdots + x_{An1} & \le & 7440 \cdot \frac{7.5}{100}\\
-     x_{Al1} + x_{Al2} + x_{Al3} + x_{Al4} + \cdots + x_{An2} & \le & 7960 \cdot \frac{7.5}{100}\\
-     x_{Al1} + x_{Al2} + x_{Al3} + x_{Al4} + \cdots + x_{An3} & \le & 8410 \cdot \frac{7.5}{100}\\
-     x_{Al1} + x_{Al2} + x_{Al3} + x_{Al4} + \cdots + x_{Na1} & \le & 8730 \cdot \frac{7.5}{100}\\
-     x_{Al1} + x_{Al2} + x_{Al3} + x_{Al4} + \cdots + x_{Na2} & \le & 9250 \cdot \frac{7.5}{100}\\
-     x_{Al1} + x_{Al2} + x_{Al3} + x_{Al4} + \cdots + x_{Na3} & \le & 9770 \cdot \frac{7.5}{100}\\    
-     x_{Al1} + x_{Al2} + x_{Al3} + x_{Al4} + \cdots + x_{SA1} & \le & 10350 \cdot \frac{7.5}{100}\\
-     x_{Al1} + x_{Al2} + x_{Al3} + x_{Al4} + \cdots + x_{SA2} & \le & 10670 \cdot \frac{7.5}{100}
-  \end{eqnarray}
-  
-  In a general form these constraints could be stated as:
-  $$ \sum_{s'\atop {\text{$s'$ is a petrol }\atop\text{ station before $s$}}}x_{s'} + x_s \le distance_s \cdot \frac{7.5}{100} \qquad \forall s,\text{$s$ is a petrol station}$$
-  
-  \subsection{Objective}
-  My goal is to minimize the cost of petrol, that I buy, i.e.:
-  $$ \begin{array}{clclclclc} 
-  &100 \cdot x_{Al1}&+& 90 \cdot x_{Al2}&+& 70 \cdot x_{Al3}&+& 80 \cdot x_{Al4} &+\\
-  +& 100 \cdot x_{Al5}&+& 90\cdot x_{Al6}&+&120  \cdot x_{Nr1}&+& 130 \cdot x_{Nr2}&+\\
-  +& 140 \cdot x_{Ni1}&+& 120 \cdot x_{Ni2}&+& 150 \cdot x_{Ca}&+& 160\cdot  x_{Ga} &+\\
-  +& 110 \cdot x_{Co1}&+& 130 \cdot x_{Co2}&+& 120 \cdot x_{An1}&+& 130 \cdot x_{An2}&+\\
-  +& 120 \cdot x_{An3}&+& 140 \cdot x_{Na1}&+& 150 \cdot x_{Na2}&+& 130 \cdot x_{Na3}&+\\
-  +& 140 \cdot x_{SA1}&+& 120 \cdot x_{SA2}& \to &\min\end{array}$$
-  
-  Or in a general form:
-  $$ \sum_{s \atop \text{$s$ is a petrol station}} ( x_s \cdot price_s) \to \min$$
-  
-\section{GLPK model of the model}
-  \subsection{Sets and Parameters}
-    \Source{firstline=1,lastline=20}{model_advanced.mod}{\small}
-  \subsection{Variables}
-    \Source{firstline=22,lastline=23}{model_advanced.mod}{\small}
-  \subsection{Constraints}
-    \Source{firstline=25,lastline=36}{model_advanced.mod}{\small}
-  \subsection{Objective}
-    \Source{firstline=39,lastline=40}{model_advanced.mod}{\small}
-  \subsection{Display section}
-    \Source{firstline=44,lastline=55}{model_advanced.mod}{\small}
-  \subsection{Data section}
-    \Source{firstline=61,lastline=95}{model_advanced.mod}{\small}
-  
+<p>
+  The question is straight forward: where and how much did I fill the tank of the car to get to Capetown with minimal costs?
+</p>
 
-\section{Results}
-  Solving the problem we got the optimal solution of 79062.96875 dirhams:
-   \Source{firstline=1,lastline=6}{model_advanced.out}{\small}
-   
-   The values of the variables in the optimal solution are:
-   \Source{firstline=102,lastline=147}{model_advanced.out}{\tiny}
-   
-   The display commands show the optimal solution in a nicer way in the output:
-    \Source{firstline=25,lastline=57}{model_advanced.txt}{\tiny}
-    
-    The amount of petrol that I have to refuel at each station:
-    \begin{center}
-      \begin{tabular}{|r|l|}\hline
-        Petrol station & Amount of petrol \\ \hline
-        Algeria1        & \\
-        Algeria2        &35    \\
-        Algeria3        &155.265625     \\
-        Algeria4        &40.265625      \\
-        Algeria5        &37.03125      \\
-        Algeria6        &29.8125     \\
-        Niger1          &30.375      \\
-        Niger2          &21.75     \\
-        Nigeria1        &     \\
-        Nigeria2        &66.5875     \\
-        Cameroon        &3.5875       \\
-        Gabon           &     \\
-        Congo1          &131.2     \\
-        Congo2          &26.625      \\
-        Angola1         &19.5      \\
-        Angola2         &     \\
-        Angola3         &77.25      \\
-        Namibia1        &19.5       \\
-        Namibia2        &       \\
-        Namibia3        &40.25      \\
-        SouthAfrica1    &       \\
-        SouthAfrica2    &24.75      \\ \hline
-      \end{tabular}
-    \end{center}
 
-</pre>
+<h2>The first mathematical model</h2>
 
+<h4>Sets and parameters</h4>
+
+<p>
+  There is only one relevant set in this problem, the set of petrol stations.
+  We can simply define it like this:
+  <pre>
+    set Stations;
+  </pre>
+  Now we can introduce the next two parameters that are given for all stations:
+  <pre>
+    param petrolPrice{Stations};
+    param distance{Stations};
+  </pre>
+</p>
+
+<p>
+  And we also have some "global" parameters that are specific to our car ride:
+  <pre>
+    param initialTank;
+    param tankCapacity;
+    param totalDistance;
+    param fuelConsumption; 
+  </pre>
+</p>
+
+<h4>Variables</h4>
+<p>
+  There is only one variable needed: the amount of fuel we fill into our tank at each station:
+  <pre>
+    var fill{Stations} >= 0;
+  </pre>
+</p>
+
+<h4>Constraints</h4>
+<p>
+  The first constraint must express, that we have enough fuel to get to a station plus the safety measure.
+  All the fuel we have filled into our tank so far, plus what we initially had must be enough for that distance.
+  This could be expressed by the following constraint:
+  <pre>    
+    s.t. Has_to_meet_safety_measure {s in Stations}:
+      (initialTank + sum {s2 in Stations: distance[s2] < [s]} fill[s2]) * (100 / fuelConsumption) >= distance[s]+safetyMeasure;
+  </pre>
+  where the term <code>initialTank + sum {s2 in Stations: distance[s2] < distance[s]} fill[s2]</code> summarizes how much fuel we had put into our tank so far (including the initial amount), which has to be multiplied by <code>100/fualConsumption</code> to get the distance allowed by that amount.
+  The RHS is simply the distance of the station plus the safety measure.
+  Note, the filter <code>distance[s2] < distance[s]</code> makes the sum go over only of the previous stations.
+</p>
+
+<p>
+  A similar constraint must be added to specify, that we should have enough fuel to get to the final destination:
+  <pre>
+    s.t. Need_to_reach_final_destination:
+      (initialTank + sum {s in Stations} fill[s]) * (100 / fuelConsumption) >= totalDistance;
+  </pre>
+</p>
+
+<p>
+  Finally, we can not overfill the tank:
+  <pre>
+    s.t. Can_not_overfill{s in Stations}:
+      initialTank + sum {s2 in Stations: distance[s2] < distance[s]} fill[s2] - distance[s] * (fuelConsumption / 100) + fill[s] <= tankCapacity;
+  </pre>
+  This constraint is similar to the first one: the LHS summarizes how much fuel is in the tank before leaving the petrol station (initial + filled previously - consumed + filled now), and the RHS is simply the capacity of our tank.
+</p>
+
+<h4>Objective function</h4>
+<p>
+  The objective function is simply the minimization of the total cost:
+  <pre>
+    minimize TotalCost:
+      sum{s in Stations} fill[s]*fuelPrice[s];
+  </pre>
+</p>
+
+<h4>Some fancy output</h4>
+<p>
+  To have a nice output this could be added:
+  <pre>
+
+    printf "Total cost: %g\n\n",TotalCost;
+
+    for{s in Stations}
+    {
+      printf "%14s  (%5g km, %3g Dh/l): %5.2g + %5.2g ---> %5.2g l\n",s,distance[s],fuelPrice[s],
+      initialTank + sum {s2 in Stations: distance[s2] < distance[s]} fill[s2] - distance[s] * (fuelConsumption / 100),
+      fill[s],
+      initialTank + sum {s2 in Stations: distance[s2] < distance[s]} fill[s2] - distance[s] * (fuelConsumption / 100) + fill[s]
+      ; 
+    }
+  </pre>
+</p>
+
+<h4>The overall modell</h4>
+<p>
+  The overall modell looks like this:  
+</p>
+
+<pre class="border border-2 border-dark p-2">{% include sources/africa_car_ride/africa.m %}</pre>
+
+<p>
+  With the following data file
+</p>
+
+<pre class="border border-2 border-dark p-2">{% include sources/africa_car_ride/africa.d %}</pre>
+
+
+<h4>The solution</h4>
+<p>
+  After solving this simple model, we get the following output:
+</p>
+<pre class="border border-2 border-dark p-2">{% include sources/africa_car_ride/africa.txt %}</pre>
+
+<h2>A different way of modelling the problem</h2>
+
+<p>
+  If an IT person would look at the above code, he/she would probably consider it a bit ugly, as the term <code>initialTank + sum {s2 in Stations: distance[s2] < distance[s]} fill[s2]</code> repeats a couple of times thourough the model.
+  In case of such redundancy in a computer code, the programmer would probably introduce a function, that can be called from different places.
+</p>
+
+<p>
+  In modelling we can do something similar: we can introduce additional variables, that represent <emph>calculated</emph> values based on other decision variables and parameters, that are used in many places.
+  <pre>
+    var fuelAtArrival{Stations};
+  </pre>
+  These variables will denote, how much fuel we have when we arrive to a station.
+  However, these variables do not present a decision, they are calculated based on other "real" decision variables and parameters in equality constraints, like the one below: 
+  <pre>
+    s.t. set_fuelAtArrival{s in Stations}:
+      fuelAtArrivaml[s] = initialTank + sum {s2 in Stations: distance[s2] < distance[s]} fill[s2] - distance[s]/100*fuelConsumption;
+  </pre>
+  We will refer to these kind of variables as <emph>redundant variables</emph> from now on.
+</p>
+
+<p>
+  Now some of the constraints, outputs can be simplified:
+  <pre>
+    s.t. Has_to_meet_safety_measure {s in Stations}:
+      fuelAtArrival[s] * (100 / fuelConsumption) >= safetyMeasure;
+
+    s.t. Can_not_overfill{s in Stations}:
+      fuelAtArrival[s] + fill[s] <= tankCapacity;
+  </pre>
+  and:
+  <pre>
+    for{s in Stations}
+    {
+      printf "%14s  (%5g km, %3g Dh/l): %5.2g + %5.2g ---> %5.2g l\n",s,distance[s],fuelPrice[s],
+      fuelAtArrival[s], fill[s], fuelAtArrival[s] + fill[s]
+      ; 
+    }
+  </pre>
+</p>
+
+<p>
+  If we look at the first constraint from above, it can even be eliminated and moved to a lower bound for the variable:
+  <pre>
+    var fuelAtArrival{Stations} >= safetyMeasure / 100 * fuelConsumption;
+  </pre>
+</p>
+
+<h4>Final look</h4>
+
+<p>
+  So, the final version looks like this:
+</p>
+
+<pre class="border border-2 border-dark p-2">{% include sources/africa_car_ride/africa2.m %}</pre>
+
+<p>
+  The same data section can be used, and the output is exactly the same as above.
+</p>
+
+<h2>Readibility / maintainability over performance?</h2>
+
+<p>
+  One could rightfully raise their voice, and complain, that we made a bad deal, as our model now has twice as many variables and thus, solving it will be slower.
+  That is theoretically true, however:
+  <ul>
+    <li>Adding a few continuous variables does not really make the problem that much harder to solve.</li>
+    <li>A good solver will probably realize this, and exclude them.</li>
+    <li>Some languages may support this explicitely, like defined variables in AMPL</li>
+    <li>Sometimes, especially for easy to solve problems with complicated constraints, a maintainable code is much more important.</li>
+    <li>If the model gets extended, these variables may come in handy.</li>
+  </ul>
+</p>
+
+<h2>Excercise for you</h2>
+<p>
+  The model could be transformed a bit further as well based on the following idea: the fuel level in the tank at a station is simply the level when leaving the <emph>last</emph> station minus the fuel burned since then.
+  Create a model, that calculates the <code>fuelAtArrival[s]</code> values based on this idea.
+</p>
+
+<p>
+  A bit of help: in the model, it will be important to refer to the previous station, that is difficult with the above set and parameter definitions.
+  Changing the form of the input data to the following can solve this issue:
+  <pre>
+    param stationCount;
+    set Stations:=1..stationCount;
+    param stationName{Stations} symbolic;
+  </pre>
+  and in the data section:
+  <pre>
+    param stationCount := 22;
+    param:
+          stationName   distance  fuelPrice :=
+      1   Algeria1      320       100
+      2   Algeria2      840       90
+      3   Algeria3      1350      70
+      4   Algeria4      2000      80
+      ...
+  </pre>
+</p>
 
 <hr />
 
 <div class="alert alert-dark">
   
 <h1 class="alert-heading" id="final-notes">Final notes</h1>
-
+The purpose of this lecture was to introduce a new modeling technique that can often make our models much simpler.
 
 </div>
