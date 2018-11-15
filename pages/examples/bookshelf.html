@@ -1,0 +1,73 @@
+---
+title: "Practice example: Bookshelf"
+layout: lecture
+lead: "An example on the level of a test after the end of semester"
+id: example_bookshelf
+prerequisite: ["modelling_redundant_variables"]
+---
+
+<h2 id="problem">The problem</h2>
+
+<p>
+  We have recently moved into a new apartment, and we are in trouble of putting our books on the shelves in an organized way.
+  The shelf system that we have is an adjustable one.
+  There are 7 shelf plates, whose height we can decide.
+  For the sake of this example, we can assume, that not only fixed positions are available, but anything above 50 cm.
+  The plates are 120 cm wide, 20 cm deep and 2 cm thick. 
+</p>
+
+<p>
+  Our books are organized into booksets, like math books, IT books, Tolkien novels, Harry Potter series, diplomas of formerly supervised students, etc.
+  For each bookset we know the total width of the books in that bookset, and the height of the tallest among them.
+</p>
+
+<p>
+  Our gool is to put the sets on the shelves in such a way, that the highest we must reach for anything is minimal.
+  To keep order, we don't want to split up any sets, and we also want to have a 7cm gap between the highest book on a shelf and the shelf above.
+  We are, however, not forced to use all of the plates, if it is not necessary.
+</p>
+
+<h2 id="data">Problem data</h2>
+<p>
+  The raw data for the problem is given below:
+</p>
+
+<pre class="border border-2 border-dark p-2">{% include sources/bookshelves/books.d %}</code></pre>
+
+<h2 id="solution">(One) optimal solution</h2>
+
+<p>
+  To be able to validate your model, here is an optimal arrangement of books.
+  Obviously, many permutations will have the same result.
+  It is easy to see, that if shelves below the top one are exchanged, than the objective will not change.  
+</p>
+<div class="embed-responsive"> <!--TODO make it responsive-->
+{% include sources/bookshelves/books.svg %}
+</div>
+
+<h2 id="model">The model</h2>
+
+<p class="py-3">
+  Try to figure out the model yourself.
+  A tip: use redundant variables for the positioning of the shelves, and for the height of the tallest book on a shelf.
+  <a class = "btn btn-block btn-outline-primary" data-toggle="collapse" href="#bookmodel" role="button">Reveal solution</a>
+</p>
+
+
+<div class="collapse" id="bookmodel">
+  <div class="card card-body">
+    <pre class="border border-2 border-dark p-2"><code>{% include sources/bookshelves/books.m.html %}</code></pre>
+  </div>
+
+  <p>
+    Observe the display statements at the end of the code, they generate the svg figure shown above.
+  </p>
+</div>
+
+<h2 id="bonus">Bonus exercise</h2>
+
+<p>
+  Imagine, that we have a given frequency for all of the booksets, that means, how often we get one of the books from it let's say in a year.
+  The most comfortable height for us to fetch someting is 120 cm, anything below or above that requires extra "effort", that is linear to the difference from 120 cm.
+  Organize the books in such a way, that our overall effort over the year is minimal.
+</p>
