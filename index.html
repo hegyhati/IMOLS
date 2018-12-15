@@ -2,21 +2,48 @@
 title: Contents
 layout: default
 ---
+
+
+
+
+<div class="container">
+  <div class="jumbotron">
+    <div class="row">
+      <div class="col-md-6">
+        <div style="font-family:'Lucida Console', monospace;font-size: 200%">
+          <b class="m-1 p-1 border border-dark">I</b>ntroduction into the <br />
+          <b class="m-1 p-1 border border-dark">M</b>odeling and <br />
+          <b class="m-1 p-1 border border-dark">O</b>ptimization of <br />
+          <b class="m-1 p-1 border border-dark">L</b>inear <br />
+          <b class="m-1 p-1 border border-dark">S</b>ystems<br />
+        </div>
+      </div>
+      <div class="col-md-6">        
+        <p class="lead my-3">This site is a collection of lessons, examples, notes, etc. I use for teaching introductory courses about practical linear optimization.</p>
+        <p class="lead">The page is under continuous development, if You find any mistakes, or have suggestions, please let me know. -- <a href="http://hegyhati.info">Máté Hegyháti</a></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 <div class="container">
 {% for course in site.data.courses %}
-  <div class="jumbotron">
-    <h1 class="display-4">{{course.title}}</h1>
-    <p class="lead">{{course.description}}</p>
-  </div>
-  <ol>
+  <h4>{{course.title}}</h4>
+  <p class="lead">{{course.description}}</p>
+  <div class="row">
+    {% assign lessoncount = 1 %}
     {% for clecture in course.lectures %}
         {% for lecture in site.pages %}          
           {% if lecture.id == clecture %}
-            <li><a href="{{site.baseurl}}{{lecture.url}}"><b>{{lecture.title}}</b></a><br/>{{lecture.lead}}</li>
+            <div class="col-lg-4 col-md-6 col-sm-12 ">
+              {% include lessoncard.html %}
+            </div>
+            {% assign lessoncount = lessoncount | plus: 1 %}
           {% endif %}
         {% endfor %}
     {% endfor %}
-  </ol>
+  </div>
 {% endfor %}
 </div>
 
@@ -25,7 +52,7 @@ layout: default
 
 <div class="container">
 
-  <div class="jumbotron">
+  <!--div class="jumbotron">
       <h1 class="display-4">List of all pages</h1>
       <p class="lead">Temporary section for development. Pages are not ordered in any way.</p>
   </div>
@@ -36,10 +63,13 @@ layout: default
   {% for lecture in lectures %}
       <a href="{{site.baseurl}}{{lecture.url}}" class="list-group-item list-group-item-action"><b>{{lecture.title}}</b><br/>{{lecture.lead}}</a>
   {% endfor %}
+  </div-->
+
+  <div class="alert alert-primary">
+      Latest update: {{ site.time }}
   </div>
-
-
-  <h5 class="my-3">Planned further pages:</h5>
+  
+  <h5 class="my-3">Next planned pages:</h5>
 
   <ul>
     <li>Under the hood: the simplex method</li>
