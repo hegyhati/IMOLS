@@ -10,11 +10,11 @@ prerequisite: ["motivational_festivals"]
   <a href="https://en.wikipedia.org/wiki/%C3%81nyos_Jedlik">Ányos Jedlik</a> was a famous Hungarian engineer/priest, who is mostly known for the <a href="https://en.wikipedia.org/wiki/Dynamo#Dynamo_self_excitation">invention of the dynamo</a>, and a machine to efficiently produce carbonated water.
   According to some legends, He was the first to come up with the idea of mixing this water with white whine to make a refreshing drink.
   The resultant beverage is called <a href="https://hu.wikipedia.org/wiki/Fröccs">Fröccs</a>, or 
-  <a href="https://en.wikipedia.org/wiki/Spritzer">Spritzer</a> in some german speaking countries.   
+  <a href="https://en.wikipedia.org/wiki/Spritzer">Spritzer</a> in some German speaking countries.   
 </p>
 
 <p>
-  Disclaimer: Writing "carbonated water" every time below would be a grag, so I'll just use the term soda insted.
+  Disclaimer: Writing "carbonated water" every time below would be a drag, so I'll just use the term soda instead.
   I'm fully aware, that in some countries this could mean coke or other fizzy drinks, so please be ware, and don't start mixing coke with white wine.
   (Mix it with red wine if you must, to get a <a href="https://en.wikipedia.org/wiki/Kalimotxo">Vadász</a>.)
 </p>
@@ -40,7 +40,7 @@ prerequisite: ["motivational_festivals"]
       <th scope="row">Kisfröccs</th>
       <td>Small fröccs</td>
       <td>1</td><td>1</td>
-      <td>110</td>housekeeper
+      <td>110</td>
     </tr>
     <tr>
       <th scope="row">Nagyfröccs</th>
@@ -94,14 +94,14 @@ prerequisite: ["motivational_festivals"]
 </p>
 
 <p>
-  After this cultural detour, let's get back on track and define our optimization problem: we have a fixed stock of 100 litres of wine and 150 litres of soda for a day, and want to achieve maximal profit.
+  After this cultural detour, let's get back on track and define our optimization problem: we have a fixed stock of 100 liters of wine and 150 liters of soda for a day, and want to achieve maximal profit.
   We can assume a few tings:
 </p>
 
 <ul>
   <li>The guests will ask us what to drink</li>
   <li>Our guests will always remain thirsty</li>
-  <li>The guests even accept "partial" servings as well, e.g., we can sell them a half Krúdy fröccs for 800 HUF</li>
+  <li>The guests even accept "partial" servings as well, e.g., we can sell them a half Krúdy fröccs for 400 HUF</li>
 </ul>
 
 <p>
@@ -178,7 +178,7 @@ prerequisite: ["motivational_festivals"]
 <p>
   Generally, a greedy algorithm would continue with something like "and then select the second most valuable item, and sell as much as possible from that, and continue this until we can still sell something".
   Since here we only have 2 ingredients, and both of them are required by all of the fröccs types, there could be no such iteration.
-  This type of iterative approavch would have meaning for more ingredients and products, where the products do not always require all of the ingredients in some proportion.
+  This type of iterative approach would have meaning for more ingredients and products, where the products do not always require all of the ingredients in some proportion.
 </p>
 
 <p>
