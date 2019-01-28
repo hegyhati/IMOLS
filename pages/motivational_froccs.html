@@ -399,7 +399,7 @@ prerequisite: ["motivational_festivals"]
       maxprofit(){if(this.wine<=100 && this.soda<=150 && this.profit>this.maxp) {this.maxp=this.profit;} return this.maxp;},
       winecolor(){if(this.wine<=100) return "color: green;"; else return "color: red;";},
       sodacolor(){if(this.soda<=150) return "color: green;"; else return "color: red;";},
-      profitcolor(){if(this.wine<=100 && this.wine<=100) return "color: green;"; else return "color: red;";}
+      profitcolor(){if(this.wine<=100 && this.soda<=150) return "color: green;"; else return "color: red;";}
     }
   })
 </script>
