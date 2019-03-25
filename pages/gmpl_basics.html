@@ -56,12 +56,20 @@ prerequisite: ["modelling_lp_first_steps"]
       <td>MIQP <span class="badge badge-info" data-toggle="popover" title="Mixed-Integer Quadratically Constrained Programming" data-content="The constraints and the objective function may have quadratic terms.">i</span></li></td>
     </tr>
     <tr>
-      <td scope="row"><a href="https://gurobi.com" target="_blank">CPLEX</a></td>
+      <td scope="row"><a href="https://www.ibm.com/analytics/cplex-optimizer" target="_blank">CPLEX</a></td>
       <td>Proprietary - IBM</td>
       <td>MIQP <span class="badge badge-info" data-toggle="popover" title="Mixed-Integer Quadratically Constrained Programming" data-content="The constraints and the objective function may have quadratic terms.">i</span></li></td>
     </tr>
+    <tr>
+      <td scope="row"><a href="https://www.lindo.com/index.php/products/lingo-and-optimization-modeling" target="_blank">LINGO</a></td>
+      <td>Proprietary - Lindo systems inc.</td>
+      <td>MILP, MINLP</td>
+    </tr>
   </tbody>
 </table>
+
+
+
 
 <p>
   As this selective list shows, there are a lot of options to chose from, and <a href="https://en.wikipedia.org/wiki/List_of_optimization_software" target="_blank">there is even more</a>.  
@@ -123,9 +131,21 @@ prerequisite: ["modelling_lp_first_steps"]
       <td scope="row"><a href="http://lpsolve.sourceforge.net/5.0/CPLEX-format.htm" target="_blank">CPLEX</a></td>
       <td><code>.lp</code></td>
       <td>Default format for CPLEX, widely accepted by other solvers.</td>
+    </tr>   
+    <tr>
+      <td scope="row"><a href="http://lpsolve.sourceforge.net/5.0/CPLEX-format.htm" target="_blank">CPLEX</a></td>
+      <td><code>.lp</code></td>
+      <td>Default format for CPLEX, widely accepted by other solvers.</td>
+    </tr>
+    <tr>
+      <td scope="row"><a href="https://www.lindo.com/index.php/help/user-manuals" target="_blank">Lingo</a></td>
+      <td><code>.lng</code></td>
+      <td>The format used by only LINGO.</td>
     </tr>
   </tbody>
 </table>
+
+
 
 <p>
   Below You can see the same example in a few different formats for comapirson.
@@ -146,6 +166,9 @@ prerequisite: ["modelling_lp_first_steps"]
   </li>
   <li class="nav-item">
     <a class="nav-link" id="gmpl-tab" data-toggle="tab" href="#gmpl" role="tab" aria-controls="gmpl" aria-selected="false">GMPL</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="lingo-tab" data-toggle="tab" href="#lingo" role="tab" aria-controls="gmpl" aria-selected="false">Lingo</a>
   </li>
 </ul>
 <div class="tab-content b-2" id="myTabContent">
@@ -168,6 +191,9 @@ prerequisite: ["modelling_lp_first_steps"]
   </div>
   <div class="tab-pane fade" id="gmpl" role="tabpanel" aria-labelledby="gmpl-tab">
     <pre class="border border-2 border-dark p-2"><code>{% include sources/helloworld/helloworld.m %}</code></pre>
+  </div>
+  <div class="tab-pane fade" id="lingo" role="tabpanel" aria-labelledby="lingo-tab">
+    <pre class="border border-2 border-dark p-2"><code>{% include sources/helloworld/helloworld.lng %}</code></pre>
   </div>
 </div>
 
