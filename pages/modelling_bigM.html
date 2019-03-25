@@ -466,8 +466,9 @@ prerequisite: ["modelling_redundant_variables","gmpl_advanced_1"]
 
 <h2 id="bilinear">Bilinear terms</h2>
 <p>
-  A bilinear term is something like \(y \cdot x\) where \(y\) is binary, and \(x\) is for example a non-negative continuous variable.
-  Writing this kind of term in a constraint / objective function can be replaced by a new non-negative continuous variable \(z\), and the following constraints:
+  A bilinear term is something like \(y \cdot x\) where \(y\) and \(x\) are both variables.
+  If one of the terms is binary, and the other is, for example, a non-negative continuous variable, the model can be linearized using big M constraints, as follows.
+  The term itself should be replaced by a new non-negative continuous variable \(z\), and the model should be extended with the following constraints:
   \[z \le x \]
   \[z \le M \cdot y\]
   \[z \ge x - M \cdot (1-y)\]
