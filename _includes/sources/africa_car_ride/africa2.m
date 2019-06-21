@@ -30,7 +30,7 @@ printf "Total cost: %g\n\n",TotalCost;
 
 for{s in Stations}
 {
-  printf "%14s  (%5g km, %3g Dh/l): %5.2g + %5.2g ---> %5.2g l\n",s,distance[s],fuelPrice[s],
+  printf "%14s  (%5g km, %3g Dh/l): %6.3f + %6.3f ---> %6.3f l\n",s,distance[s],fuelPrice[s],
   fuelAtArrival[s], fill[s], fuelAtArrival[s] + fill[s]
   ; 
 }
