@@ -230,17 +230,17 @@ prerequisite:
   Having the aforementioned problem with 50 festivals, the whole computation would take more than \(2^{50} / 10 ^ {17}\) seconds. 
   Since \(2^{10}\)~\(10^3\), that would mean 10 milliseconds.
   That may seem acceptable for an average computer, but not for the fastest supercomputer of our time.
-  Moreover, if the problem size would increase to let's say 100, even this computer would need more than 300 thousand years.
+  Moreover, if the problem size increased to let's say 100, even this computer would need more than 300 thousand years.
   It is clear, that if we want to tackle this type of problems, with "practical" sizes in a reasonable amount of time, some accelerations are needed.
 </p>
 
-<h3>Idea 1: the Greedy algorithm</h3>
+<h3>Idea 1: Use the Greedy algorithm</h3>
 
 <p>
   A reasonable intuition says, that festivals with a lot of bands should have priority, and should be selected. 
   A simple algorithm could be built upon this idea:
   <ol>
-    <li>Select and include the festival with the most bands.</li>
+    <li>Select and include a festival with the most bands.</li>
     <li>Remove the bands that are covered by the selected festival</li>
     <li>If there is at least one performer left, go to Step 1.</li>
   </ol>
@@ -249,7 +249,7 @@ prerequisite:
 <p>
   Applying this procedure to the original problem, it would first select either <var>F3,  F4</var> or <var>F5</var>, as all three of them covers 5 bands.
   This ambiguity should somehow be resolved with the algorithm, we will always select the leftmost festival.
-  so <var>F3</var> is selected, and then <var>${b1},${b2},${b4},${b6},${b7}</var> are removed from the list and the table is reduced to the following:
+  So <var>F3</var> is selected, and then <var>${b1},${b2},${b4},${b6},${b7}</var> are removed from the list and the table is reduced to the following:
 </p>
 
 <table class="table">
@@ -275,7 +275,7 @@ prerequisite:
 </table>
 
 <p>
-  Az there are two bands still left, the algorithm continues with the festival covering most of them, that is <var>F4</var>. 
+  As there are two bands still left, the algorithm continues with the festival covering most of them, that is <var>F4</var>. 
   Selecting <var>F4</var> will have all of the bands covered, thus we end up with the solution of <var>F3,F4</var>.
 </p>
 
@@ -334,7 +334,7 @@ prerequisite:
 </div>
 
 <div class="alert alert-info">
-  The greedy algorithm can be considered as a <em>heuristic approach</em> on this problem class, as it provides a (most probably) reasonably good solution very quickly, however, it can guarantee the optimality of the solution (even if it is optimal).
+  The greedy algorithm can be considered as a <em>heuristic approach</em> on this problem class, as it provides a (most probably) reasonably good solution very quickly, however, it can not guarantee the optimality of the solution (even if it happens to be optimal).
 </div>
 
 <h3>Idea 2: Make inevitable decisions right away</h3>
@@ -365,14 +365,14 @@ prerequisite:
 </p>
 
 <p>
-  For this specific problem instance, this two simple presolve techniques can solve the problem to optimality.
+  For this specific problem instance, these two simple presolve techniques can solve the problem to optimality.
 </p>
 
 <h3>Idea 3: Investigate only feasible solutions</h3>
 
 <p>
   For this particular problem, half of the solutions were infeasible (see above).
-  This means, that we are wasting computational time on a lot of infeasible solution, that will definitely not end up optimal. 
+  This means, that we are wasting computational time on a lot of infeasible solutions, that will definitely not end up optimal. 
   This ratio is usually much higher for real world problems, thus it is a nice idea, to somehow come up with an approach generating only the feasible solutions. 
 </p>
 
@@ -380,16 +380,16 @@ prerequisite:
   Investigating this is not our main goal here, so such an algorithm is not presented here, but you should be able to construct such an algorithm, and implement it in your language of selection. 
 </p>
 
-<h3>Idea 4: Selecting the order of the solutions</h3>
+<h3>Idea 4: Select the order of the solutions</h3>
 
 <p>
   Since we are only interested in the smallest feasible subset of festivals, it would be reasonable to design our algorithm in a way, that it iterates through the singleton sets first, then the 2 element subsets, and so on. 
-  Thus, if a feasible solution is found, it can be crowned as the optimal one, and the algorithm could stop. 
+  Thus, if a feasible solution is found, it can be crowned as an optimal one, and the algorithm could stop. 
 </p>
 
 <p>
   Unfortunately the "best" search algorithm, or subproblem selection approach can vary from one problem class to another. 
-  In this particular problem class, if all of the festivals are needed, then this algorithm would go through all of the solution anyway.  
+  In this particular problem class, if all of the festivals are needed, then this algorithm would go through all of the solutions anyway.  
 </p>
 
 <hr />
@@ -398,7 +398,7 @@ prerequisite:
   
 <h1 class="alert-heading">Final notes</h1>
 
-This problem class is the called <a href="https://en.wikipedia.org/wiki/Set_cover_problem">Set covering problem</a>, which was dressed up in this festival-band theme. 
+This problem class is called <a href="https://en.wikipedia.org/wiki/Set_cover_problem">Set covering problem</a>, which was dressed up in this festival-band theme. 
 This problem class is known to be <a href="https://en.wikipedia.org/wiki/NP-completeness">NP-Complete</a>, i.e., unless P=NP, no "fast" algorithm can be expected to solve it for larger instances.
 
 </div>
