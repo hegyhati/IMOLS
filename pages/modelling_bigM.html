@@ -31,8 +31,8 @@ prerequisite: ["modelling_redundant_variables","gmpl_advanced_1"]
 <p>
   We provide technical support for some companies located in different cities.
   On each site, there are some issues, that we have to fix today.
-  We work with specialist contractors, whom we will call repairmans from now on.
-  For each day we have to tell in advance to these repariman whether we will be hiring them for that day, and if we do, where they should go, and which issues should they fix.
+  We work with specialist contractors, whom we will call repairmen from now on.
+  For each day we have to tell in advance to these repairman whether we will be hiring them for that day, and if we do, where they should go, and which issues should they fix.
   The shift of a repairman can be at most 12 hours, and we have to consider, that the travel overhead of each location is 1 hour in average.
 </p>
 
@@ -159,7 +159,7 @@ prerequisite: ["modelling_redundant_variables","gmpl_advanced_1"]
     </li>
   </ul>
 
-  Az we can see, the above constraint does exactly what we needed, and implements that conditional-like behaviour.
+  Az we can see, the above constraint does exactly what we needed, and implements that conditional-like behavior.
   Of course, it could be simplified like this:
   <pre>
     s.t. NoMagicalTeleportation{r in Repairmen, i in Issues}:
@@ -203,7 +203,7 @@ prerequisite: ["modelling_redundant_variables","gmpl_advanced_1"]
 </p>
 
 <p>
-  To implement this, first it is benefitial to introduce a redundant variable describing, how much a person has actually worked.
+  To implement this, first it is beneficial to introduce a redundant variable describing, how much a person has actually worked.
   This will also simplify the <code>MaxWorkLoad</code> constraint and the objective function:
 
   <pre>
@@ -251,19 +251,19 @@ prerequisite: ["modelling_redundant_variables","gmpl_advanced_1"]
 </p>
 
 <p>
-  From the second point above, it is straight forward, that we need a new variable, that tells, how much is payed to a person:
+  From the second point above, it is straight forward, that we need a new variable, that tells, how much is paid to a person:
   <pre>
-    var payed{Repairmen} >=0;
+    var paid{Repairmen} >=0;
   </pre>
   Then the objective can easily be changed:
   <pre>
     minimize TotalCost: 
-      sum {r in Repairmen} payed[r];
+      sum {r in Repairmen} paid[r];
   </pre>
-  And for the moment, lets's connect <code>payed[r]</code> with <code>worked[r]</code> like this:
+  And for the moment, lets's connect <code>paid[r]</code> with <code>worked[r]</code> like this:
   <pre>
     s.t. Payment{r in Repairman}:
-      payed[r]=wage*worked[r];
+      paid[r]=wage*worked[r];
   </pre>
   With all these changes, the model does exactly the same so far. 
 </p>
@@ -272,24 +272,24 @@ prerequisite: ["modelling_redundant_variables","gmpl_advanced_1"]
   However, now we have the opportunity to implement the "at least 8 hours" rule.
   First, let us introduce the new parameter:
   <pre>
-    param minhourspayed;
+    param minhourspaid;
   </pre>
-  Then we can say in the cariable declaration, that:
+  Then we can say in the variable declaration, that:
   <pre>
-    var payed{Repairmen} >= wage * minhourpayed;
+    var paid{Repairmen} >= wage * minhourspaid;
   </pre>
   And we need to relax the above constraint like this:
   <pre>
     s.t. Payment{r in Repairman}:
-      payed[r]>=wage*worked[r];  # <--- GREATER-EQUAL INSTEAD OF EQUAL
+      paid[r]>=wage*worked[r];  # <--- GREATER-EQUAL INSTEAD OF EQUAL
   </pre>
 </p>
 
 <p>
-  What we achieved like this is that <code>payed[r]</code> is now greater or equal than <code>wage*worked[r]</code> and <code>wage * minhourpayed</code>.
+  What we achieved like this is that <code>paid[r]</code> is now greater or equal than <code>wage*worked[r]</code> and <code>wage * minhourspaid</code>.
   So basically, it is at least as much as the maximum of the two.
   <div class="alert alert-info">
-    Note, that <code>payed[r]</code> can now be larger than <code>wage*worked[r]</code> even if <code>worked[r]>minhourspayed</code>.
+    Note, that <code>paid[r]</code> can now be larger than <code>wage*worked[r]</code> even if <code>worked[r]>minhourspaid</code>.
     Basically, the model allows to pay more to a person than he/she deserved/worked for.
     This is, however not a problem, as we want to minimize the costs, so such solutions, even though feasible, would not lead to optimal solutions.
   </div>
@@ -297,16 +297,16 @@ prerequisite: ["modelling_redundant_variables","gmpl_advanced_1"]
 
 <p>
   Another problem still remains, however.
-  This way, everyone needs to be payed at leasy 8 hours, even those who are not hired for the day.
-  To put it this way: now <code>payed[r]</code> is always greater-or equal than <code>wage*worked[r]</code>, which is fine, but it is also always greater-or equal than <code>wage * minhourpayed</code>, which is not.
+  This way, everyone needs to be paid at least 8 hours, even those who are not hired for the day.
+  To put it this way: now <code>paid[r]</code> is always greater-or equal than <code>wage*worked[r]</code>, which is fine, but it is also always greater-or equal than <code>wage * minhourspaid</code>, which is not.
   We should remove that initial bound from the variable declaration, and have a constraint like this instead:
   <pre>
-    var payed{Repairmen} >= 0; # <--- CHANGED LOWER BOUND TO 0
+    var paid{Repairmen} >= 0; # <--- CHANGED LOWER BOUND TO 0
 
     ...
 
     s.t. MinimumWorkHours{r in Repairman}:
-      if r is hired for the day then: payed[r] >= wage * minhourpayed;
+      if r is hired for the day then: paid[r] >= wage * minhourspaid;
   </pre>
 </p>
 
@@ -314,25 +314,25 @@ prerequisite: ["modelling_redundant_variables","gmpl_advanced_1"]
   Now we have a new problem (we just can't run out of them it seems), that we have no expression describing, whether someone is hired or not.
   A general rule of thumb: if there is no easy expression for something, it should probably be introduced as a variable, even if it is redundant:
   <pre>
-    var payed{Repairmen} >= 0;
+    var paid{Repairmen} >= 0;
     var hired{Repairmen} binary;
 
     ...
 
     s.t. MinimumWorkHours{r in Repairman}:
-      if hired[r]==1 then: payed[r] >= wage * minhourpayed;
+      if hired[r]==1 then: paid[r] >= wage * minhourspaid;
   </pre>
   Since the RHS is only a constant expression (no variables included), we can easily "resolve" this if:
   <pre>
-    var payed{Repairmen} >= 0;
+    var paid{Repairmen} >= 0;
     var hired{Repairmen} binary;
 
     ...
 
     s.t. MinimumWorkHours{r in Repairman}:
-      payed[r] >= wage * minhourpayed * hired[r];
+      paid[r] >= wage * minhourspaid * hired[r];
   </pre>
-  It is easy to see, that if <code>r</code> is hired, the intended constraint holds, otherwise, it just says, that <code>payed[r]>=0</code>, which again, doesn't say anything at all.
+  It is easy to see, that if <code>r</code> is hired, the intended constraint holds, otherwise, it just says, that <code>paid[r]>=0</code>, which again, doesn't say anything at all.
 </p>
 
 <p>
@@ -406,7 +406,7 @@ prerequisite: ["modelling_redundant_variables","gmpl_advanced_1"]
     param M:=card(Sites)+card(Issues)
 
     var worked{Repairmen} >= 0;
-    var payed{Repairmen} >= 0;
+    var paid{Repairmen} >= 0;
     
     var hired{Repairmen} binary;
 
@@ -423,19 +423,19 @@ prerequisite: ["modelling_redundant_variables","gmpl_advanced_1"]
        worked[r] <= maxhours;
        
     s.t. Payment{r in Repairman}:
-      payed[r]=wage*worked[r];
+      paid[r]=wage*worked[r];
 
     s.t. NoMagicalTeleportation{r in Repairmen, i in Issues}:
       fixes[r,i]<=visits[r,site[i]];
 
     s.t. MinimumWorkHours{r in Repairman}:
-      if hired[r]==1 then: payed[r] >= wage * minhourpayed;
+      if hired[r]==1 then: paid[r] >= wage * minhourspaid;
 
     s.t. CannotWorkIfNotHired{r in Repairmen}:
       sum{s in Sites }visits[r,s] + sum {i in Issues}fixes[r,i] <= M * hired[r];
       
     minimize TotalCost: 
-      sum {r in Repairmen} payed[r];
+      sum {r in Repairmen} paid[r];
   </pre>
 </p>
 
