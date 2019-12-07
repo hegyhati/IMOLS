@@ -88,8 +88,9 @@ prerequisite: ["motivational_festivals"]
 </table>
 
 <p>
+  You may be unfamiliar with the measurement unit of deciliter (dl), that equals to a tenth of a liter, however, if you visit Hungary, the portion for wine, soda, or other drinks will usually be measured in that. (Except for strong alcoholic drinks, that use centiliter (cl).)
   As you can see, some of these have cultural references as well, the Puskás fröccs pays respect to a famous <a href="https://en.wikipedia.org/wiki/Match_of_the_Century_(1953_England_v_Hungary_football_match)">football match</a>, that Hungary won against England in 1953.
-  If you ever try them in Hungary, please keep in mind that the prices to vary from place to place a lot, these are just estimated prices for a small village pub in 2018.
+  If you ever try fröccs in Hungary, please keep in mind that the prices vary from place to place a lot, these are just estimated prices for a small village pub in 2018.
   Also, there are a lot of other variants, but we will stick to only this 8 now.  
 </p>
 
@@ -182,7 +183,7 @@ prerequisite: ["motivational_festivals"]
 </p>
 
 <p>
-  Similarly to the festivals problem, the greedy approach will not necessarily provide the optimal solution here either.
+  Similarly to the festivals problem, the greedy approach will not necessarily provide an optimal solution here either.
 </p>
 
 <h3>Simplify the problem by presolve</h3>
@@ -208,7 +209,7 @@ prerequisite: ["motivational_festivals"]
       In a similar fashion, instead of selling Viceházmester, it is better to sell a Kisfröccs and a Hosszúlépés, as it would bring 230 HUF instead of 200.
     </p>
     <p>
-      The only types that remains are the following ones:
+      The only types that remain are the following ones:
     </p>
     
     <table class="table" id="example-data">
@@ -224,7 +225,7 @@ prerequisite: ["motivational_festivals"]
         <tr>
           <th scope="row">Kisfröccs</th>
           <td>1</td><td>1</td>
-          <td>110</td>housekeeper
+          <td>110</td>
         </tr>
         <tr>
           <th scope="row">Nagyfröccs</th>
@@ -260,7 +261,7 @@ prerequisite: ["motivational_festivals"]
     </p>
     
     <p>
-      What we did when we eliminated some fröccs types was to "cook up" a recipe, how it can be made from other types in a more profitable ways.
+      What we did when we eliminated some fröccs types was to "cook up" a recipe, how it can be made from other types in a more profitable way.
       If we order the types based on wine / soda ratio, we get the following table:
     </p>
     
@@ -291,7 +292,7 @@ prerequisite: ["motivational_festivals"]
           <th scope="row">Kisfröccs</th>
           <td>1</td>
           <td>1</td><td>1</td>
-          <td>110</td>housekeeper
+          <td>110</td>
         </tr>
         <tr>
           <th scope="row">Hosszúlépés</th>
@@ -330,7 +331,7 @@ prerequisite: ["motivational_festivals"]
     
     <p>
       The solution to this system is \(\lambda_{A}=\frac{1}{8}\) and \(\lambda_{C}=\frac{7}{8}\).
-      This means, that a Nagyfröccs can be made up by 1/8th Krúdy fröccs, and 7/8th Kisfröccs.
+      This means, that a Nagyfröccs can be made up by 1/8 Krúdy fröccs, and 7/8 Kisfröccs.
       The profit from that would be \(\frac{1}{8}\cdot 800 + \frac{7}{8}\cdot 110 = 196.25\) HUF.
       This is less than the price of a Nagyfröcs (200 HUF), which means, that selling Krúdy fröccs and Kisfröccs together is not a good deal.
     </p>

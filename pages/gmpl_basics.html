@@ -1,7 +1,7 @@
 ---
 title: "GMPL/glpk basics"
 layout: lecture
-lead: "An overview of tools and languages for (MI)LP problems, and a bit of introduction to glpk and GMPL"
+lead: "An overview of tools and languages for (MI)LP problems, and a bit of introduction to GLPK and GMPL"
 id: gmpl_basics
 prerequisite: ["modelling_lp_first_steps"]
 ---
@@ -115,7 +115,7 @@ prerequisite: ["modelling_lp_first_steps"]
     <tr>
       <td scope="row"><a href="https://en.wikibooks.org/wiki/GLPK/GMPL_(MathProg)" target="_blank">GMPL</a></td>
       <td><code>.mod .dat</code></td>
-      <td>GNU Mathematical Programming Language. Subset of AMPL, default for glpk.</td>
+      <td>GNU Mathematical Programming Language. Subset of AMPL, default for GLPK.</td>
     </tr>
     <tr>
       <td scope="row"><a href="https://en.wikibooks.org/wiki/GLPK/GMPL_(MathProg)" target="_blank">MPS</a></td>
@@ -131,12 +131,7 @@ prerequisite: ["modelling_lp_first_steps"]
       <td scope="row"><a href="http://lpsolve.sourceforge.net/5.0/CPLEX-format.htm" target="_blank">CPLEX</a></td>
       <td><code>.lp</code></td>
       <td>Default format for CPLEX, widely accepted by other solvers.</td>
-    </tr>   
-    <tr>
-      <td scope="row"><a href="http://lpsolve.sourceforge.net/5.0/CPLEX-format.htm" target="_blank">CPLEX</a></td>
-      <td><code>.lp</code></td>
-      <td>Default format for CPLEX, widely accepted by other solvers.</td>
-    </tr>
+    </tr>  
     <tr>
       <td scope="row"><a href="https://www.lindo.com/index.php/help/user-manuals" target="_blank">Lingo</a></td>
       <td><code>.lng</code></td>
@@ -207,7 +202,7 @@ prerequisite: ["modelling_lp_first_steps"]
 <p>
   As it was discussed <a href="{{site.baseurl}}/pages/lp_first_steps.html">previously</a>, the model can be partitioned into three parts: variable declarations, constraints, and the objective function.
   We will follow this order to introduce the basic syntactic elements of GMPL.
-  You can find a detailed <a href="https://www.gnu.org/software/glpk/#documentation" target="_blank">reference of the GMPL format</a> if You download the package from the website of glpk.
+  You can find a detailed <a href="https://www.gnu.org/software/glpk/#documentation" target="_blank">reference of the GMPL format</a> if You download the package from the website of GLPK.
 </p>
 
 <h3 id="gmpl-variables">Variables</h3>
@@ -251,7 +246,7 @@ prerequisite: ["modelling_lp_first_steps"]
 <h3 id="gmpl-constraints">Constraints</h3>
 
 <p>
-  Constraints are written in the form of <code>s.t. CNAME: LHS OP RHS;</code> where <code>CNAME</code> is an expressive name for the constraint, <code>LHS,RHS</code> are the left- and right hand side of the inequality/equasion respectively, separated by a comparison operator, that could be either <code><=</code>,<code>>=</code> or <code>=</code>.
+  Constraints are written in the form of <code>s.t. CNAME: LHS OP RHS;</code> where <code>CNAME</code> is an expressive name for the constraint, <code>LHS,RHS</code> are the left- and right-hand side of the inequality/equasion respectively, separated by a comparison operator, that could be either <code><=</code>,<code>>=</code> or <code>=</code>.
   The name of the constraint does not hold any importance to the solver, it is just an identifier, that also helps to make the code more human-readible and maintainable.
   Also, mind the colon for separating the name and the constraint, and a semicolon closing the statement. Some examples:
 </p>
@@ -282,7 +277,7 @@ prerequisite: ["modelling_lp_first_steps"]
 <h3 id="gmpl-objective">Objective function</h3>
 
 <p>
-  The syntax for the objective function very similar to that of the constraint: <code>[minimize|maximize] ONAME: EXPRESSION;</code>, where <code>ONAME</code> is a name assigned to the objective function, and the <code>EXPRESSION</code> is the linear expression for it.
+  The syntax for the objective function is very similar to that of the constraint: <code>[minimize|maximize] ONAME: EXPRESSION;</code>, where <code>ONAME</code> is a name assigned to the objective function, and the <code>EXPRESSION</code> is the linear expression for it.
   Again, mind the colons, semi-colons.
 </p>
 
@@ -357,8 +352,8 @@ prerequisite: ["modelling_lp_first_steps"]
 
 <p>
   It is good to know the quality of the optimal solution (10 in this case), but in general, we also want to know, <emph>how</emph> we can achieve that solution, i.e., what decisions should we make to get there.
-  Each decision outcome is linked to a variable value, so we basically want to know the values of the variables in the optimal solution.
-  These values are given in the <code>Activity</code> column of the second table.
+  Each decision outcome is linked to a variable value, so we basically want to know the values of the variables in the given optimal solution.
+  These values are provided in the <code>Activity</code> column of the second table.
   In this case, we can see, that the optimal solution is achieved by setting both <var>x</var> and <var>y</var> to 5.
 </p>
 
@@ -370,7 +365,7 @@ prerequisite: ["modelling_lp_first_steps"]
 
 The takeaway of this section is, that there are a lot of formats for implementing (MI)LP models, and plenty of solvers that can read and solve them.
 Gurobi and CPLEX are the non-free state-of-the art solvers, and the COIN-OR project provides the best open-source alternative.
-For studying purposes, we use glpk and the GMPL language, which uses a simple syntax to represent variables, constraints and objective functions.
+For studying purposes, we use GLPK and the GMPL language, which uses a simple syntax to represent variables, constraints and objective functions.
 As the complexity of the model description grows, we will learn more and more elements of the language to comfortably formalize our models.
 
 </div>

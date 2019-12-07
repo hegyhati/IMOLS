@@ -27,7 +27,7 @@ prerequisite: ["motivational_festival","motivational_froccs"]
   It is important to note, that in most of the cases, a model is only a "simplification" of a real life phenomena.
   Usually, the model disregards some parameters, that may influence the behavior of a system.
   In the above example, it was assumed, that the object moved along a straight line.
-  When a real life problem emerges, the modeler has a great responsibility in selecting the parameters to be included into model, and the level of detail, how they are represented.
+  When a real life problem emerges, the modeler has a great responsibility in selecting the parameters to be included into the model, and the level of detail, how they are represented.
 </p>
 
 <p>
@@ -39,7 +39,7 @@ prerequisite: ["motivational_festival","motivational_froccs"]
       This could be done easily, if the weighted graph of the road network is available.
     </li>
     <li>
-      A bit more advanced approach would be, if we would take into account the speed limit on each part of the road, and replace the distances in the graph with the minimal travel time needed.
+      A bit more advanced approach would be, if we took into account the speed limit on each part of the road, and replace the distances in the graph with the minimal travel time needed.
       Computationally speaking, this approach requires the same resources, however, more input data is required.
     </li>
     <li>
@@ -204,7 +204,7 @@ prerequisite: ["motivational_festival","motivational_froccs"]
 <h5>Step 2: constraints</h5>
 
 <p>
-  If the variables and the value assignments are selected appropriately, deriving the equations is often rather straight forward, like for the fröccs example above.
+  If the variables and the value assignments are selected appropriately, deriving the equations is often rather straightforward, like for the fröccs example above.
   Sometimes it is a bit more tricky, like in this case.
 </p>
 
@@ -249,7 +249,7 @@ prerequisite: ["motivational_festival","motivational_froccs"]
   Following this example, a similar constraint could be derived for all of the bands, e.g., for Stratovarius:
   \[ y_1 + y_2 + y_3 + y_5 \ge 1 \]
   for Dalriada:
-  \[y_3 + y_5 \ge 5 \]
+  \[y_3 + y_5 \ge 1 \]
   The case of Apocalyptica is very special: \(y_4 \ge 1\), which basically sets \(y_4\) to 1.
   That is expected, as the 4th festival is the only one, where Apocalyptica performs.
 </p>
@@ -302,8 +302,8 @@ prerequisite: ["motivational_festival","motivational_froccs"]
   These types of problems are termed <emph>Mixed-Integer Linear Programming (MILP)</emph> problems.
   In these models some variables may take values from a continuous interval, some may take only discrete values, such as integers.
   Theoretically speaking, any kind of discrete set could be used for a variable, but usually only subsets of \(\mathbb{Z}\) are considered, and thus these are called as <emph>integer variables</emph>.
-  It is very common, that this subset is \(\{0,1\}\), so these type of variables have their own name, <emph>binary variables</emph>.
-  In our example, all of the variables are binary, and there are no other integer or continuous variables are used.
+  It is very common, that this subset is \(\{0,1\}\), so this type of variables have their own name, <emph>binary variables</emph>.
+  In our example, all of the variables are binary, and there are no other integer or continuous variables used.
 </p>
 
 <p>
@@ -317,7 +317,7 @@ prerequisite: ["motivational_festival","motivational_froccs"]
 <p>
   Note, that not all MILP models are difficult to solve.
   If, for example, the matrix of the coefficients in the model is <a href="https://en.wikipedia.org/wiki/Unimodular_matrix#Total_unimodularity" target="_blank">totally unimodular</a>, the problem can be solved in polinomial time, just as in the case for LP problems.
-  A famous example is the <a href="https://en.wikipedia.org/wiki/Assignment_problem" target="_blank">Assignment problem</a>, which can be solved efficiently by the <a href="https://en.wikipedia.org/wiki/Hungarian_algorithm" target="_blank">Hungarian method</a>. (The algorithm was developed by an american mathemtician, <a href="https://en.wikipedia.org/wiki/Harold_W._Kuhn" target="_blank">Harold W. Kuhn</a>, who gave this name because the algorithm was based on the former works of two Hungarian mathematicians: <a href="https://en.wikipedia.org/wiki/D%C3%A9nes_K%C5%91nig" target="_blank">Dénes Kőnig</a> and <a href="https://en.wikipedia.org/wiki/Jen%C5%91_Egerv%C3%A1ry" target="_blank">Jenő Egerváry</a>. The former is the author of the fist <a href="https://books.google.hu/books?id=zQ2X8NNPL_wC&pg=PP3&source=gbs_selected_pages&cad=3#v=onepage&q&f=false" target="_blank">graph-theory textbook.</a>)
+  A famous example is the <a href="https://en.wikipedia.org/wiki/Assignment_problem" target="_blank">Assignment problem</a>, which can be solved efficiently by the <a href="https://en.wikipedia.org/wiki/Hungarian_algorithm" target="_blank">Hungarian method</a>. (The algorithm was developed by an american mathemtician, <a href="https://en.wikipedia.org/wiki/Harold_W._Kuhn" target="_blank">Harold W. Kuhn</a>, who gave this name because the algorithm was based on the former works of two Hungarian mathematicians: <a href="https://en.wikipedia.org/wiki/D%C3%A9nes_K%C5%91nig" target="_blank">Dénes Kőnig</a> and <a href="https://en.wikipedia.org/wiki/Jen%C5%91_Egerv%C3%A1ry" target="_blank">Jenő Egerváry</a>. The former is the author of the first <a href="https://books.google.hu/books?id=zQ2X8NNPL_wC&pg=PP3&source=gbs_selected_pages&cad=3#v=onepage&q&f=false" target="_blank">graph-theory textbook.</a>)
 </p>
 
 

@@ -46,8 +46,8 @@ prerequisite: ["gmpl_advanced_1"]
 <p>
   A nice solution would be to define a default value for that parameter, and
   <ul>
-    <li>if it is not give, it will take that default value</li>
-    <li>if it is given in the data file, that default value will be overwritten by the that one</li>
+    <li>if it is not given, it will take that default value</li>
+    <li>if it is given in the data file, that default value will be overwritten by that one</li>
   </ul>
   This way, most of our models could omit giving a value, but the others can still "redefine" it.
   Moreover, if that value changes, we only have to change it at one place.
@@ -113,7 +113,7 @@ prerequisite: ["gmpl_advanced_1"]
 
 <p>
   Note, that <var>t4</var> is omitted from the list, so it is the same, as if we were to add a line with <code>t4 . . .</code>.
-  This magical dot and default values can be used for more complex situations as well, but we will be satisfied for using them only for this much for now.
+  These magical dots and default values can be used for more complex situations as well, but we will be satisfied with using them only for this much (for now).
 </p>
 
 <h2 id="transpose">Transpose</h2>
@@ -153,7 +153,7 @@ prerequisite: ["gmpl_advanced_1"]
   <ul>
     <li>Manually (or with an external tool) transpose the matrix in the data section.</li>
     <li>Change the order of the indices in the declaration, and eveywhere in the model</li>
-    <li>put <code>(tr)</code> after <code>param p</code> and befor the colon in the data section</li>
+    <li>put <code>(tr)</code> after <code>param p</code> and before the colon in the data section</li>
   </ul>
   I leave the decision to You, and let's move to the next parameter tweak.
 </p>
@@ -230,7 +230,7 @@ prerequisite: ["gmpl_advanced_1"]
 </pre>
 
 <p>
-  If we run the model with this, we will see see something like this on the standard output:
+  If we run the model with this, we will see something like this on the standard output:
   <pre>
   Overall profit: 115625
   

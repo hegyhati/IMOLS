@@ -12,7 +12,7 @@ prerequisite: ["modelling_redundant_variables","gmpl_advanced_1"]
   When we are modeling something we often face conditions in the form of <emph>"if something holds, another something should be like this"</emph>.
   Examples could be:
   <ul>
-    <li>The domain for the size/capacity/activity level of something is often not just a closed interval, or a simple on/off.  It can be a set of disjoint intervals, a very common situation is: 0 or a \([min,max]\) interval. This decision can not be described by a single decision variable, discrete or continuous. This is usually modelled by a binary \(y\) denoting, whether we are at 0 or in the interval, and then a continuous \(x\), that will hold the actual value. In this case, we have the constraint:<emph>if \(y=0\) then \(x\) should be 0 too, otherwise \(x\in [min,max]\)</emph></li>
+    <li>The domain for the size/capacity/activity level of something is often not just a closed interval, or a simple on/off.  It can be a set of disjoint intervals, a very common situation is: 0 or a \([min,max]\) interval. This decision can not be described by a single decision variable, discrete or continuous. This is usually modelled by a binary \(y\) denoting, whether we are at 0 or in the interval, and then a continuous \(x\), that will hold the actual value. In this case, we have the constraint: <emph>if \(y=0\) then \(x\) should be 0 too, otherwise \(x\in [min,max]\)</emph></li>
     <li>In scheduling we often have constraints in the form of <emph>if two tasks are assigned to the same resource, their processing time should not overlap</emph></li>
     <li>When writing a model, we often end up with bilinear terms, i.e., a product of a continuous and an integer (typically binary) variable. Sucha a model is not linear, however, it can be converted to a linear one by assigning a continuous variable to the product, and say, that if the binary variable is 0, it should be 0, otherwise, it should be equal to the original continuous variable</li>
     <li>Sometimes a binary decision is dependent on another. Let's say it can be decided to which site to sell a worker, and at each site, we can decide, which tasks he/she will perform. Obviously, one cannot perform a task at a location he/she did not visit.</li>
@@ -159,7 +159,7 @@ prerequisite: ["modelling_redundant_variables","gmpl_advanced_1"]
     </li>
   </ul>
 
-  Az we can see, the above constraint does exactly what we needed, and implements that conditional-like behavior.
+  As we can see, the above constraint does exactly what we needed, and implements that conditional-like behaviour.
   Of course, it could be simplified like this:
   <pre>
     s.t. NoMagicalTeleportation{r in Repairmen, i in Issues}:
@@ -444,7 +444,7 @@ prerequisite: ["modelling_redundant_variables","gmpl_advanced_1"]
 <p>
   In the example above we have seen several different ways of implementing logical conditionals in simple linear constraints.
   Here some of the most commonly used ones are summarized without aiming for any kind of completeness.
-  It is always assumed that \(y,y',y^*,y_1,y_2,\dots,y_n\) are a binary variables.
+  It is always assumed that \(y,y',y^*,y_1,y_2,\dots,y_n\) are binary variables.
 </p>
 
 <div class="alert alert-primary">
@@ -479,7 +479,7 @@ prerequisite: ["modelling_redundant_variables","gmpl_advanced_1"]
         \[z \le x \]
         \[z \le M \]
         \[z \ge x \]
-        The second doesn't do anything, the other two sets \(z\) to \(x\).
+        The second doesn't do anything, the other two set \(z\) to \(x\).
     </li>
     <li>If \(y=1\) then \(z\) should just be 0. In this case, the above equations reduce to this:
         \[z \le x \]
@@ -506,6 +506,6 @@ prerequisite: ["modelling_redundant_variables","gmpl_advanced_1"]
 <h1 class="alert-heading" id="final-notes">Final notes</h1>
 
 The goal of this lecture was to introduce a modeling technique that allows seemingly unmodellable conditionals to be translated to standard linear constraints.
-In practice, this techniques is used very extensively, as it is often needed.
+In practice, this technique is used very extensively, as it is often needed.
 
 </div>

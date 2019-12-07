@@ -11,7 +11,7 @@ prerequisite: ["theory_simplex"]
 <h2 id="bruteforce">Brute force approach and enumeration of feasible solutions</h2>
 
 <p>
-  We have seen in case of the <a href="{{site.baseurl}}/pages/motivational_festival.html">festivals example</a>, that brute force approach is a probably very slow, but valid approach to find the optimal solution when the search space is discrete and finite.
+  We have seen in case of the <a href="{{site.baseurl}}/pages/motivational_festival.html">festivals example</a>, that brute force approach is a probably very slow, but valid approach to find an optimal solution when the search space is discrete and finite.
   Some acceleration ideas have also been mentioned, some of which may could be applied in a more general manner.
   Let's focus on enumerating only the feasible solutions now.
 </p>
@@ -146,7 +146,7 @@ prerequisite: ["theory_simplex"]
 </p>
 
 <div class="alert alert-info">
-  Note, that in general, Branch and Bound algorithms does not require the branching part to partition, i.e., to create disjoint subsets, only subsets, whose union covers the original set.
+  Note, that in general, Branch and Bound algorithms do not require the branching part to partition, i.e., to create disjoint subsets, only subsets, whose union covers the original set.
   Also, empty subsets may be represented and partitioned into further empty subsets, and singleton sets may be partitioned into empty sets and singleton sets, as reasoned below.
 </div>
 
@@ -251,13 +251,13 @@ prerequisite: ["theory_simplex"]
           </li>
         </ol>
       </li>
-      <li>If \(min\) is not infinity, it has the optimal solution, and there is no feasible solution otherwise</li>
+      <li>If \(min\) is not infinity, it has an optimal solution, and there is no feasible solution otherwise</li>
     </ol>
   </p>
 </div>
 
 <p>
-  Note, that this is a frame algorithm, that can be used for a lot of problem classes, where the details has to be specified, e.g.:
+  Note, that this is a frame algorithm, that can be used for a lot of problem classes, where the details have to be specified, e.g.:
   <ul>
     <li>How is \(P\) selected, i.e., what is the rule of selecting the next uninvestigated node in the tree?</li>
     <li>Which decision is selected for a node?</li>
@@ -281,7 +281,7 @@ prerequisite: ["theory_simplex"]
 
 <p>
   The "tightness" of a bounding function can be the most important contributor to the efficiency of an algorithm.
-  If the bound is not tight, i.e., the bound is far from the actual value of the best solution in \(P\), then pruning will only happen deeper in the tree, and a subtree is investigated unnecessatily.
+  If the bound is not tight, i.e., the bound is far from the actual value of the best solution in \(P\), then pruning will only happen deeper in the tree, and a subtree is investigated unnecessarily.
   To understand this, let's go back to our pruned path, "Győr - Komárom - Budapest - Szolnok".
   The parent of this node was "Győr - Komárom - Budapest", and it has 7 siblings.
   The bound of the parent is 126 km, which is way below of the 217 km long solution we have found earlier, so all 8 children nodes are generated.
