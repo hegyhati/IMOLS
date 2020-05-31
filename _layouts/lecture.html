@@ -1,35 +1,25 @@
-<!DOCTYPE HTML>
-<html lang="en">
+---
+layout: default
+---
 
-{% include head.html %}
+<img class="card-img-top lecture-top-image" src="{{site.baseurl}}/assets/{{page.id}}.jpg" alt="{{lecture.title}}">
 
-<body>
-  <div class="container">
-    <img class="card-img-top lecture-top-image" src="{{site.baseurl}}/assets/{{page.id}}.jpg" alt="{{lecture.title}}">
-    <div class="jumbotron">
-      <h1>{{page.title}}</h1>
-      <p class="lead">{{page.lead}}</p>
-    </div>
-    {% if page.prerequisite %}
-    <ul class="list-group list-group-horizontal mb-4">
-      <li class="list-group-item list-group-item-dark">Prerequisites</li>
-      {% for p in page.prerequisite %}
-      {% for s in site.pages %}
-      {% if p == s.id %}
-      <a class="list-group-item" href="{{site.baseurl}}{{s.url}}">{{ s.title }}</a>
-      {% endif %}
-      {% endfor %}
-      {% endfor %}
-    </ul>
-    {% endif %}
+<div class="jumbotron">
+  <h1>{{page.title}}</h1>
+  <p class="lead">{{page.lead}}</p>
+</div>
 
-    {{content}}
+{% if page.prerequisite %}
+<ul class="list-group list-group-horizontal mb-4">
+  <li class="list-group-item list-group-item-dark">Prerequisites</li>
+  {% for p in page.prerequisite %}
+  {% for s in site.pages %}
+  {% if p == s.id %}
+  <a class="list-group-item" href="{{site.baseurl}}{{s.url}}">{{ s.title }}</a>
+  {% endif %}
+  {% endfor %}
+  {% endfor %}
+</ul>
+{% endif %}
 
-
-  </div>
-
-  {% include js.html %}
-
-</body>
-
-</html>
+{{content}}
