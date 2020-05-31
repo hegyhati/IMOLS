@@ -1,40 +1,35 @@
 <!DOCTYPE HTML>
 <html lang="en">
 
-  {% include head.html %}
+{% include head.html %}
 
-  <body style="font-family: 'SymbolaRegular';">      
-    <div class="container">
-        <img class="card-img-top" src="{{site.baseurl}}/assets/{{page.id}}.jpg" alt="{{lecture.title}}" style="max-height: 150px;opacity:0.5;object-fit:cover;">
-        <div class="jumbotron">
-          <h1>{{page.title}}</h1>
-          <p class="lead">{{page.lead}}</p>          
-          {% if page.prerequisite %}
-            <hr class="my-1">
-            <p>Prerequisites:
-              <ul>
-                {% for p in page.prerequisite %}
-                  {% for s in site.pages %}
-                    {% if p == s.id %}
-                    <li><a href="{{site.baseurl}}{{s.url}}">{{ s.title }}</a></li>
-                    {% endif %}
-                  {% endfor %}
-                {% endfor %}
-              </ul>
-            </p>
-          {% endif %}
-        </div>
-
-        {{content}}
-
-        
+<body>
+  <div class="container">
+    <img class="card-img-top lecture-top-image" src="{{site.baseurl}}/assets/{{page.id}}.jpg" alt="{{lecture.title}}">
+    <div class="jumbotron">
+      <h1>{{page.title}}</h1>
+      <p class="lead">{{page.lead}}</p>
     </div>
+    {% if page.prerequisite %}
+    <ul class="list-group list-group-horizontal mb-4">
+      <li class="list-group-item list-group-item-dark">Prerequisites</li>
+      {% for p in page.prerequisite %}
+      {% for s in site.pages %}
+      {% if p == s.id %}
+      <a class="list-group-item" href="{{site.baseurl}}{{s.url}}">{{ s.title }}</a>
+      {% endif %}
+      {% endfor %}
+      {% endfor %}
+    </ul>
+    {% endif %}
 
-    {% include js.html %}
+    {{content}}
 
-  </body>
+
+  </div>
+
+  {% include js.html %}
+
+</body>
 
 </html>
-
-
-

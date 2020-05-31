@@ -1,0 +1,19 @@
+pre,code{
+  color: purple;
+}
+
+body {
+  font-family: 'SymbolaRegular';
+  text-align: justify;
+}
+
+.lecture-top-image {
+  max-height: 250px;
+  opacity:0.5;
+  object-fit: cover;
+}
+
+.card {
+  text-align: left;
+  height: 100%;
+}

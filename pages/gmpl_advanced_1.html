@@ -18,7 +18,7 @@ prerequisite: ["gmpl_motivational"]
   Let us have a look at the festival model again:
 </p>
 
-<pre class="border border-2 border-dark p-2"><code>{% include sources/motivational/festival.m %}</code></pre>
+<pre class="border border-2 border-dark p-2">{% include sources/motivational/festival.m %}</pre>
 
 <p>
   We use our model, plan our summer, everything is fine.
@@ -235,7 +235,7 @@ prerequisite: ["gmpl_motivational"]
 
 <p>
   So all in all, our model is something like this:
-  <code><pre>
+  <pre>
     set B;
     set F;
     param p{B,F};
@@ -247,11 +247,11 @@ prerequisite: ["gmpl_motivational"]
 
     minimize Objective:
       sum{f in F} y[f];
-  </pre></code>
+  </pre>
   But we have already learned, that it is always a good practice to have meaningful names, so before we dive into the data section, let's refactor our model to this:
 </p>
 
-<pre class="border border-2 border-dark p-2" id="generic-gmpl-model"><code>{% include sources/motivational_advanced/festival.m %}</code></pre>
+<pre class="border border-2 border-dark p-2" id="generic-gmpl-model">{% include sources/motivational_advanced/festival.m %}</pre>
 
 <p>
   If we were to "run" this model with the usual <code>glspsol -m model.mod</code> command, we would receive an error message something like this: <var>Missing value for S</var>.
@@ -296,7 +296,7 @@ prerequisite: ["gmpl_motivational"]
   For now, let's write our data section with the syntax above:
 </p>
 
-<pre class="border border-2 border-dark p-2" id="generic-gmpl-data"><code>{% include sources/motivational_advanced/festival.d %}</code></pre>
+<pre class="border border-2 border-dark p-2" id="generic-gmpl-data">{% include sources/motivational_advanced/festival.d %}</pre>
 
 <p>
   Note, that in the definition of the set Bands, the elements are given in new lines.
@@ -318,7 +318,7 @@ prerequisite: ["gmpl_motivational"]
   The solver puts similar things to the standard output as before, but let's have a look at the solution file:
 </p>
 
-<pre class="border border-2 border-dark p-2" id="glpsol-output"><code>{% include sources/motivational_advanced/festival.txt %}</code></pre>
+<pre class="border border-2 border-dark p-2" id="glpsol-output">{% include sources/motivational_advanced/festival.txt %}</pre>
 
 <p>
   From the first table we can see, that the constraints were really generated separately for all of the bands, and from the second table, that the <var>go</var> variables were generated for all of the festivals.
@@ -336,9 +336,5 @@ prerequisite: ["gmpl_motivational"]
 <h1 class="alert-heading">Final notes</h1>
 
 Putting the logic and the data in one place is never a good idea, and it isn't different for mathematical modeling either. GMPL lets us separate these things by abstracting the data into sets, parameters, and putting their declaration to the generic model, and their definition into a separate file.
-
-
-
-
 
 </div>
