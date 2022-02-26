@@ -406,12 +406,13 @@ This problem class is known to be <a href="https://en.wikipedia.org/wiki/NP-comp
 </div>
 <script src="https://unpkg.com/vue"></script>
 <script>
-  const app = new Vue({
-    el: '#festivals',
+  const app = Vue.createApp({
     delimiters: ['${', '}'],
-    data: {
-       cb: ['','','','','','',''],
-       mb: ['Haggard', 'Stratovarius', 'Epica', 'Dalriada', 'Apocalyptica', 'Liva','Eluveitie'],
+    data: function () {
+      return {
+        cb: ['','','','','','',''],
+        mb: ['Haggard', 'Stratovarius', 'Epica', 'Dalriada', 'Apocalyptica', 'Liva','Eluveitie']
+      }
     },    
     computed: {
       b1(){if(this.cb[0]=="") return this.mb[0]; else return this.cb[0];},
@@ -423,4 +424,5 @@ This problem class is known to be <a href="https://en.wikipedia.org/wiki/NP-comp
       b7(){if(this.cb[6]=="") return this.mb[6]; else return this.cb[6];}
     }
   })
+  app.mount('#festivals')
 </script>

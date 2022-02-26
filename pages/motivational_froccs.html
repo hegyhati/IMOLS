@@ -379,19 +379,20 @@ prerequisite: ["motivational_festivals"]
 
 <script src="https://unpkg.com/vue"></script>
 <script>
-  const app = new Vue({
-    el: '#froccs',
+  const app = Vue.createApp({
     delimiters: ['${', '}'],
-    data: {
-       kf: 0,
-       nf: 0,
-       hl: 0,
-       hm: 0,
-       vhm: 0,
-       krf: 0,
-       sf: 0,
-       pf: 0,
-       maxp: 0
+    data: function () {
+      return {
+        kf: 0,
+        nf: 0,
+        hl: 0,
+        hm: 0,
+        vhm: 0,
+        krf: 0,
+        sf: 0,
+        pf: 0,
+        maxp: 0
+      };
     },    
     computed: {
       wine(){return (1*this.kf+2*this.nf+1*this.hl+3*this.hm+2*this.vhm+9*this.krf+1*this.sf+6*this.pf)/10;},
@@ -403,4 +404,5 @@ prerequisite: ["motivational_festivals"]
       profitcolor(){if(this.wine<=100 && this.soda<=150) return "color: green;"; else return "color: red;";}
     }
   })
+  app.mount('#froccs')
 </script>
