@@ -9,13 +9,13 @@ prerequisite: ["modelling_redundant_variables","gmpl_advanced_1"]
 <h2 id="motivation">The usual issue</h2>
 
 <p>
-  When we are modeling something we often face conditions in the form of <emph>"if something holds, another something should be like this"</emph>.
+  When we are modeling something, we often face conditions in the form of <emph>"if something holds, another something should be like this"</emph>.
   Examples could be:
   <ul>
-    <li>The domain for the size/capacity/activity level of something is often not just a closed interval, or a simple on/off.  It can be a set of disjoint intervals, a very common situation is: 0 or a \([min,max]\) interval. This decision can not be described by a single decision variable, discrete or continuous. This is usually modelled by a binary \(y\) denoting, whether we are at 0 or in the interval, and then a continuous \(x\), that will hold the actual value. In this case, we have the constraint: <emph>if \(y=0\) then \(x\) should be 0 too, otherwise \(x\in [min,max]\)</emph></li>
-    <li>In scheduling we often have constraints in the form of <emph>if two tasks are assigned to the same resource, their processing time should not overlap</emph></li>
-    <li>When writing a model, we often end up with bilinear terms, i.e., a product of a continuous and an integer (typically binary) variable. Sucha a model is not linear, however, it can be converted to a linear one by assigning a continuous variable to the product, and say, that if the binary variable is 0, it should be 0, otherwise, it should be equal to the original continuous variable</li>
-    <li>Sometimes a binary decision is dependent on another. Let's say it can be decided to which site to sell a worker, and at each site, we can decide, which tasks he/she will perform. Obviously, one cannot perform a task at a location he/she did not visit.</li>
+    <li>The domain for the size/capacity/activity level of something is often not just a closed interval, or a simple on/off. It can be a set of disjoint intervals. A very common situation is: 0 or a \([min,max]\) interval. This decision cannot be described by a single decision variable, discrete or continuous. This is usually modelled by a binary \(y\) denoting whether we are at 0 or in the interval, and then a continuous \(x\) that will hold the actual value. In this case, we have the constraint: <emph>if \(y=0\) then \(x\) should be 0 too, otherwise \(x\in [min,max]\).</emph></li>
+    <li>In scheduling, we often have constraints in the form of <emph>if two tasks are assigned to the same resource, their processing time should not overlap.</emph></li>
+    <li>When writing a model, we often end up with bilinear terms, i.e., a product of a continuous and an integer (typically binary) variable. Such a model is not linear, however, it can be converted to a linear one by assigning a continuous variable to the product, and say, that if the binary variable is 0, it should be 0, otherwise, it should be equal to the original continuous variable.</li>
+    <li>Sometimes a binary decision is dependent on another. Let's say it can be decided to which site to send a worker, and at each site we can decide which tasks he/she will perform. Obviously, one cannot perform a task at a location he/she did not visit.</li>
     <!-- TODO : more examples --> 
   </ul>
 </p>
@@ -23,7 +23,7 @@ prerequisite: ["modelling_redundant_variables","gmpl_advanced_1"]
 <p>
   The problem is, there is no conditional "language element" of MILP models.
   Luckily, there is a modeling trick, that could be applied to express the same thing, as discussed below.
-  First, however, let's see an example where this is needed:  
+  First, however, let's see an example where this is needed:
 </p>
 
 <h2 id="example">Repairman allocation problem</h2>
@@ -32,7 +32,7 @@ prerequisite: ["modelling_redundant_variables","gmpl_advanced_1"]
   We provide technical support for some companies located in different cities.
   On each site, there are some issues, that we have to fix today.
   We work with specialist contractors, whom we will call repairmen from now on.
-  For each day we have to tell in advance to these repairman whether we will be hiring them for that day, and if we do, where they should go, and which issues should they fix.
+  For each day, we have to tell in advance to these repairmen whether we will be hiring them for that day, and if we do, where they should go, and which issues should they fix.
   The shift of a repairman can be at most 12 hours, and we have to consider, that the travel overhead of each location is 1 hour in average.
 </p>
 
@@ -98,7 +98,7 @@ prerequisite: ["modelling_redundant_variables","gmpl_advanced_1"]
 </p>
 
 <p>
-  If we solver this model, we recognize, that all of the <code>visits[r,s]</code> variables are 0 in the optimal solution.
+  If we solve this model, we recognize, that all of the <code>visits[r,s]</code> variables are 0 in the optimal solution.
   The reason for that is, that we have not expressed yet in any of the constraints, that:
   <emph>A repairman can only fix an issue, if he/she visits its site.</emph>
 </p>
@@ -134,13 +134,13 @@ prerequisite: ["modelling_redundant_variables","gmpl_advanced_1"]
 <p>
   Relaxing an equality is kind of troublesome.
   So when possible, we should try to figure out, whether we can state the same with an inequality or not.
-  In the worst case, an \(lhs=rhs\) equality can be transformed to the conjunction of two inequalities: \(lhs\ge rhs\) and \(lhs\le rhs).
+  In the worst case, an \(lhs=rhs\) equality can be transformed to the conjunction of two inequalities: \(lhs\ge rhs\) and \(lhs\le rhs\).
   However, in this case, the following will simply do:
   <pre>
     s.t. NoMagicalTeleportation{r in Repairmen, i in Issues}:
       if visits[r,site[i]]==0 then fixes[r,i]<=0;
   </pre>
-  Since <code>fixes[r,i]</code> can only be 0 or 1, "equals to 0" is equivalent to "is equal or less than 0".
+  Since <code>fixes[r,i]</code> can only be 0 or 1, "equal to 0" is equivalent to "equal to or less than 0".
   Now, <strong>drumroll</strong>, <code>visits[r,site[i]]</code> can be included in the constraint like this:
   <pre>
     s.t. NoMagicalTeleportation{r in Repairmen, i in Issues}:
@@ -155,11 +155,11 @@ prerequisite: ["modelling_redundant_variables","gmpl_advanced_1"]
       If <code>visits[r,site[i]]</code> is 0, then it "disappears" from the right side, and the constraint <code>fixes[r,i]<=0</code> remains, as it should.
     </li>
     <li>
-      If <code>visits[r,site[i]]</code> is 1, then the RHS becomes 1, and the constraint is essentially <code>fixes[r,i]<=1</code>. Since <code>fixes[r,i]</code> is a binary variable, that can be at most 1, this constraint doesn't really say anything, as intended.
+      If <code>visits[r,site[i]]</code> is 1, then the RHS becomes 1, and the constraint is essentially <code>fixes[r,i]<=1</code>. Since <code>fixes[r,i]</code> is a binary variable that can be at most 1, this constraint doesn't really say anything, as intended.
     </li>
   </ul>
 
-  As we can see, the above constraint does exactly what we needed, and implements that conditional-like behaviour.
+  As we can see, the above constraint does exactly what we needed, and implements that conditional-like behavior.
   Of course, it could be simplified like this:
   <pre>
     s.t. NoMagicalTeleportation{r in Repairmen, i in Issues}:
@@ -203,7 +203,7 @@ prerequisite: ["modelling_redundant_variables","gmpl_advanced_1"]
 </p>
 
 <p>
-  To implement this, first it is beneficial to introduce a redundant variable describing, how much a person has actually worked.
+  To implement this, first it is beneficial to introduce a redundant variable, describing how much a person has actually worked.
   This will also simplify the <code>MaxWorkLoad</code> constraint and the objective function:
 
   <pre>
@@ -224,16 +224,16 @@ prerequisite: ["modelling_redundant_variables","gmpl_advanced_1"]
       sum{r in Repairmen} fixes[r,i] = 1;
 
     s.t. Workload{r in Repairmen}: #<--- new constraint to set the new variable
-      worked[r] = sum{s in Sites} (traveltime*visits[r,s]) + sum{i in Issues}(time[i]*fixes[r,i])
+      worked[r] = sum{s in Sites}(traveltime*visits[r,s]) + sum{i in Issues}(time[i]*fixes[r,i])
       
     s.t. MaxWorkLoad{r in Repairmen}: # <--- SIMPLIFIED CONSTRAINT
        worked[r] <= maxhours;
 
     s.t. NoMagicalTeleportation{r in Repairmen, i in Issues}:
-      fixes[r,i]<=visits[r,site[i]];
+      fixes[r,i] <= visits[r,site[i]];
 
     minimize TotalCost: # <--- SIMPLIFIED OBJECTIVE
-      wage * sum {r in Repairmen} worked[r];
+      wage * sum{r in Repairmen} worked[r];
   </pre>
 </p>
 
@@ -251,7 +251,7 @@ prerequisite: ["modelling_redundant_variables","gmpl_advanced_1"]
 </p>
 
 <p>
-  From the second point above, it is straight forward, that we need a new variable, that tells, how much is paid to a person:
+  From the second point above, it is straightforward that we need a new variable that tells how much is paid to a person:
   <pre>
     var paid{Repairmen} >=0;
   </pre>
@@ -281,15 +281,15 @@ prerequisite: ["modelling_redundant_variables","gmpl_advanced_1"]
   And we need to relax the above constraint like this:
   <pre>
     s.t. Payment{r in Repairman}:
-      paid[r]>=wage*worked[r];  # <--- GREATER-EQUAL INSTEAD OF EQUAL
+      paid[r] >= wage * worked[r];  # <--- GREATER-EQUAL INSTEAD OF EQUAL
   </pre>
 </p>
 
 <p>
-  What we achieved like this is that <code>paid[r]</code> is now greater or equal than <code>wage*worked[r]</code> and <code>wage * minhourspaid</code>.
+  What we achieved here is that <code>paid[r]</code> is now greater than or equal to <code>wage * worked[r]</code> and <code>wage * minhourspaid</code>.
   So basically, it is at least as much as the maximum of the two.
   <div class="alert alert-info">
-    Note, that <code>paid[r]</code> can now be larger than <code>wage*worked[r]</code> even if <code>worked[r]>minhourspaid</code>.
+    Note that <code>paid[r]</code> can now be larger than <code>wage * worked[r]</code> even if <code>worked[r] > minhourspaid</code>.
     Basically, the model allows to pay more to a person than he/she deserved/worked for.
     This is, however not a problem, as we want to minimize the costs, so such solutions, even though feasible, would not lead to optimal solutions.
   </div>
@@ -298,7 +298,7 @@ prerequisite: ["modelling_redundant_variables","gmpl_advanced_1"]
 <p>
   Another problem still remains, however.
   This way, everyone needs to be paid at least 8 hours, even those who are not hired for the day.
-  To put it this way: now <code>paid[r]</code> is always greater-or equal than <code>wage*worked[r]</code>, which is fine, but it is also always greater-or equal than <code>wage * minhourspaid</code>, which is not.
+  To put it this way: now <code>paid[r]</code> is always greater-or equal than <code>wage * worked[r]</code>, which is fine, but it is also always greater-or equal than <code>wage * minhourspaid</code>, which is not.
   We should remove that initial bound from the variable declaration, and have a constraint like this instead:
   <pre>
     var paid{Repairmen} >= 0; # <--- CHANGED LOWER BOUND TO 0
@@ -311,7 +311,7 @@ prerequisite: ["modelling_redundant_variables","gmpl_advanced_1"]
 </p>
 
 <p>
-  Now we have a new problem (we just can't run out of them it seems), that we have no expression describing, whether someone is hired or not.
+  Now we have a new problem (we just can't run out of them it seems), that we have no expression describing whether someone is hired or not.
   A general rule of thumb: if there is no easy expression for something, it should probably be introduced as a variable, even if it is redundant:
   <pre>
     var paid{Repairmen} >= 0;
@@ -332,14 +332,14 @@ prerequisite: ["modelling_redundant_variables","gmpl_advanced_1"]
     s.t. MinimumWorkHours{r in Repairman}:
       paid[r] >= wage * minhourspaid * hired[r];
   </pre>
-  It is easy to see, that if <code>r</code> is hired, the intended constraint holds, otherwise, it just says, that <code>paid[r]>=0</code>, which again, doesn't say anything at all.
+  It is easy to see that if <code>r</code> is hired, the intended constraint holds, otherwise, it just says that <code>paid[r] >= 0</code>, which again, doesn't say anything at all.
 </p>
 
 <p>
   We are not ready yet though, since <code>hired[r]</code> has no connection with the other binary variables, so the model allows a repairman not to be hired while still solving issues.
   What we would like to express: <emph><code>r</code> can only solve issues or travel to sites if he/she is hired for the day</emph>.
   Putting it to a more formal way: <code>visits[r,s]</code> or <code>fixes[r,i]</code> can only be 1, if <code>hired[r]=1</code>.
-  Again, it may be simpler to look at it from the other direction: if <code>hired[r]==0</code> then all  <code>visits[r,s]</code>,<code>fixes[r,i]</code> variables must be 0 as well:
+  Again, it may be simpler to look at it from the other direction: if <code>hired[r]==0</code> then all <code>visits[r,s]</code>, <code>fixes[r,i]</code> variables must be 0 as well:
 
   <pre>
     s.t. CannotWorkIfNotHired{r in Repairmen}:
@@ -362,7 +362,7 @@ prerequisite: ["modelling_redundant_variables","gmpl_advanced_1"]
   So something like this would do:
   <pre>
     s.t. CannotWorkIfNotHired{r in Repairmen}:
-      sum{s in Sites }visits[r,s] + sum {i in Issues}fixes[r,i] <= ReallyBigNumber * hired[r];
+      sum{s in Sites} visits[r,s] + sum {i in Issues} fixes[r,i] <= ReallyBigNumber * hired[r];
   </pre>
   We can see, that this equation would do exactly what we want it to do, we just have to give a value to <code>ReallyBigNumber</code>, for example:
   <pre>
@@ -381,7 +381,7 @@ prerequisite: ["modelling_redundant_variables","gmpl_advanced_1"]
   And that can actually be expressed in GMPL:
   
   <pre>
-    param ReallyBigNumber := card(Sites)+card(Issues);
+    param ReallyBigNumber := card(Sites) + card(Issues);
   </pre>
 </p>
 
@@ -484,7 +484,7 @@ prerequisite: ["modelling_redundant_variables","gmpl_advanced_1"]
     <li>If \(y=1\) then \(z\) should just be 0. In this case, the above equations reduce to this:
         \[z \le x \]
         \[z \le 0 \]
-        \[z \ge -M  (+x) \]
+        \[z \ge -M (+x) \]
         The second is stronger than the first, and sets \(z\) to 0. The third doesn't do anything.
     </li>
   </ol>
