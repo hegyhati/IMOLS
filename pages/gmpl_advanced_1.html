@@ -198,7 +198,7 @@ prerequisite: ["gmpl_motivational"]
   Sets and parameters can be declared with the <code>set</code> and <code>param</code> keywords, respectively.
   If a set, parameter, variable has an subscript/index, the name should be followed by the following in the declaration: <code>{Setname}</code>, where <var>Setname</var> is the domain on which that set, parameter, or variable is defined.
   When using this set, variable or parameter, the index should be put within brackets after the name of the variable.
-  If there are more indeces, they should be sparated by commas both in the definition and in case of use.
+  If there are more indices, they should be separated by commas both in the definition and in case of use.
   If we want a constraint to be defined for each element of a set, a <code>{s \in Setname}</code> should be put after the name of the constraint, where <var>Setname</var> is the name of the set, and <var>s</var> is a dummy index that can be used within the constraint.
   The syntax for the sum symbol is similar, but let's see how it looks for our second model with \(p_{b,f}\) parameter:
 </p>
@@ -254,7 +254,7 @@ prerequisite: ["gmpl_motivational"]
 <pre class="border border-2 border-dark p-2" id="generic-gmpl-model">{% include sources/motivational_advanced/festival.m %}</pre>
 
 <p>
-  If we were to "run" this model with the usual <code>glspsol -m model.mod</code> command, we would receive an error message something like this: <var>Missing value for S</var>.
+  If we were to "run" this model with the usual <code>glspsol -m model.mod</code> command, we would receive an error message something like this: <var>Missing value for Bands</var>.
   That is because the data section is still missing. 
 </p>
 
@@ -301,7 +301,7 @@ prerequisite: ["gmpl_motivational"]
 <p>
   Note, that in the definition of the set Bands, the elements are given in new lines.
   This is ok, GMPL does not care about the number and type of white space characters (spaces, tabs, new lines).
-  So if our model is more readible like this, feel free to put in additional newlines or spaces.
+  So if our model is more readable like this, feel free to put in additional newlines or spaces.
   Similarly, a 1 dimensional parameter could be defined like this as well:
   <pre>param Param1:= element1 value1 element3 value3 element2 value2;</pre>
 </p>

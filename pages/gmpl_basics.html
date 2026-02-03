@@ -215,8 +215,8 @@ prerequisite: ["modelling_lp_first_steps"]
 <table class="table table-hover">
   <thead>
     <tr>
-      <th scope="col">Mathematical notation</th>
-      <th scope="col">GMPL code</th>
+      <th style="width:50%" scope="col">Mathematical notation</th>
+      <th style="width:50%" scope="col">GMPL code</th>
     </tr>
   </thead>
   <tbody>
@@ -247,15 +247,15 @@ prerequisite: ["modelling_lp_first_steps"]
 
 <p>
   Constraints are written in the form of <code>s.t. CNAME: LHS OP RHS;</code> where <code>CNAME</code> is an expressive name for the constraint, <code>LHS,RHS</code> are the left- and right-hand side of the inequality/equasion respectively, separated by a comparison operator, that could be either <code><=</code>,<code>>=</code> or <code>=</code>.
-  The name of the constraint does not hold any importance to the solver, it is just an identifier, that also helps to make the code more human-readible and maintainable.
+  The name of the constraint does not hold any importance to the solver, it is just an identifier, that also helps to make the code more human-readable and maintainable.
   Also, mind the colon for separating the name and the constraint, and a semicolon closing the statement. Some examples:
 </p>
 
 <table class="table table-hover">
   <thead>
     <tr>
-      <th scope="col">Mathematical notation</th>
-      <th scope="col">GMPL code</th>
+      <th style="width:50%" scope="col">Mathematical notation</th>
+      <th style="width:50%" scope="col">GMPL code</th>
     </tr>
   </thead>
   <tbody>
@@ -290,8 +290,8 @@ prerequisite: ["modelling_lp_first_steps"]
 <table class="table table-hover">
   <thead>
     <tr>
-      <th scope="col">Mathematical notation</th>
-      <th scope="col">GMPL code</th>
+      <th style="width:50%" scope="col">Mathematical notation</th>
+      <th style="width:50%" scope="col">GMPL code</th>
     </tr>
   </thead>
   <tbody>
@@ -347,7 +347,7 @@ prerequisite: ["modelling_lp_first_steps"]
   First, the fifth line with <code>Status: OPTIMAL</code> indicates again, that everything went well, and we have found an optimal solution.
   The line below that tells us, what that optimal solution is.
   Here, the word "Objective" appears twice, which seems buggy.
-  But this is just a coincidence, as the firt appearance is burned in the solver, and the second is the name that we gave to our objective function, which happened to be "Objective" as well for this simple problem.
+  But this is just a coincidence, as the first appearance is burned in the solver, and the second is the name that we gave to our objective function, which happened to be "Objective" as well for this simple problem.
 </p>
 
 <p>

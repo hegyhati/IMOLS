@@ -163,9 +163,9 @@ prerequisite: ["modelling_lp_first_steps","gmpl_advanced_1"]
   </pre>
 </p>
 
-<h4>The overall modell</h4>
+<h4>The overall model</h4>
 <p>
-  The overall modell looks like this:  
+  The overall model looks like this:  
 </p>
 
 <pre class="border border-2 border-dark p-2" id="africa1m">{% include sources/africa_car_ride/africa.m %}</pre>
@@ -186,7 +186,7 @@ prerequisite: ["modelling_lp_first_steps","gmpl_advanced_1"]
 <h2 id="othermodel">A different way of modelling the problem</h2>
 
 <p>
-  If an IT person would look at the above code, he/she would probably consider it a bit ugly, as the term <code>initialTank + sum {s2 in Stations: distance[s2] < distance[s]} fill[s2]</code> repeats a couple of times thourough the model.
+  If an IT person would look at the above code, he/she would probably consider it a bit ugly, as the term <code>initialTank + sum {s2 in Stations: distance[s2] < distance[s]} fill[s2]</code> repeats a couple of times through the model.
   In case of such redundancy in a computer code, the programmer would probably introduce a function, that can be called from different places.
 </p>
 
@@ -251,13 +251,13 @@ prerequisite: ["modelling_lp_first_steps","gmpl_advanced_1"]
   <ul>
     <li>Adding a few continuous variables does not really make the problem that much harder to solve.</li>
     <li>A good solver will probably realize this, and exclude them.</li>
-    <li>Some languages may support this explicitely, like defined variables in AMPL</li>
+    <li>Some languages may support this explicitly, like defined variables in AMPL</li>
     <li>Sometimes, especially for easy-to-solve problems with complicated constraints, a maintainable code is much more important.</li>
     <li>If the model gets extended, these variables may come in handy.</li>
   </ul>
 </p>
 
-<h2 id="exercise">Excercise for you</h2>
+<h2 id="exercise">Exercise for you</h2>
 <p>
   The model could be transformed a bit further as well based on the following idea: the fuel level in the tank at a station is simply the level when leaving the <emph>last</emph> station minus the fuel burned since then.
   Create a model, that calculates the <code>fuelAtArrival[s]</code> values based on this idea.
